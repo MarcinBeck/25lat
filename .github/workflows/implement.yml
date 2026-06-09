@@ -20,8 +20,8 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token:      ${{ secrets.GITHUB_TOKEN }}
-          # Kontekst projektu przekazany do Claude
-          system_prompt: |
+          model:             sonnet
+          custom_instructions: |
             Jesteś asystentem implementującym zmiany w kampanijnej stronie statycznej Douglas (25 lat w Polsce).
             Projekt: HTML/CSS/JS, deploy na Google Cloud Storage (gs://douglas-25lat-prod).
             Używaj klas i struktur już istniejących w kodzie.
