@@ -20,7 +20,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token:      ${{ secrets.GITHUB_TOKEN }}
-          model:             sonnet
+          anthropic_model:   claude-opus-4-5
           custom_instructions: |
             Jesteś asystentem implementującym zmiany w kampanijnej stronie statycznej Douglas (25 lat w Polsce).
             Projekt: HTML/CSS/JS, deploy na Google Cloud Storage (gs://douglas-25lat-prod).
