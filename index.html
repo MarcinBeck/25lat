@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Douglas — 25 lat w Polsce</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================================================
+       STICKY HEADER
+       Logo | Anchor nav (sekcje strony) | CTA "Zapisz się"
+  ================================================ -->
+  <header class="site-header" id="site-header">
+    <div class="container header__inner">
+
+      <a href="#" class="header__logo" aria-label="Douglas — strona główna">
+        <!-- Logo SVG / img -->
+        <img src="assets/logo.svg" alt="Douglas" width="120" height="40" />
+      </a>
+
+      <nav class="header__nav" aria-label="Nawigacja po sekcjach">
+        <ul>
+          <li><a href="#timeline">Program</a></li>
+          <li><a href="#eventy">Eventy</a></li>
+          <li><a href="#konkurs">Konkurs</a></li>
+          <li><a href="#bestsellery">Oferta</a></li>
+        </ul>
+      </nav>
+
+      <a href="#eventy" class="btn btn--primary header__cta">Znajdź event</a>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ================================================
+         HERO + KEY VISUAL
+         Lewa: claim, intro, countdown, 2 CTA
+         Prawa: duży obszar wizualny (grafika / video)
+    ================================================ -->
+    <section class="section hero" id="hero" aria-labelledby="hero-heading">
+      <div class="container hero__inner">
+
+        <div class="hero__content">
+          <p class="hero__eyebrow">25 lat Douglas w Polsce</p>
+          <h1 class="hero__heading" id="hero-heading">
+            <!-- CLAIM — docelowo z briefu / grafiki -->
+            Piękno ma swój jubileusz
+          </h1>
+          <p class="hero__intro">
+            <!-- Krótki intro text — 2–3 zdania -->
+            Świętujemy razem z Tobą. Przez cały rok wyjątkowe eventy, niespodzianki i kampanie w całej Polsce.
+          </p>
+
+          <!-- COUNTDOWN -->
+          <div class="countdown" aria-label="Odliczanie do głównego eventu">
+            <div class="countdown__unit">
+              <span class="countdown__value" id="cd-days">00</span>
+              <span class="countdown__label">dni</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" id="cd-hours">00</span>
+              <span class="countdown__label">godz</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" id="cd-minutes">00</span>
+              <span class="countdown__label">min</span>
+            </div>
+            <div class="countdown__unit">
+              <span class="countdown__value" id="cd-seconds">00</span>
+              <span class="countdown__label">sek</span>
+            </div>
+          </div>
+
+          <div class="hero__actions">
+            <a href="#eventy" class="btn btn--primary">Znajdź event w moim mieście</a>
+            <a href="#konkurs" class="btn btn--secondary">Weź udział w konkursie</a>
+          </div>
+        </div>
+
+        <div class="hero__kv" aria-hidden="true">
+          <!-- Docelowo: finalna grafika / video KV -->
+          <img src="assets/kv-placeholder.jpg" alt="" class="hero__kv-img" />
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================
+         PROGRAM EVENTÓW — timeline + mapa (scalone)
+    ================================================ -->
+    <section class="section events" id="eventy" aria-labelledby="events-heading">
+      <div class="container">
+
+        <div class="events-top">
+          <div>
+            <h2 class="section__heading" id="events-heading">Program eventów</h2>
+            <p class="section__subheading">19 eventów w całej Polsce — czerwiec–sierpień 2026</p>
+          </div>
+          <div class="events-top__controls">
+            <select id="filter-city" class="filter-select" aria-label="Filtruj po mieście">
+              <option value="">Wszystkie miasta</option>
+            </select>
+            <select id="filter-type" class="filter-select" aria-label="Filtruj po typie">
+              <option value="">Wszystkie typy</option>
+              <option value="Beauty Street Pop Up">Beauty Street Pop Up</option>
+              <option value="Make Up Corner">Make Up Corner</option>
+            </select>
+            <div class="view-tabs" role="tablist">
+              <button class="view-tab view-tab--active" role="tab" aria-selected="true"  data-view="timeline">📅 Timeline</button>
+              <button class="view-tab"                  role="tab" aria-selected="false" data-view="map">🗺 Mapa</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- WIDOK TIMELINE (domyślny) -->
+      <div id="view-timeline" role="region" aria-label="Oś czasu eventów">
+        <div class="tl-slider">
+          <button class="tl-nav tl-nav--prev" id="tl-prev" aria-label="Poprzednie eventy">&#8249;</button>
+          <div class="tl-viewport">
+            <div class="tl-track" id="timeline-track" role="list"></div>
+          </div>
+          <button class="tl-nav tl-nav--next" id="tl-next" aria-label="Następne eventy">&#8250;</button>
+        </div>
+      </div>
+
+      <!-- WIDOK MAPY — sama mapa, bez listy -->
+      <div id="view-map" hidden>
+        <div class="container map-centered">
+          <div class="poland-map-container">
+            <svg viewBox="0 0 500 477" class="poland-svg" aria-label="Mapa Polski" role="img">
+              <defs>
+                <filter id="city-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <path class="map__outline" d="
+                  M 242.1,425.3
+                  L 240.0,413.2
+                  L 232.0,409.7
+                  L 229.2,394.9
+                  L 216.7,394.8
+                  L 203.0,384.2
+                  L 204.4,387.6
+                  L 195.3,389.8
+                  L 185.6,379.6
+                  L 183.5,375.3
+                  L 191.0,371.1
+                  L 189.1,364.0
+                  L 175.8,369.4
+                  L 150.7,354.6
+                  L 156.5,371.1
+                  L 139.8,380.7
+                  L 124.8,359.5
+                  L 118.1,356.7
+                  L 128.7,344.3
+                  L 124.3,338.5
+                  L 107.8,341.6
+                  L 107.3,335.8
+                  L 98.9,330.9
+                  L 78.3,328.4
+                  L 74.3,314.9
+                  L 68.3,310.3
+                  L 59.7,311.8
+                  L 60.7,322.0
+                  L 52.6,322.1
+                  L 62.5,290.4
+                  L 58.9,276.8
+                  L 47.9,270.6
+                  L 48.9,260.8
+                  L 42.0,249.7
+                  L 50.3,228.8
+                  L 46.8,225.4
+                  L 48.0,216.6
+                  L 40.1,205.4
+                  L 44.8,190.5
+                  L 20.3,169.5
+                  L 21.2,161.2
+                  L 30.6,154.4
+                  L 35.2,138.8
+                  L 26.9,104.5
+                  L 28.3,100.8
+                  L 42.2,112.3
+                  L 43.8,108.1
+                  L 40.1,104.2
+                  L 44.1,92.9
+                  L 34.8,88.7
+                  L 29.4,95.5
+                  L 22.7,88.7
+                  L 117.1,61.4
+                  L 135.5,38.9
+                  L 171.7,24.2
+                  L 210.1,17.4
+                  L 238.3,28.7
+                  L 241.4,35.8
+                  L 224.4,21.3
+                  L 222.3,25.5
+                  L 227.5,32.1
+                  L 230.6,48.4
+                  L 244.6,54.7
+                  L 278.7,46.6
+                  L 424.3,55.3
+                  L 430.8,50.9
+                  L 459.6,69.7
+                  L 466.3,111.3
+                  L 480.6,146.5
+                  L 481.9,177.8
+                  L 456.9,195.7
+                  L 446.3,212.5
+                  L 468.5,228.2
+                  L 470.3,235.1
+                  L 464.1,265.9
+                  L 471.3,280.3
+                  L 468.4,287.9
+                  L 492.3,322.2
+                  L 483.6,325.9
+                  L 489.4,333.2
+                  L 490.7,346.4
+                  L 484.7,356.8
+                  L 470.6,359.6
+                  L 422.7,420.9
+                  L 426.1,443.3
+                  L 423.5,452.0
+                  L 431.6,457.9
+                  L 431.6,464.8
+                  L 393.3,449.2
+                  L 388.0,439.0
+                  L 372.6,431.7
+                  L 347.5,432.3
+                  L 340.4,442.1
+                  L 329.6,433.7
+                  L 312.1,434.4
+                  L 303.5,440.7
+                  L 299.5,451.1
+                  L 285.8,449.5
+                  L 286.2,434.2
+                  L 279.5,433.6
+                  L 271.5,418.6
+                  L 256.7,434.2
+                  L 248.2,434.5
+                  L 248.2,426.6
+                  L 242.1,425.3
+                  Z
+              "/>
+              <g id="map-cities"></g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legenda — pod timelinem i mapą -->
+      <div class="container">
+        <div class="tl-legend">
+          <span class="tl-legend__dot tl-legend__dot--past"></span><span>Odbyło się</span>
+          <span class="tl-legend__dot" style="background:var(--color-brand-2);border:2px solid var(--color-brand)"></span><span>Trwa teraz</span>
+          <span class="tl-legend__dot tl-legend__dot--future"></span><span>Nadchodzi</span>
+        </div>
+      </div>
+
+      <!-- Wspólny modal dla timeline i mapy -->
+      <dialog class="modal" id="event-modal" aria-modal="true">
+        <button class="modal__close" id="event-modal-close" aria-label="Zamknij">&times;</button>
+        <div class="modal__body" id="event-modal-body"></div>
+      </dialog>
+
+    </section>
+
+
+    <!-- ================================================
+         TEASER KONKURSOWY
+    ================================================ -->
+    <section class="contest-teaser" id="konkurs" aria-labelledby="contest-heading">
+      <div class="container contest-teaser__inner">
+        <div class="contest-teaser__copy">
+          <p class="contest-teaser__eyebrow">🎉 Konkurs urodzinowy</p>
+          <h2 class="contest-teaser__heading" id="contest-heading">Wygraj wyjątkowe nagrody!</h2>
+          <p class="contest-teaser__desc">Weź udział w konkursie z okazji 25-lecia Douglas w Polsce i zgarnij zestawy kosmetyków od naszych najlepszych marek.</p>
+        </div>
+        <a href="regulamin-konkursu.pdf" class="btn btn--primary contest-teaser__cta" target="_blank" rel="noopener">
+          Dowiedz się więcej
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ================================================
+         BESTSELLERY / PRODUKTY
+         Siatka 3–4 kart + linki do douglas.pl
+    ================================================ -->
+    <section class="section products" id="bestsellery" aria-labelledby="products-heading">
+      <div class="container">
+        <h2 class="section__heading" id="products-heading">Nasze bestsellery</h2>
+      </div>
+
+      <div class="prod-slider">
+        <button class="prod-nav prod-nav--prev" id="prod-prev" aria-label="Poprzednie produkty">&#8249;</button>
+        <div class="prod-viewport">
+          <ul class="prod-track" role="list">
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/SmTCll1268618-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxMTkzNTB8aW1hZ2UvanBlZ3xhRFZpTDJoaU1TODNPVGczTXpnMU56YzBPVEF5TWk5VGJWUkRiR3d4TWpZNE5qRTRYekJmWkdkc0xWQk1MbXB3Wnd8ZTMyZjZkZDk2YzE4ZjM2MDRkYmVkY2MxNDVlYmI5ZTUxOGZmMWUwNTAyMTU3NmM4MzdmMjUwYTViY2UwMDQ2Mg&grid=true&imdensity=1&imwidth=500" alt="Lancôme krem" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Lancôme<br>Absolue L'Extrait</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Lancôme</p>
+                  <h3 class="product-card__name">Absolue L'Extrait Cream</h3>
+                  <p class="product-card__price">od 599 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/7C9IUs1281449-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxNzM5MTV8aW1hZ2UvanBlZ3xhR05sTDJneE9DODJPVGsyT0RFME9UZzNNalkzTUM4M1F6bEpWWE14TWpneE5EUTVYekJmWkdkc0xWQk1MbXB3Wnd8YjdjODM5NzE0YWMyYWM4ZDljYzJjYTU5MzViOTFlMzE0ZTNjNTM3MTE4ODFhZTNkYjY1OGFkODRlNWM1MjZjMQ&grid=true&imdensity=1&imwidth=500" alt="Pomadka" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Charlotte Tilbury<br>Matte Revolution</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Charlotte Tilbury</p>
+                  <h3 class="product-card__name">Matte Revolution Lipstick</h3>
+                  <p class="product-card__price">od 179 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/SmTCll1268618-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxMTkzNTB8aW1hZ2UvanBlZ3xhRFZpTDJoaU1TODNPVGczTXpnMU56YzBPVEF5TWk5VGJWUkRiR3d4TWpZNE5qRTRYekJmWkdkc0xWQk1MbXB3Wnd8ZTMyZjZkZDk2YzE4ZjM2MDRkYmVkY2MxNDVlYmI5ZTUxOGZmMWUwNTAyMTU3NmM4MzdmMjUwYTViY2UwMDQ2Mg&grid=true&imdensity=1&imwidth=500" alt="Lancôme krem" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Lancôme<br>Génifique Serum</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Lancôme</p>
+                  <h3 class="product-card__name">Advanced Génifique Serum</h3>
+                  <p class="product-card__price">od 449 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/7C9IUs1281449-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxNzM5MTV8aW1hZ2UvanBlZ3xhR05sTDJneE9DODJPVGsyT0RFME9UZzNNalkzTUM4M1F6bEpWWE14TWpneE5EUTVYekJmWkdkc0xWQk1MbXB3Wnd8YjdjODM5NzE0YWMyYWM4ZDljYzJjYTU5MzViOTFlMzE0ZTNjNTM3MTE4ODFhZTNkYjY1OGFkODRlNWM1MjZjMQ&grid=true&imdensity=1&imwidth=500" alt="Pomadka" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Dior<br>Rouge Dior</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Dior</p>
+                  <h3 class="product-card__name">Rouge Dior Satin</h3>
+                  <p class="product-card__price">od 199 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/SmTCll1268618-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxMTkzNTB8aW1hZ2UvanBlZ3xhRFZpTDJoaU1TODNPVGczTXpnMU56YzBPVEF5TWk5VGJWUkRiR3d4TWpZNE5qRTRYekJmWkdkc0xWQk1MbXB3Wnd8ZTMyZjZkZDk2YzE4ZjM2MDRkYmVkY2MxNDVlYmI5ZTUxOGZmMWUwNTAyMTU3NmM4MzdmMjUwYTViY2UwMDQ2Mg&grid=true&imdensity=1&imwidth=500" alt="Lancôme krem" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">La Mer<br>Crème de la Mer</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">La Mer</p>
+                  <h3 class="product-card__name">Crème de la Mer</h3>
+                  <p class="product-card__price">od 799 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/7C9IUs1281449-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxNzM5MTV8aW1hZ2UvanBlZ3xhR05sTDJneE9DODJPVGsyT0RFME9UZzNNalkzTUM4M1F6bEpWWE14TWpneE5EUTVYekJmWkdkc0xWQk1MbXB3Wnd8YjdjODM5NzE0YWMyYWM4ZDljYzJjYTU5MzViOTFlMzE0ZTNjNTM3MTE4ODFhZTNkYjY1OGFkODRlNWM1MjZjMQ&grid=true&imdensity=1&imwidth=500" alt="Pomadka" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">YSL<br>Rouge Pur Couture</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Yves Saint Laurent</p>
+                  <h3 class="product-card__name">Rouge Pur Couture</h3>
+                  <p class="product-card__price">od 169 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/SmTCll1268618-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxMTkzNTB8aW1hZ2UvanBlZ3xhRFZpTDJoaU1TODNPVGczTXpnMU56YzBPVEF5TWk5VGJWUkRiR3d4TWpZNE5qRTRYekJmWkdkc0xWQk1MbXB3Wnd8ZTMyZjZkZDk2YzE4ZjM2MDRkYmVkY2MxNDVlYmI5ZTUxOGZmMWUwNTAyMTU3NmM4MzdmMjUwYTViY2UwMDQ2Mg&grid=true&imdensity=1&imwidth=500" alt="Lancôme krem" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Estée Lauder<br>Advanced Night Repair</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Estée Lauder</p>
+                  <h3 class="product-card__name">Advanced Night Repair</h3>
+                  <p class="product-card__price">od 349 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+            <li class="product-card">
+              <a href="https://www.douglas.pl" class="product-card__link" target="_blank" rel="noopener">
+                <div class="product-card__image-wrap">
+                  <img src="https://media.douglas.pl/medias/7C9IUs1281449-0-dgl-PL.jpg?context=bWFzdGVyfGltYWdlc3wxNzM5MTV8aW1hZ2UvanBlZ3xhR05sTDJneE9DODJPVGsyT0RFME9UZzNNalkzTUM4M1F6bEpWWE14TWpneE5EUTVYekJmWkdkc0xWQk1MbXB3Wnd8YjdjODM5NzE0YWMyYWM4ZDljYzJjYTU5MzViOTFlMzE0ZTNjNTM3MTE4ODFhZTNkYjY1OGFkODRlNWM1MjZjMQ&grid=true&imdensity=1&imwidth=500" alt="Pomadka" class="product-card__img" loading="lazy" />
+                  <div class="product-card__overlay"><span class="product-card__overlay-name">Giorgio Armani<br>Lip Power</span></div>
+                </div>
+                <div class="product-card__body">
+                  <p class="product-card__brand">Giorgio Armani</p>
+                  <h3 class="product-card__name">Lip Power Longwear</h3>
+                  <p class="product-card__price">od 189 zł</p>
+                </div>
+                <span class="product-card__cta btn btn--secondary">Kup na douglas.pl</span>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        <button class="prod-nav prod-nav--next" id="prod-next" aria-label="Następne produkty">&#8250;</button>
+      </div>
+
+    </section>
+
+
+    <!-- ================================================
+         INSTAGRAM FEED
+         6 kafelków / social proof
+    ================================================ -->
+    <section class="section instagram" id="instagram" aria-labelledby="instagram-heading">
+      <div class="container">
+
+        <h2 class="section__heading" id="instagram-heading">
+          #Douglas25lat
+          <a href="https://www.instagram.com/douglas_polska/" class="instagram__profile-link" target="_blank" rel="noopener" aria-label="Profil Douglas na Instagramie">@douglas_polska</a>
+        </h2>
+
+        <div class="instagram__hero">
+          <a href="https://www.instagram.com/douglas_polska/" target="_blank" rel="noopener" aria-label="Instagram @douglas_polska">
+            <img src="assets/Douglas_insta.jpg" alt="#Douglas25lat na Instagramie" class="instagram__hero-img" loading="lazy" />
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================
+         FAQ
+         Accordion z najczęstszymi pytaniami
+    ================================================ -->
+    <section class="section faq" id="faq" aria-labelledby="faq-heading">
+      <div class="container">
+
+        <h2 class="section__heading" id="faq-heading">Najczęściej zadawane pytania</h2>
+
+        <dl class="faq__list">
+
+          <div class="faq__item">
+            <dt>
+              <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-1">
+                <!-- Pytanie 1 -->
+                Jak wziąć udział w evencie?
+              </button>
+            </dt>
+            <dd class="faq__answer" id="faq-answer-1" hidden>
+              <!-- Odpowiedź 1 -->
+            </dd>
+          </div>
+
+          <div class="faq__item">
+            <dt>
+              <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-2">
+                Jak działa konkurs?
+              </button>
+            </dt>
+            <dd class="faq__answer" id="faq-answer-2" hidden>
+              <!-- Odpowiedź 2 -->
+            </dd>
+          </div>
+
+          <div class="faq__item">
+            <dt>
+              <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-3">
+                <!-- Pytanie 3 -->
+              </button>
+            </dt>
+            <dd class="faq__answer" id="faq-answer-3" hidden>
+              <!-- Odpowiedź 3 -->
+            </dd>
+          </div>
+
+        </dl>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================================================
+       FOOTER
+       Regulaminy | Polityki | Linki
+  ================================================ -->
+  <footer class="site-footer" id="footer">
+    <div class="container footer__inner">
+
+      <nav class="footer__legal" aria-label="Dokumenty prawne">
+        <ul>
+          <li><a href="regulamin.pdf" target="_blank" rel="noopener">Regulamin serwisu</a></li>
+          <li><a href="regulamin-konkursu.pdf" target="_blank" rel="noopener">Regulamin konkursu</a></li>
+          <li><a href="polityka-prywatnosci.pdf" target="_blank" rel="noopener">Polityka prywatności</a></li>
+          <li><a href="polityka-cookies.pdf" target="_blank" rel="noopener">Polityka cookies</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer__links" aria-label="Linki zewnętrzne">
+        <ul>
+          <li><a href="https://www.douglas.pl" target="_blank" rel="noopener">douglas.pl</a></li>
+          <li><a href="https://www.instagram.com/douglas_polska/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/DouglasPL" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </nav>
+
+      <p class="footer__copy">&copy; 2026 Douglas. Wszelkie prawa zastrzeżone.</p>
+
+    </div>
+  </footer>
+
+
+  <script src="js/events-data.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/faq.js"></script>
+  <script src="js/contest.js"></script>
+
+</body>
+</html>
