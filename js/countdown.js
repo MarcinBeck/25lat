@@ -1,5 +1,5 @@
 // Odliczanie do daty eventu — zmień TARGET_DATE na docelową
-const TARGET_DATE = new Date('2026-09-01T12:00:00');
+const TARGET_DATE = new Date('2026-06-24T12:00:00');
 
 function updateCountdown() {
   const diff = TARGET_DATE - Date.now();
