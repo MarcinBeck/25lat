@@ -547,6 +547,38 @@ a { color: inherit; text-decoration: none; }
 
 
 /* =============================================
+   RIBBON (25 LAT DOUGLAS W POLSCE)
+============================================= */
+.ribbon {
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-brand);
+  padding: .75rem 0;
+}
+
+.ribbon__track {
+  display: flex;
+  white-space: nowrap;
+  animation: ribbon-scroll 20s linear infinite;
+}
+
+.ribbon__text {
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  padding: 0 2rem;
+}
+
+@keyframes ribbon-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* =============================================
    EVENTS (Filtry + Mapa + Lista)
 ============================================= */
 .events { background: var(--color-grey-1); }
