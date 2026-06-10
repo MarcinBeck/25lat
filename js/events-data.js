@@ -1,4 +1,4 @@
-const TODAY = new Date('2026-06-09');
+const TODAY = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
 
 // Eventy posortowane wg daty rozpoczęcia
 const EVENTS = [

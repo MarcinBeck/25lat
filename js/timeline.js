@@ -94,8 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function step(dir) {
-    const card = track.querySelector('.tl-card');
-    const cardStep = card ? card.offsetWidth : 202;
+    const card    = track.querySelector('.tl-card');
+    const gap     = parseInt(getComputedStyle(track).gap) || 16;
+    const cardStep = card ? card.offsetWidth + gap : 218;
     applyOffset(dir === 'next' ? offset + cardStep : offset - cardStep);
   }
 

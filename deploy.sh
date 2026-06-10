@@ -6,7 +6,7 @@ BUCKET="gs://douglas-25lat-prod"
 echo "→ Synchronizuję pliki z $BUCKET..."
 gcloud storage rsync -r . "$BUCKET" \
   --delete-unmatched-destination-objects \
-  --exclude="node_modules/.*|screenshots/.*|shot\.cjs|package.*\.json|README\.md|\.git/.*|\.claude/.*|deploy\.sh"
+  --exclude="node_modules/.*|screenshots/.*|shot\.cjs|package.*\.json|README\.md|\.git/.*|\.github/.*|\.claude/.*|deploy\.sh"
 
 echo "→ Ustawiam no-cache na plikach HTML/CSS/JS..."
 for f in \
