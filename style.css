@@ -178,12 +178,13 @@ header {
 .global-nav ul.responsive-menu {
   display: flex;
   justify-content: center;
-  flex-wrap: nowrap; 
-  gap: 1rem; 
+  flex-wrap: nowrap;
+  gap: 1rem;
   padding: 0 1rem 1rem 1rem;
   margin: 0;
   list-style: none;
   width: 100%;
+  overflow: visible;
 }
 
 .responsive-menu li {

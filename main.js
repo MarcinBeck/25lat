@@ -75,19 +75,15 @@ function initApp() {
 
     if (dropdownParent) {
         dropdownParent.addEventListener('click', (e) => {
-            if (e.target.closest('a')) return; 
-            
+            // Kliknięcie pozycji w rozwiniętym dropdown → nawiguj normalnie
+            if (e.target.closest('.dropdown-menu')) return;
             e.preventDefault();
             dropdownParent.classList.toggle('is-open');
-            if (iconCarousel) {
-                iconCarousel.style.overflowX = dropdownParent.classList.contains('is-open') ? 'visible' : 'auto';
-            }
         });
 
         document.addEventListener('click', (e) => {
             if (!dropdownParent.contains(e.target)) {
                 dropdownParent.classList.remove('is-open');
-                if (iconCarousel) iconCarousel.style.overflowX = 'auto';
             }
         });
     }
