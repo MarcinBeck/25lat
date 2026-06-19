@@ -92,6 +92,25 @@ function initApp() {
         });
     }
 
+    // --- 1b. Hamburger — mobile nav panel ---
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobilePanel = document.getElementById('nav-mobile-panel');
+    if (hamburger && mobilePanel) {
+        hamburger.addEventListener('click', () => {
+            const isOpen = !mobilePanel.hidden;
+            mobilePanel.hidden = isOpen;
+            hamburger.classList.toggle('is-open', !isOpen);
+            hamburger.setAttribute('aria-expanded', String(!isOpen));
+        });
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobilePanel.contains(e.target)) {
+                mobilePanel.hidden = true;
+                hamburger.classList.remove('is-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     // --- 2. Logika Podstrony Eventy: Dynamiczne Karuzele i Filtry na Mapie ---
     const masterData = document.getElementById('master-events-data');
     const viewMap = document.getElementById('view-map');

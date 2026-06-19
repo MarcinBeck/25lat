@@ -217,17 +217,23 @@ header {
   border-bottom: 2px solid var(--text-color);
 }
 
-/* Link "Konkurs" w nagłówku stylizowany identycznie jak dolne menu global-nav */
+/* Konkurs z dropdownem — inline w nav */
+.has-dropdown {
+  position: relative;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  gap: 0;
+  justify-content: center;
+}
 .has-dropdown > a {
-  font-size: 0.95rem !important;
-  text-transform: uppercase !important;
-  font-weight: 500 !important;
-  color: var(--text-color) !important;
-  text-decoration: none !important;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-color);
+  text-decoration: none;
   padding-bottom: 4px;
 }
-
-.has-dropdown { position: relative; cursor: pointer; }
 .dropdown-indicator { font-size: 0.7rem; vertical-align: middle; margin-left: 0.2rem; }
 .dropdown-menu {
   display: none;
@@ -237,14 +243,12 @@ header {
   padding: 0.5rem;
   width: max-content;
   position: absolute;
-  top: 100%;      
-  bottom: auto;   
+  top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  margin-bottom: 0;
   text-align: left;
   gap: 0.25rem;
-  z-index: 10000; 
+  z-index: 10000;
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 .has-dropdown.is-open .dropdown-menu { display: flex; }
@@ -254,8 +258,51 @@ header {
   color: var(--text-color);
   border-bottom: 1px solid #f0f0f0;
 }
-.dropdown-menu a:hover { text-decoration: none; background-color: #f9f9f9;}
+.dropdown-menu a:hover { text-decoration: none; background-color: #f9f9f9; }
 .dropdown-menu a:last-child { border-bottom: none; }
+
+/* Hamburger button */
+.nav-hamburger-btn-item { display: none; }
+
+.nav-hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.nav-hamburger-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-color);
+  border-radius: 2px;
+  transition: transform .2s, opacity .2s;
+}
+.nav-hamburger-btn.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger-btn.is-open span:nth-child(2) { opacity: 0; }
+.nav-hamburger-btn.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile panel */
+.nav-mobile-panel {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-color);
+  padding: 0.5rem 0;
+}
+.nav-mobile-panel a {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--text-color);
+  border-bottom: 1px solid #f5f5f5;
+}
+.nav-mobile-panel a:last-child { border-bottom: none; }
+.nav-mobile-panel a:hover { background: #f9f9f9; text-decoration: none; }
 
 .breadcrumb-container {
   padding: 1.5rem 1rem;
@@ -876,18 +923,20 @@ footer {
   .global-nav ul.responsive-menu {
     gap: 0.5rem;
     justify-content: space-between;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1rem 0.75rem 1rem;
   }
-  
-  .responsive-menu li {
-    flex: 1;
-  }
-  
+
+  .responsive-menu li { flex: 1; }
+
   .responsive-menu li a {
     font-size: 0.75rem;
     max-width: 100%;
     word-wrap: break-word;
   }
+
+  /* Ukryj pozycje 3-5 na mobile, pokaż hamburger */
+  .nav-hamburger-item { display: none !important; }
+  .nav-hamburger-btn-item { display: flex !important; flex: 0 0 auto; align-items: center; }
 }
 
 /* Tablet / Desktop (od 768px) */
