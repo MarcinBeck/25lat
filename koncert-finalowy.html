@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koncert Finałowy - Douglas 25 lat</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Układ wymuszający 100% na mobile i 50/50 na desktopie */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .split-layout {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Globalny Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Grafika Hero -->
+    <section id="history-hero"></section>
+
+    <!-- Główna zawartość -->
+    <main id="koncert-main-section" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1rem 5rem 1rem;">
+        
+        <!-- Nagłówek i opis -->
+        <div style="margin-bottom: 4rem; max-width: 800px;">
+            <h1 style="margin-bottom: 1rem; line-height: 1.1;">Wielki finał jubileuszu z Sanah!</h1>
+            <p style="font-size: 1.15rem; color: var(--text-color); line-height: 1.6;">
+                Jako partner tytularny trasy koncertowej Sanah, zapraszamy Cię do wspólnego celebrowania naszych 25. urodzin. Przygotowaliśmy tysiące biletów, byś mógł/mogła na żywo usłyszeć największe przeboje artystki i bawić się razem z nami!
+            </p>
+        </div>
+
+        <!-- Sekcje z atutami koncertu (Zdjęcie + Tekst) -->
+        <div class="concert-features-container">
+            
+            <div class="concert-feature-row">
+                <div class="concert-feature-img placeholder-img"><span>Grafika PGE Narodowy</span></div>
+                <div class="concert-feature-text">
+                    <h3>Zaplanuj w kalendarzu</h3>
+                    <p>Finałowy koncert trasy odbędzie się 3 września 2026 roku na PGE Narodowym w Warszawie. Przygotuj się na spektakularne show i mnóstwo urodzinowych niespodzianek przygotowanych specjalnie dla naszych gości.</p>
+                </div>
+            </div>
+
+            <div class="concert-feature-row">
+                <div class="concert-feature-img placeholder-img"><span>Grafika Strefa Premium</span></div>
+                <div class="concert-feature-text">
+                    <h3>Oglądaj w strefie Premium</h3>
+                    <p>W strefie Premium jesteś blisko sceny i artystki! Masz zagwarantowane wygodne miejsce siedzące o doskonałej widoczności, a także dostęp do ekskluzywnej strefy z pysznym poczęstunkiem.</p>
+                    <a href="konkurs.html#formularz-zgloszeniowy" class="cta-link">Weź udział w konkursie</a>
+                </div>
+            </div>
+
+            <div class="concert-feature-row">
+                <div class="concert-feature-img placeholder-img"><span>Grafika Płyta Koncertu</span></div>
+                <div class="concert-feature-text">
+                    <h3>Wygraj 1 z 1000 biletów</h3>
+                    <p>Wygraj bilet, dołącz do tłumu fanów i baw się razem z tysiącami innych osób na płycie PGE Narodowego, tworząc niezapomniane wspomnienia w samym centrum muzycznych emocji.</p>
+                    <a href="konkurs.html#formularz-zgloszeniowy" class="cta-link">Weź udział w konkursie</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Nowa Sekcja Laureatów - Tekst po lewej, używająca natywnej klasy dla pełnej spójności stylów -->
+        <section id="oni-wygrali" style="padding: 0; margin-top: 5rem; margin-bottom: 3rem;">
+            <div class="split-layout">
+                <div class="concert-feature-text">
+                    <h3>Oni już wygrali bilety</h3>
+                    <p>Kilkaset osób z całej Polski już dołączyło do grona szczęśliwców i otrzymało swoje wymarzone bilety na wielki finał! Zobacz pełną listę nagrodzonych uczestników z poszczególnych tygodni konkursu, sprawdź komu udało się wygrać i przekonaj się, czy na liście jest Twoje nazwisko.</p>
+                    <a href="wyniki.html" class="cta-link">Sprawdź wyniki</a>
+                </div>
+                <div class="concert-feature-img placeholder-img" style="width: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; background: #eaeaea; border: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted); font-weight: bold;">Grafika laureaci</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Globalny Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>

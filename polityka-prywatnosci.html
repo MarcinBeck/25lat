@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polityka Prywatności - Douglas 25 lat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <!-- Grafika Hero jest teraz WYŻEJ -->
+    <section id="history-hero"></section>
+
+    <!-- Breadcrumbs są teraz NIŻEJ (pod grafiką), ulepszone formatowanie  -->
+    <div class="breadcrumb-container" style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1rem; font-size: 0.85rem; color: var(--text-muted);">
+        <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> / 
+        <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> / 
+        <span style="color: var(--text-color); font-weight: bold;">Polityka prywatności</span>
+    </div>
+
+    <main class="text-page-main">
+        
+        <div class="title-with-action">
+            <h1>Polityka prywatności</h1>
+            <a href="assets/polityka.pdf" download class="cta-link cta-small" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Pobierz PDF
+            </a>
+        </div>
+
+        <div class="text-page-content">
+            <h3>1. Administrator danych</h3>
+            <p>Administratorem Twoich danych osobowych przekazywanych w związku z udziałem w konkursie jubileuszowym jest Perfumeria Douglas Polska Sp. z o.o. Twoje dane są chronione z najwyższą starannością zgodnie z przepisami RODO.</p>
+
+            <h3>2. Cel i podstawa przetwarzania</h3>
+            <p>Twoje dane (imię, nazwisko, adres e-mail, numer telefonu oraz wizerunek na zdjęciu) przetwarzane są wyłącznie w celu obsługi i rozstrzygnięcia konkursu, w tym do wysyłki nagród (biletów e-ticket). Podstawą przetwarzania jest Twoja dobrowolna zgoda wyrażona w formularzu zgłoszeniowym.</p>
+
+            <h3>3. Prawa użytkownika</h3>
+            <p>Masz prawo w dowolnym momencie zażądać dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania. Możesz również wycofać swoją zgodę na przetwarzanie wizerunku, kontaktując się z naszym Inspektorem Ochrony Danych.</p>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="main.js"></script>
+
+    <script>
+        // Skrypt aktywujący stan "Konkurs" w nawigacji
+        window.addEventListener('load', () => {
+            const highlightInterval = setInterval(() => {
+                const konkursLink = document.querySelector('.global-nav > ul > li > a[href="konkurs.html"]');
+                if (konkursLink) {
+                    konkursLink.classList.add('active');
+                    konkursLink.style.fontWeight = 'bold';
+                    konkursLink.style.borderBottom = '2px solid var(--text-color)';
+                    clearInterval(highlightInterval);
+                }
+            }, 100);
+            setTimeout(() => clearInterval(highlightInterval), 3000);
+        });
+    </script>
+</body>
+</html>

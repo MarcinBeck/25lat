@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jubileuszowe Eventy - Douglas 25 lat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <section id="history-hero"></section>
+
+    <section id="events-main-section"> 
+        
+        <div class="events-page-header">
+            <h2 style="margin-bottom: 0.5rem;">Urodzinowy Tour</h2>
+            <p style="margin-bottom: 0;">Znajdź i wybierz wydarzenie w twoim mieście</p>
+        </div>
+
+        <div class="events-layout-wrapper">
+            
+            <aside class="events-sidebar">
+                <!-- Dropdown i przełącznik widoku ułożone w 1 rzędzie na mobile (zaktualizowane w CSS) -->
+                <div class="sidebar-top-row">
+                    <div class="view-toggle">
+                        <a href="javascript:void(0)" data-target="view-map">Mapa</a> / 
+                        <a href="javascript:void(0)" class="active" data-target="view-list">Lista</a>
+                    </div>
+                    <select id="city-select" class="custom-dropdown">
+                        <option value="all">Wszystkie miasta</option>
+                        <option value="Warszawa">Warszawa</option>
+                        <option value="Kraków">Kraków</option>
+                        <option value="Wrocław">Wrocław</option>
+                        <option value="Poznań">Poznań</option>
+                        <option value="Szczecin">Szczecin</option>
+                        <option value="Gdańsk">Gdańsk</option>
+                        <option value="Lublin">Lublin</option>
+                        <option value="Katowice">Katowice</option>
+                        <option value="Bydgoszcz">Bydgoszcz</option>
+                        <option value="Łódź">Łódź</option>
+                    </select>
+                </div>
+
+                <div class="filter-type-group">
+                    <span class="filter-label">Wybierz typ wydarzenia:</span>
+                    <div class="beauty-tabs type-tabs">
+                        <a href="javascript:void(0)" class="active" data-tab="all"><span>Wszystkie</span></a>
+                        <a href="javascript:void(0)" data-tab="pop-up"><span>Beauty Street Pop Up</span></a>
+                        <a href="javascript:void(0)" data-tab="beauty-street"><span>Beauty Street</span></a>
+                        <a href="javascript:void(0)" data-tab="make-up"><span>Make up Corner</span></a>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="events-content">
+                <div id="view-list" class="event-view-section" style="display: block;">
+                    <div id="no-events-msg" style="display: none; text-align: left; padding: 2rem 0; color: var(--text-muted);">Sprawdź w innym mieście</div>
+                    <div class="event-carousel-group" id="group-ongoing" style="display: none;">
+                        <h3>Trwające teraz</h3>
+                        <div class="inspiration-carousel-wrapper">
+                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-ongoing').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
+                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-ongoing').scrollBy({left: 300, behavior: 'smooth'})">›</button>
+                            <div class="inspiration-carousel event-carousel" id="carousel-ongoing"></div>
+                        </div>
+                    </div>
+                    <div class="event-carousel-group" id="group-upcoming" style="display: none;">
+                        <h3>Nadchodzące</h3>
+                        <div class="inspiration-carousel-wrapper">
+                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-upcoming').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
+                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-upcoming').scrollBy({left: 300, behavior: 'smooth'})">›</button>
+                            <div class="inspiration-carousel event-carousel" id="carousel-upcoming"></div>
+                        </div>
+                    </div>
+                    <div class="event-carousel-group" id="group-past" style="display: none;">
+                        <h3>Zakończone</h3>
+                        <div class="inspiration-carousel-wrapper">
+                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-past').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
+                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-past').scrollBy({left: 300, behavior: 'smooth'})">›</button>
+                            <div class="inspiration-carousel event-carousel" id="carousel-past"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-map" class="event-view-section" style="display: none;">
+                    <div class="map-container placeholder-img" style="min-height: 600px; position: relative; background-color: #eaeaea;">
+                        <span style="position: absolute; top: 1rem; left: 1rem; font-weight: bold; color: var(--text-muted);">Mapa Polski</span>
+                        <div class="map-pin" data-category="pop-up" data-city="Warszawa" data-start-date="2026-07-02" data-end-date="2026-07-04" data-venue="Westfield Mokotów" data-date-str="02-04 LIPCA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 30%; left: 55%;">
+                            <div class="pin-marker"></div><div class="pin-label">Westfield Mokotów<br><small>02-04 LIPCA 2026</small></div>
+                        </div>
+                        <div class="map-pin" data-category="make-up" data-city="Szczecin" data-start-date="2026-06-15" data-end-date="2026-06-20" data-venue="Galaxy Centrum" data-date-str="15-20 CZERWCA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 15%; left: 15%;">
+                            <div class="pin-marker"></div><div class="pin-label">Galaxy Centrum<br><small>15-20 CZERWCA 2026</small></div>
+                        </div>
+                        <div class="map-pin" data-category="beauty-street" data-city="Poznań" data-start-date="2026-05-12" data-end-date="2026-05-14" data-venue="Stary Browar" data-date-str="12-14 MAJA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 40%; left: 30%;">
+                            <div class="pin-marker"></div><div class="pin-label">Stary Browar<br><small>12-14 MAJA 2026</small></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- NOWA SEKCJA: KONCERT FINAŁOWY NA DOLE -->
+    <section class="final-concert-promo">
+        <div class="final-concert-img placeholder-img"><span>Grafika na całą szerokość</span></div>
+        <div class="final-concert-text">
+            <span class="section-label">Koncert finałowy</span>
+            <h2>Wielki finał jubileuszu</h2>
+            <p>Świętuj z nami 25-lecie Douglasa na finałowym koncercie trasy w sanach na PGE Narodowym w Warszawie.</p>
+            <a href="koncert-finalowy.html" class="cta-link">Zobacz więcej</a>
+        </div>
+    </section>
+
+    <!-- Modal Mapy -->
+    <div id="map-popup-modal" class="map-popup-overlay" style="display: none;">
+        <div class="event-card map-popup-card">
+            <button class="close-popup" onclick="document.getElementById('map-popup-modal').style.display='none'">✕</button>
+            <div class="event-card-header">
+                <h3 class="event-card-name" id="popup-name">Miejsce</h3>
+                <span class="event-status-badge" id="popup-badge"></span>
+            </div>
+            <div class="event-card-city" id="popup-city">Miasto</div>
+            <div class="event-card-date" id="popup-date">Data</div>
+            <div class="event-card-bottom">
+                <a href="#" id="popup-cta" class="cta-link cta-small" target="_blank" style="margin-left: auto;">Zapisz się</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dane eventów używane przez plik main.js -->
+    <div id="master-events-data" style="display: none;">
+        <div class="event-card" data-category="pop-up" data-city="Warszawa" data-start-date="2026-07-02" data-end-date="2026-07-04">
+            <h3 class="event-card-name">Westfield Mokotów</h3>
+            <div class="event-card-city">Warszawa</div>
+            <div class="event-card-date">02-04 LIPCA 2026</div>
+            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
+        </div>
+        <div class="event-card" data-category="make-up" data-city="Szczecin" data-start-date="2026-06-15" data-end-date="2026-06-20">
+            <h3 class="event-card-name">Galaxy Centrum</h3>
+            <div class="event-card-city">Szczecin</div>
+            <div class="event-card-date">15-20 CZERWCA 2026</div>
+            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
+        </div>
+        <div class="event-card" data-category="beauty-street" data-city="Poznań" data-start-date="2026-05-12" data-end-date="2026-05-14">
+            <h3 class="event-card-name">Stary Browar</h3>
+            <div class="event-card-city">Poznań</div>
+            <div class="event-card-date">12-14 MAJA 2026</div>
+            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Douglas 25 lat</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ukrywamy sekcję pre-footer z pomocą tylko na podstronie FAQ */
+        #pre-footer {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <section id="history-hero"></section>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumb-container" style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1rem; font-size: 0.85rem; color: var(--text-muted);">
+        <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> / 
+        <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> / 
+        <span style="color: var(--text-color); font-weight: bold;">FAQ</span>
+    </div>
+
+    <main class="text-page-main">
+        <div class="text-page-header">
+            <h1>Najczęściej zadawane pytania</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Masz pytania dotyczące konkursu jubileuszowego? Tutaj znajdziesz odpowiedzi na najważniejsze z nich.</p>
+        </div>
+
+        <div class="faq-container">
+            
+            <details class="faq-item" open>
+                <summary class="faq-question">1. Kto może wziąć udział w konkursie?</summary>
+                <div class="faq-answer">
+                    <p>W konkursie może wziąć udział każda osoba pełnoletnia, która w okresie trwania promocji (od 01.07 do 25.08.2026 r.) dokona dowolnego zakupu w perfumeriach stacjonarnych Douglas lub na douglas.pl i zachowa dowód zakupu.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">2. Jak prawidłowo zgłosić swój udział?</summary>
+                <div class="faq-answer">
+                    <p>Wystarczy przejść na podstronę "Konkurs", wypełnić formularz zgłoszeniowy podając numer paragonu/zamówienia, wgrać zdjęcie przedstawiające realizację aktualnego zadania konkursowego oraz opisać swoją inspirację.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">3. Czy mogę zgłosić się więcej niż jeden raz?</summary>
+                <div class="faq-answer">
+                    <p>Tak! Możesz wysłać dowolną liczbę zgłoszeń, zarówno w ramach jednego etapu (tygodnia), jak i w różnych etapach. Pamiętaj jednak, że każde nowe zgłoszenie musi być poparte nowym, unikalnym dowodem zakupu.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">4. Jakie są nagrody w konkursie?</summary>
+                <div class="faq-answer">
+                    <p>Do wygrania jest łącznie 1000 standardowych biletów na finałowy koncert trasy Sanah na PGE Narodowym (zaplanowany na 3 września 2026 r.) oraz 100 ekskluzywnych biletów Premium z dostępem do strefy VIP.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">5. Kiedy i gdzie zostaną ogłoszone wyniki?</summary>
+                <div class="faq-answer">
+                    <p>Wyniki są ogłaszane co tydzień, w każdy piątek po zakończeniu danego etapu. Lista laureatów publikowana jest na podstronie "Konkurs" w sekcji "Poznaj laureatów". Zwycięzcy zostaną również powiadomieni mailowo.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">6. Jakie wymagania musi spełniać zdjęcie konkursowe?</summary>
+                <div class="faq-answer">
+                    <p>Zdjęcie musi być zapisane w formacie JPG, JPEG lub PNG, a jego maksymalny rozmiar nie może przekraczać 1 MB. Zdjęcie musi być Twojego autorstwa i wyraźnie nawiązywać do tematu zadania z danego tygodnia.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">7. W jaki sposób otrzymam bilet na koncert?</summary>
+                <div class="faq-answer">
+                    <p>Bilety zostaną wysłane drogą elektroniczną (jako e-ticket) na adres e-mail podany w formularzu zgłoszeniowym w ciągu 7 dni roboczych od momentu ogłoszenia wyników danego etapu.</p>
+                </div>
+            </details>
+
+            <details class="faq-item" open>
+                <summary class="faq-question">8. Gdzie znajdę pełen regulamin konkursu?</summary>
+                <div class="faq-answer">
+                    <p>Pełny regulamin jest dostępny do wglądu oraz pobrania w formacie PDF na naszej podstronie <a href="regulamin.html" style="text-decoration: underline; font-weight: bold;">Regulamin</a> </p>
+                </div>
+            </details>
+
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="main.js"></script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const highlightInterval = setInterval(() => {
+                const konkursLink = document.querySelector('.global-nav > ul > li > a[href="konkurs.html"]');
+                if (konkursLink) {
+                    konkursLink.classList.add('active');
+                    konkursLink.style.fontWeight = 'bold';
+                    konkursLink.style.borderBottom = '2px solid var(--text-color)';
+                    clearInterval(highlightInterval);
+                }
+            }, 100);
+            setTimeout(() => clearInterval(highlightInterval), 3000);
+        });
+    </script>
+</body>
+</html>
