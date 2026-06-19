@@ -96,15 +96,15 @@ function initApp() {
     const hamburger = document.getElementById('nav-hamburger');
     const mobilePanel = document.getElementById('nav-mobile-panel');
     if (hamburger && mobilePanel) {
-        hamburger.addEventListener('click', () => {
-            const isOpen = !mobilePanel.hidden;
-            mobilePanel.hidden = isOpen;
-            hamburger.classList.toggle('is-open', !isOpen);
-            hamburger.setAttribute('aria-expanded', String(!isOpen));
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = mobilePanel.classList.toggle('is-open');
+            hamburger.classList.toggle('is-open', isOpen);
+            hamburger.setAttribute('aria-expanded', String(isOpen));
         });
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !mobilePanel.contains(e.target)) {
-                mobilePanel.hidden = true;
+                mobilePanel.classList.remove('is-open');
                 hamburger.classList.remove('is-open');
                 hamburger.setAttribute('aria-expanded', 'false');
             }
