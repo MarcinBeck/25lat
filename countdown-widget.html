@@ -1,0 +1,69 @@
+<section class="homepage-countdown">
+    <div class="homepage-countdown-inner">
+        <h4 class="countdown-h4">Co tydzień nowa runda konkursu i nowa szansa na nagrodę!</h4>
+        <span class="section-label countdown-label">Koniec aktualnej rundy zgłoszeń za:</span>
+        <div class="counter-grid countdown-responsive">
+            <div class="counter-box">
+                <span class="counter-number" id="home-days">00</span>
+                <span class="counter-label">DNI</span>
+            </div>
+            <div class="counter-box">
+                <span class="counter-number" id="home-hours">00</span>
+                <span class="counter-label">GODZ</span>
+            </div>
+            <div class="counter-box">
+                <span class="counter-number" id="home-mins">00</span>
+                <span class="counter-label">MIN</span>
+            </div>
+            <div class="counter-box">
+                <span class="counter-number" id="home-secs">00</span>
+                <span class="counter-label">SEK</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        .homepage-countdown {
+            background: #fff;
+            width: 100%;
+            padding: 3rem 0;
+            margin: 0;
+        }
+        .homepage-countdown-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .countdown-h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0 0 1.5rem 0;
+        }
+        .countdown-label {
+            margin-bottom: 1rem;
+        }
+        .countdown-responsive {
+            justify-content: flex-start;
+        }
+        @media (max-width: 767px) {
+            .countdown-responsive {
+                gap: 0.5rem;
+                flex-wrap: nowrap;
+                width: 100%;
+            }
+            .countdown-responsive .counter-box {
+                flex: 1;
+                min-width: 0;
+            }
+            .countdown-responsive .counter-number {
+                width: 100%;
+                min-width: auto;
+                font-size: 2rem;
+                padding: 0.75rem 0.25rem;
+            }
+            .countdown-responsive .counter-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</section>

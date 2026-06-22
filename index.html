@@ -6,30 +6,350 @@
     <title>Douglas 25 lat - Strona Główna</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Układ wymuszający 100% na mobile i 50/50 na desktopie */
-        .split-layout {
-            display: grid;
-            grid-template-columns: 1fr;
+        /* === SEKCJA LICZB JUBILEUSZOWYCH === */
+        #jubileusz-stats {
+            padding: 2rem 1rem 4rem 1rem;
+            background-color: var(--bg-color, #fff);
+        }
+        .jubileusz-stats-grid {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .stat-item:nth-child(odd) {
+            align-items: flex-start;
+            text-align: left;
+        }
+        .stat-item:nth-child(even) {
+            align-items: flex-end;
+            text-align: right;
+        }
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1;
+            color: var(--text-color, #000);
+            margin: 0 0 0.5rem 0;
+        }
+        .stat-text {
+            margin: 0;
+        }
+
+        @media (min-width: 768px) {
+            .jubileusz-stats-grid {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+            .stat-item:nth-child(odd),
+            .stat-item:nth-child(even) {
+                align-items: center;
+                text-align: center;
+                flex: 1;
+            }
+        }
+
+        /* === UKŁAD INFORMACJI O KONCERCIE === */
+        .new-koncert-info-wrapper {
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
-            align-items: center;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
         }
         @media (min-width: 768px) {
-            .split-layout {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
+            .new-koncert-info-wrapper {
+                flex-direction: row;
+                align-items: center;
             }
+            .nki-image {
+                flex: 1;
+            }
+            .nki-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+        .nki-details-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .nki-detail-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nki-detail-row .placeholder-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #e0e0e0;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .nki-detail-row span {
+            font-weight: 600;
+            font-size: 1.05rem;
+            line-height: 1.4;
+        }
+        .nki-desc {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .cta-framed {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .cta-framed:hover {
+            background: var(--text-color);
+            color: #fff;
+        }
+
+        /* === ZASADY KONKURSU === */
+        .jak-zdobyc-wrapper {
+            margin-top: 4rem;
+        }
+        .jak-zdobyc-wrapper h4 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+        .steps-grid-static {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .steps-grid-static {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 2rem;
+            }
+        }
+        .step-item-horizontal {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1.25rem;
+            text-align: left;
+            flex: 1;
+        }
+        .step-item-horizontal .placeholder-img {
+            width: 80px;
+            height: 80px;
+            min-height: auto;
+            flex-shrink: 0;
+        }
+        .step-item-horizontal p {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        /* === COUNTER === */
+        .homepage-countdown-nested {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            background-color: #fff;
+            padding: 4rem 1rem;
+            margin-top: 5rem;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+        }
+        .countdown-inner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .countdown-h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+            .homepage-countdown-nested { padding: 4rem 3rem; }
+        }
+        @media (min-width: 1024px) {
+            .homepage-countdown-nested { padding: 4rem 10%; }
+        }
+
+        /* === SEKCJA: 25 LAT DOUGLAS === */
+        #jubileusz-info {
+            background-color: #fcfcfc;
+            border-top: 1px solid var(--border-color);
+            padding-bottom: 4rem;
+        }
+        .jubileusz-intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 4rem;
+            max-width: 800px;
+        }
+        .jubileusz-content-split {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+        @media (min-width: 768px) {
+            .jubileusz-content-split {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 3rem;
+            }
+        }
+        .jubileusz-split-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .jubileusz-split-col h4 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .jubileusz-split-col p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        /* === SEKCJA: URODZINOWA STREFA BEAUTY (KARUZELA) === */
+        #urodzinowa-strefa-beauty {
+            background-color: var(--bg-color);
+        }
+        .promo-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .promo-carousel {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 1.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+            scrollbar-width: none;
+        }
+        .promo-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .promo-carousel .product-card {
+            flex: 0 0 160px;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+        }
+        .promo-carousel-wrapper .carousel-arrow {
+            top: 100px;
+            width: 32px;
+            height: 36px;
+            font-size: 1.2rem;
+        }
+        .promo-carousel-wrapper .carousel-arrow.prev { left: -10px; }
+        .promo-carousel-wrapper .carousel-arrow.next { right: -10px; }
+
+        /* === PIONOWA OŚ CZASU DLA STRONY GŁÓWNEJ === */
+        .homepage-timeline-date {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .v-timeline-item.left .homepage-timeline-date {
+                text-align: right;
+            }
+        }
+
+        .homepage-timeline-content {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            width: 100%; 
+        }
+        .htc-media {
+            width: 100%;
+            height: 250px; 
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+        .htc-text {
+            padding: 1.5rem;
+            text-align: left;
+        }
+        .htc-text h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .htc-text p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .stat-item {
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .stat-hidden {
+            opacity: 0;
+            visibility: hidden;
         }
     </style>
 </head>
 <body>
-
     <div id="header-placeholder"></div>
-
+    
     <section id="hero">
         <div class="hero-content">
             <h1>Celebruj razem z nami<br>25 lat piękna</h1>
             <div class="hero-ctas">
-                <a href="konkurs.html" class="cta-link">Wygraj bilet na koncert</a>
+                <a href="konkurs.html" class="cta-link">Wygraj bilet</a>
                 <a href="nasza-historia.html" class="cta-link">Więcej o jubileuszu</a>
             </div>
         </div>
@@ -38,144 +358,361 @@
     <section id="hero-intro" style="padding: 2rem 1rem;">
         <div style="max-width: 800px; margin: 0 auto;">
             <p style="font-size: 1.15rem; line-height: 1.6; text-align: left;">
-                Zapraszamy do wspólnego celebrowania i świętowania naszych 25. urodzin! Przygotowaliśmy dla Ciebie mnóstwo atrakcji, wyjątkowe oferty i niespodzianki. Będzie się dużo działo – świętuj z nami i odkrywaj piękno na nowo!
+                Zapraszamy do wspólnego celebrowania i świętowania jubileuszu Douglas! Przygotowaliśmy dla Ciebie mnóstwo atrakcji, wyjątkowe oferty i niespodzianki. Będzie się dużo działo – świętuj z nami i odkrywaj piękno na nowo!
             </p>
         </div>
     </section>
 
-    <div id="events-widget-placeholder"></div>
-
-    <section id="nowy-konkurs-sanah">
-        <span class="section-label">Konkurs jubileuszowy</span>
-        <h2>Wygraj bilet na koncert Sanah!</h2>
-        
-        <div class="konkurs-boxes">
-            <div class="konkurs-box">
-                <h3>Koncert finałowy</h3>
-                <p>Graj o jeden z 1000 biletów, w tym bilety Premium, na finałowy koncert trasy Sanah, na PGE Narodowym 3 września 2026 r.</p>
-                <a href="koncert-finalowy.html" class="cta-link cta-small">Więcej o koncercie</a>
-            </div>
-            <div class="konkurs-box">
-                <h3>Zasady konkursu</h3>
-                <p>Przez 8 tygodni co tydzień nowe zadanie i nowa szansa na wygraną.</p>
-                <a href="konkurs.html" class="cta-link cta-small">Szczegóły konkursu</a>
-            </div>
-            <div class="konkurs-box">
-                <h3>Graj o bilet</h3>
-                <p>Odpowiedz na pytanie i czekaj na werdykt jury</p>
-                <a href="konkurs.html#formularz-zgloszeniowy" class="cta-link cta-small">Weź udział</a>
-            </div>
-            <div class="konkurs-box">
-                <h3>Strefa laureatów</h3>
-                <p>Co tydzień publikujemy listę szczęśliwców i ich zgłoszenia</p>
-                <a href="wyniki.html" class="cta-link cta-small">Sprawdź</a>
-            </div>
-        </div>
-
-        <!-- Przebudowana sekcja "Zainspiruj się" -->
-        <div class="inspiration-section" style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border-color);">
-            <div class="split-layout">
-                <div class="placeholder-img" style="width: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; background: #eaeaea; border: 1px solid var(--border-color);">
-                    <span style="color: var(--text-muted); font-weight: bold; font-size: 0.9rem;">Grafika inspiracje</span>
+    <section id="jubileusz-stats">
+        <div class="jubileusz-stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">
+                    <span class="animated-stat" data-target="25">0</span>
                 </div>
-                <div style="text-align: left;">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Zainspiruj się do zgłoszenia</h2>
-                    <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 2.5rem; color: var(--text-color);">
-                        Sprawdź wybrane prace laureatów oraz najciekawsze odpowiedzi z poprzednich etapów. Zobacz, jak kreatywni są inni uczestnicy i potraktuj to jako wspaniałą inspirację do stworzenia własnego, niepowtarzalnego zgłoszenia w kolejnych tygodniach konkursu!
-                    </p>
-                    <a href="galeria.html" class="cta-link" style="text-transform: uppercase;">Sprawdź</a>
+                <h4 class="stat-text">lat Douglas</h4>
+            </div>
+            <div class="stat-item stat-hidden">
+                <div class="stat-number">
+                    <span class="animated-stat" data-target="25">0</span>
                 </div>
+                <h4 class="stat-text">eventów</h4>
+            </div>
+            <div class="stat-item stat-hidden">
+                <div class="stat-number">
+                    <span class="animated-stat" data-target="4250">0</span>
+                </div>
+                <h4 class="stat-text">biletów</h4>
+            </div>
+            <div class="stat-item stat-hidden">
+                <div class="stat-number">
+                    <span>+</span><span class="animated-stat" data-target="100000">0</span>
+                </div>
+                <h4 class="stat-text">innych prezentów</h4>
             </div>
         </div>
     </section>
 
-    <section id="zajawka-beauty">
-        <span class="section-label">Wyjątkowe zestawy i oferty</span>
-        <h2>Urodzinowa strefa Beauty</h2>
+    <section id="nowy-konkurs-sanah">
+        <span class="section-label">Konkurs jubileuszowy</span>
+        <h2>Wygraj bilet na Koncert Finałowy Sanah na Stadionach</h2>
+
+        <div class="new-koncert-info-wrapper">
+            <div class="nki-image">
+                <div class="placeholder-img" style="min-height: 250px;"><span>Grafika z lewej</span></div>
+            </div>
+            <div class="nki-content">
+                <div class="nki-details-column">
+                    <div class="nki-detail-row">
+                        <div class="placeholder-icon">Iko</div>
+                        <span>4 września 2026</span>
+                    </div>
+                    <div class="nki-detail-row">
+                        <div class="placeholder-icon">Iko</div>
+                        <span>PGE Narodowy w Warszawie</span>
+                    </div>
+                </div>
+                
+                <p class="nki-desc">
+                    Ten koncert to prezent i podziękowania, że obdarzacie nas zaufaniem każdego dnia. Bilety na to wydarzenie są ekskluzywne i można je zdobyć wyłącznie w ramach jubileuszowych akcji Douglas.
+                </p>
+                <a href="konkurs.html" class="cta-framed">Wygraj bilet</a>
+            </div>
+        </div>
+
+        <div class="jak-zdobyc-wrapper">
+            <span class="section-label">Zasady konkursu</span>
+            <h4>Jak zdobyć bilet?</h4>
+            <div class="steps-grid-static">
+                <div class="step-item-horizontal">
+                    <div class="placeholder-img"><span>Grafika</span></div>
+                    <p>1. Kup produkt w Douglas</p>
+                </div>
+                <div class="step-item-horizontal">
+                    <div class="placeholder-img"><span>Grafika</span></div>
+                    <p>2. Odpowiedz na pytanie tygodnia</p>
+                </div>
+                <div class="step-item-horizontal">
+                    <div class="placeholder-img"><span>Grafika</span></div>
+                    <p>3. Wygraj bilet na Koncert Finałowy Sanah na Stadionach</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="homepage-countdown-nested">
+            <div class="countdown-inner-container">
+                <span class="section-label countdown-label">Koniec aktualnej rundy zgłoszeń za:</span>
+                <h4 class="countdown-h4">Co tydzień nowa runda konkursu i nowe szanse na nagrody!</h4>
+                
+                <div class="counter-grid countdown-responsive">
+                    <div class="counter-box">
+                        <span class="counter-number" id="home-days">00</span>
+                        <span class="counter-label">DNI</span>
+                    </div>
+                    <div class="counter-box">
+                        <span class="counter-number" id="home-hours">00</span>
+                        <span class="counter-label">GODZ</span>
+                    </div>
+                    <div class="counter-box">
+                        <span class="counter-number" id="home-mins">00</span>
+                        <span class="counter-label">MIN</span>
+                    </div>
+                    <div class="counter-box">
+                        <span class="counter-number" id="home-secs">00</span>
+                        <span class="counter-label">SEK</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <a href="konkurs.html" class="cta-framed">Wygraj bilet</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="best-submissions-widget-placeholder"></div>
+
+    </section>
+
+    <section id="jubileusz-info">
+        <span class="section-label">25 lat Douglas</span>
+        <h2>Celebracja 25 lat to nie tylko koncert.</h2>
+        <p class="jubileusz-intro-text">
+            Jubileusz Douglas to wielkie święto piękna, na które składają się wyjątkowe wydarzenia w całej Polsce, akcje specjalne oraz dedykowane oferty.
+        </p>
+
+        <div class="jubileusz-content-split">
+            
+            <div class="jubileusz-split-col">
+                <div class="placeholder-img" style="height: 250px; padding: 0; overflow: hidden; border: none;">
+                    <img src="assets/mapa-draft.png" alt="Mapa eventów lokalnych" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <h4>Eventy lokalne</h4>
+                <p>Przygotowaliśmy dla Ciebie aż 25 wyjątkowych wydarzeń w największych miastach w Polsce. Odwiedź nasze Strefy Beauty, weź udział w darmowych konsultacjach makijażowych, spotkaj się z ekspertami i świętuj razem z nami podczas lokalnych eventów pełnych niespodzianek.</p>
+                <a href="eventy.html" class="cta-link" style="align-self: flex-start;">Zobacz wszystkie</a>
+            </div>
+
+            <div class="jubileusz-split-col">
+                <div class="placeholder-img" style="min-height: 250px;"><span>Grafika Promocje</span></div>
+                <h4>Promocje</h4>
+                <p>Odkryj wyjątkowe zniżki na zapachy i kosmetyki do pielęgnacji, przygotowane specjalnie z okazji naszego 25-lecia.</p>
+                <a href="https://www.douglas.pl" class="cta-link" style="align-self: flex-start;" target="_blank" rel="noopener noreferrer">Przejdź na douglas.pl</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="urodzinowa-strefa-beauty">
+        <h2>Urodzinowa strefa beauty</h2>
         
-        <div class="beauty-tabs">
+        <div class="beauty-tabs" style="margin-bottom: 1.5rem; border: none;">
             <a href="javascript:void(0)" class="active" data-tab="bestsellery">
-                <div class="placeholder-icon"><img src="assets/placeholder@0,25x.png" alt=""></div>
                 <span>Bestsellery</span>
             </a>
             <a href="javascript:void(0)" data-tab="ikony">
-                <div class="placeholder-icon"><img src="assets/placeholder@0,25x.png" alt=""></div>
                 <span>Ikony</span>
             </a>
             <a href="javascript:void(0)" data-tab="virale">
-                <div class="placeholder-icon"><img src="assets/placeholder@0,25x.png" alt=""></div>
                 <span>Virale</span>
             </a>
         </div>
 
-        <div class="product-carousel-wrapper">
-            <button class="carousel-arrow prev" onclick="document.getElementById('beauty-carousel').scrollBy({left: -200, behavior: 'smooth'})">‹</button>
-            <button class="carousel-arrow next" onclick="document.getElementById('beauty-carousel').scrollBy({left: 200, behavior: 'smooth'})">›</button>
+        <div class="promo-carousel-wrapper">
+            <button class="carousel-arrow prev" onclick="document.getElementById('promo-col-carousel').scrollBy({left: -180, behavior: 'smooth'})">‹</button>
+            <button class="carousel-arrow next" onclick="document.getElementById('promo-col-carousel').scrollBy({left: 180, behavior: 'smooth'})">›</button>
             
-            <div class="product-carousel" id="beauty-carousel">
+            <div class="promo-carousel" id="promo-col-carousel">
                 <div class="product-card">
                     <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
                     <div class="brand-name">Prada</div>
-                    <div class="product-name">Perfumy</div>
+                    <div class="product-name">Perfumy Paradoxe</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">459,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
                 </div>
                 <div class="product-card">
                     <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
                     <div class="brand-name">Armani</div>
-                    <div class="product-name">Woda toaletowa spray</div>
-                </div>
-                <div class="product-card">
-                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
-                    <div class="brand-name">Versace</div>
-                    <div class="product-name">Cień do powiek</div>
-                </div>
-                <div class="product-card">
-                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
-                    <div class="brand-name">L'Oréal</div>
-                    <div class="product-name">Błyszczyk do ust</div>
+                    <div class="product-name">Woda toaletowa My Way</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">389,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
                 </div>
                 <div class="product-card">
                     <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
                     <div class="brand-name">Lancôme</div>
-                    <div class="product-name">Tusz do rzęs</div>
+                    <div class="product-name">Tusz do rzęs Volume</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">169,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
+                </div>
+                <div class="product-card">
+                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
+                    <div class="brand-name">L'Oréal</div>
+                    <div class="product-name">Błyszczyk do ust Glow</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">69,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
+                </div>
+                <div class="product-card">
+                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
+                    <div class="brand-name">Dior</div>
+                    <div class="product-name">Podkład Forever</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">289,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
+                </div>
+                <div class="product-card">
+                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
+                    <div class="brand-name">Yves Saint Laurent</div>
+                    <div class="product-name">Woda perfumowana Libre</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">519,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
+                </div>
+                <div class="product-card">
+                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
+                    <div class="brand-name">Estée Lauder</div>
+                    <div class="product-name">Krem na noc Advanced Night</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">420,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
+                </div>
+                <div class="product-card">
+                    <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
+                    <div class="brand-name">Clinique</div>
+                    <div class="product-name">Krem nawilżający Moisture Surge</div>
+                    <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">179,00 zł</div>
+                    <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
                 </div>
             </div>
         </div>
 
-        <div class="carousel-pagination">
-            <span class="page-square active"></span>
-            <span class="page-square"></span>
-            <span class="page-square"></span>
-            <span class="page-square"></span>
-        </div>
-
-        <div style="margin-top: 1.5rem;">
-            <a href="beauty.html" class="cta-link">Sprawdź wszystkie</a>
-        </div>
+        <a href="beauty.html" class="cta-link" style="margin-top: 2rem; display: inline-block;">Zobacz wszystkie</a>
     </section>
 
     <section id="piekne-poczatki">
-        <span class="section-label">Nasza historia</span>
-        <h2>Piękne początki</h2>
+        <span class="section-label">25 lat Douglas</span>
+        <h2>Nasza historia</h2>
         <p class="history-intro">Od 25 lat inspirujemy do odkrywania piękna. Z okazji jubileuszu zapraszamy Cię do wspólnego świętowania i poznania naszej historii.</p>
         
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">1821 r.</div>
-                <div class="subtitle">Otwarcie fabryki artykułów kosmetycznych w Hamburgu</div>
-                <p style="margin-bottom: 0;">przez mydlarza John Sharpa Douglasa<br>ze Szkocji.</p>
-            </div>
+        <div class="v-timeline">
             
-            <div class="timeline-item">
-                <div class="timeline-date" style="font-size: 1.8rem; font-weight: 300; line-height: 1;">+</div>
-                <div style="margin-top: 0.5rem;">
-                    <a href="nasza-historia.html" class="cta-link" style="text-transform: none;">Wyświetl więcej</a>
+            <div class="v-timeline-item left">
+                <span class="homepage-timeline-date">10-01-2026</span>
+                <div class="homepage-timeline-content">
+                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
+                    <div class="htc-text">
+                        <h3>Otwarcie flagowego salonu w Katowicach</h3>
+                        <p>Rozpoczęliśmy rok jubileuszowy z przytupem, otwierając największą i najnowocześniejszą perfumerię w regionie.</p>
+                    </div>
                 </div>
             </div>
+
+            <div class="v-timeline-item right">
+                <span class="homepage-timeline-date">05-06-2024</span>
+                <div class="homepage-timeline-content">
+                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
+                    <div class="htc-text">
+                        <h3>Zatrudniamy 10 000 osób</h3>
+                        <p>Nasz zespół nieustannie rośnie. To dzięki naszym ekspertom możemy tak wspaniale dbać o piękno w całej Polsce.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="v-timeline-item left">
+                <span class="homepage-timeline-date">12-09-2020</span>
+                <div class="homepage-timeline-content">
+                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
+                    <div class="htc-text">
+                        <h3>Nowa jakość zakupów mobilnych</h3>
+                        <p>Wydaliśmy odświeżoną aplikację, która natychmiast stała się ulubionym narzędziem miłośników kosmetyków w kraju.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="v-timeline-item right">
+                <span class="homepage-timeline-date">01-08-2015</span>
+                <div class="homepage-timeline-content">
+                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
+                    <div class="htc-text">
+                        <h3>Start e-commerce douglas.pl</h3>
+                        <p>Kolejny krok w rozwoju marki na polskim rynku – oficjalne uruchomienie nowoczesnego sklepu internetowego.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="v-timeline-item left">
+                <span class="homepage-timeline-date">21-03-2001</span>
+                <div class="homepage-timeline-content">
+                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
+                    <div class="htc-text">
+                        <h3>Pierwsza perfumeria w Polsce</h3>
+                        <p>Wrocław to miasto, w którym rozpoczęła się nasza wielka polska przygoda z odkrywaniem piękna.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <a href="nasza-historia.html" class="cta-framed">Poznaj całą historię</a>
         </div>
     </section>
-
+    
     <div id="footer-placeholder"></div>
-
     <script src="main.js"></script>
+    <script>
+        fetch('best-submissions-widget.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('best-submissions-widget-placeholder').innerHTML = data);
+            
+        // Animacja liczb w sekcji statystyk
+        document.addEventListener("DOMContentLoaded", function() {
+            const statsSection = document.getElementById('jubileusz-stats');
+            const statElements = document.querySelectorAll('.animated-stat');
+            
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+            }
+
+            function animateValue(obj, start, end, duration) {
+                return new Promise(resolve => {
+                    let startTimestamp = null;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        obj.innerHTML = formatNumber(Math.floor(progress * (end - start) + start));
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        } else {
+                            resolve();
+                        }
+                    };
+                    window.requestAnimationFrame(step);
+                });
+            }
+
+            async function runAnimations() {
+                for (let i = 0; i < statElements.length; i++) {
+                    const target = parseInt(statElements[i].getAttribute('data-target'), 10);
+                    const parentItem = statElements[i].closest('.stat-item');
+                    
+                    if (parentItem.classList.contains('stat-hidden')) {
+                        parentItem.classList.remove('stat-hidden');
+                        await new Promise(r => setTimeout(r, 100)); 
+                    }
+                    
+                    const startVal = target > 2 ? target - 2 : 0;
+                    statElements[i].innerHTML = formatNumber(startVal);
+                    await animateValue(statElements[i], startVal, target, 350); 
+                    
+                    await new Promise(r => setTimeout(r, 150));
+                }
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    runAnimations();
+                    observer.disconnect(); 
+                }
+            }, { threshold: 0.5 });
+
+            if(statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+    </script>
 </body>
 </html>
