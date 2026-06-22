@@ -14,7 +14,7 @@
         .jubileusz-stats-grid {
             max-width: 700px;
             margin: 0 auto;
-            padding: 0 4rem;
+            padding: 0 1rem; /* Zmniejszone boczne marginesy na desktopie (z 4rem) */
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
@@ -22,14 +22,13 @@
         .stat-item {
             display: flex;
             flex-direction: column;
+            align-items: flex-start; /* Wyrównanie elementów do lewej na mobile */
+            text-align: left;        /* Wyrównanie tekstu do lewej na mobile */
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
-        .stat-item:nth-child(odd) {
-            align-items: flex-start;
-            text-align: left;
-        }
-        .stat-item:nth-child(even) {
-            align-items: flex-end;
-            text-align: right;
+        .stat-hidden {
+            opacity: 0;
+            visibility: hidden;
         }
         .stat-number {
             font-size: 3.5rem;
@@ -48,10 +47,9 @@
                 justify-content: space-between;
                 gap: 1rem;
             }
-            .stat-item:nth-child(odd),
-            .stat-item:nth-child(even) {
-                align-items: center;
-                text-align: center;
+            .stat-item {
+                align-items: center; /* Przywrócenie centrowania elementów na desktopie */
+                text-align: center;  /* Przywrócenie wyśrodkowania tekstu na desktopie */
                 flex: 1;
             }
         }
@@ -333,13 +331,6 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        .stat-item {
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-        .stat-hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
     </style>
 </head>
 <body>
@@ -530,7 +521,7 @@
                 <div class="product-card">
                     <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
                     <div class="brand-name">Armani</div>
-                    <div class="product-name">Woda toaletowa My Way</div>
+                    <div class="product-name">Woda toaletowa spray</div>
                     <div style="font-weight: bold; margin-top: 0.5rem; font-size: 1.05rem;">389,00 zł</div>
                     <a href="#" class="cta-link cta-small" style="margin-top: 0.5rem; align-self: flex-start;">Kup teraz</a>
                 </div>
