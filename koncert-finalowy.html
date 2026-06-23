@@ -6,17 +6,129 @@
     <title>Koncert Finałowy - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Układ wymuszający 100% na mobile i 50/50 na desktopie */
-        .split-layout {
+        /* Układ dla trzech kolumn "Koncert finałowy to nie wszystko" bez ramek */
+        .more-attractions-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: center;
+            gap: 3rem;
+            margin-top: 3rem;
         }
         @media (min-width: 768px) {
-            .split-layout {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
+            .more-attractions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .attraction-text-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .attraction-text-block h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .attraction-text-block p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        /* --- STYLIZACJA SLIDERA "CO CZEKA NA CIEBIE NA STADIONIE" --- */
+        .stadion-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .stadion-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .stadion-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .stadion-card {
+            flex: 0 0 85%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .stadion-content-box {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            border: 1px solid var(--border-color, #ccc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #e0e0e0;
+            color: var(--text-muted, #777);
+            font-weight: bold;
+            transition: border-color 0.2s;
+        }
+        .stadion-card:hover .stadion-content-box {
+            border-color: var(--text-color, #000);
+        }
+        
+        .stadion-meta {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+        }
+        .stadion-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--text-color, #000);
+        }
+        
+        .stadion-carousel-wrapper .carousel-arrow {
+            position: absolute;
+            top: 175px; 
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color, #ccc);
+            width: 44px;
+            height: 48px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .stadion-carousel-wrapper .carousel-arrow:hover {
+            background: #fff;
+        }
+        .stadion-carousel-wrapper .carousel-arrow.prev { left: -10px; }
+        .stadion-carousel-wrapper .carousel-arrow.next { right: -10px; }
+
+        @media (min-width: 768px) {
+            .stadion-card {
+                flex: 0 0 calc(50% - 0.75rem);
+            }
+            .stadion-carousel-wrapper .carousel-arrow.prev { left: -22px; }
+            .stadion-carousel-wrapper .carousel-arrow.next { right: -22px; }
+        }
+
+        @media (min-width: 1024px) {
+            .stadion-card {
+                flex: 0 0 calc(33.333% - 1rem); 
             }
         }
     </style>
@@ -26,61 +138,192 @@
     <!-- Globalny Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Grafika Hero -->
-    <section id="history-hero"></section>
+    <!-- Zmieniona sekcja Hero z tłem i dwoma CTA -->
+    <section id="hero" style="background-image: url('assets/placeholder@0,25x.png'); background-size: cover; background-position: center; min-height: 80vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 4rem 10%;">
+        <div class="hero-content" style="max-width: 800px; text-align: left;">
+            <h1 style="color: var(--text-color); margin-bottom: 1rem; line-height: 1.2;">Wielki Finał 25-lecia Douglas <br>– Sanah na PGE Narodowym.</h1>
+            <p style="font-size: 1.15rem; color: var(--text-color); margin-bottom: 2.5rem; font-weight: 500;">4 września 2026 r. | PGE Narodowy w Warszawie</p>
+            <div class="hero-ctas" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="konkurs.html" class="cta-link">Weź udział w konkursie</a>
+                <a href="konkurs.html" class="cta-link">Wygraj bilet</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Główna zawartość -->
-    <main id="koncert-main-section" style="max-width: 1200px; margin: 0 auto; padding: 3rem 1rem 5rem 1rem;">
+    <main>
         
-        <!-- Nagłówek i opis -->
-        <div style="margin-bottom: 4rem; max-width: 800px;">
-            <h1 style="margin-bottom: 1rem; line-height: 1.1;">Wielki Finał 25-lecia Douglas <br>– Sanah na PGE Narodowym.</h1>
-            <p style="font-size: 1.15rem; color: var(--text-color); line-height: 1.6;">
-                Jako partner tytularny trasy koncertowej Sanah, zapraszamy Cię do wspólnego celebrowania naszych 25. urodzin. Przygotowaliśmy tysiące biletów, byś mógł/mogła na żywo usłyszeć największe przeboje artystki i bawić się razem z nami!
+        <!-- Sekcja: Dlaczego świętujemy tak głośno? -->
+        <section style="max-width: 1200px; margin: 0 auto; padding: 4rem 1rem 2rem 1rem;">
+            <h2 style="margin-bottom: 1rem; text-align: left;">Dlaczego świętujemy tak głośno?</h2>
+            <p style="font-size: 1.15rem; max-width: 800px; line-height: 1.6; text-align: left;">
+                To wyjątkowy, stadionowy koncert, to nasz prezent i podziękowanie za zaufanie, jakim nas obdarzacie każdego dnia. Od 25 lat budujemy razem historię piękna w Polsce.
             </p>
-        </div>
+        </section>
 
-        <!-- Sekcje z atutami koncertu (Zdjęcie + Tekst) -->
-        <div class="concert-features-container">
+        <!-- Sekcja: Zaplanuj w kalendarzu (z ikonkami) -->
+        <section style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 4rem 1rem;">
+            <div class="concert-feature-row">
+                <div class="concert-feature-img placeholder-img"><span>KV z Sanah</span></div>
+                <div class="concert-feature-text">
+                    <h3 style="margin-bottom: 1.5rem;">Zaplanuj w kalendarzu</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="placeholder-icon" style="width: 32px; height: 32px; background-color: #e0e0e0; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0;">Iko</div>
+                            <span style="font-weight: 600; font-size: 1.05rem; line-height: 1.4;">4 września 2026 r.</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="placeholder-icon" style="width: 32px; height: 32px; background-color: #e0e0e0; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--text-muted); flex-shrink: 0;">Iko</div>
+                            <span style="font-weight: 600; font-size: 1.05rem; line-height: 1.4;">PGE Narodowy w Warszawie</span>
+                        </div>
+                    </div>
+
+                    <p>Finałowy koncert trasy to wielkie muzyczne święto. Przygotuj się na spektakularne show i mnóstwo urodzinowych niespodzianek przygotowanych specjalnie dla naszych gości.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sekcja: Co czeka na Ciebie na stadionie (Slider w stylu zgłoszeń) -->
+        <section style="background-color: #ffffff; padding: 4rem 1rem; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                
+                <h2 style="margin-bottom: 1rem; text-align: left;">Co czeka na Ciebie na stadionie?</h2>
+                <p style="font-size: 1.15rem; margin-bottom: 3rem; text-align: left; max-width: 800px; line-height: 1.6;">
+                    Douglas przygotowuje dla uczestników przed koncertem i w trakcie jego trwania dedykowane strefy, w których będzie można razem świętować ten jubileusz.
+                </p>
+                
+                <div class="stadion-carousel-wrapper">
+                    <button class="carousel-arrow prev" onclick="document.getElementById('stadion-carousel').scrollBy({left: -350, behavior: 'smooth'})">‹</button>
+                    <button class="carousel-arrow next" onclick="document.getElementById('stadion-carousel').scrollBy({left: 350, behavior: 'smooth'})">›</button>
+
+                    <div class="stadion-carousel" id="stadion-carousel">
+                        
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Urodzinowa strefa beauty</span>
+                            </div>
+                        </div>
+
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Strefa szybkich metamorfoz</span>
+                            </div>
+                        </div>
+
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Makijaże gwiazd</span>
+                            </div>
+                        </div>
+
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Testowanie nowości</span>
+                            </div>
+                        </div>
+
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Fotosfera</span>
+                            </div>
+                        </div>
+
+                        <div class="stadion-card">
+                            <div class="stadion-content-box">
+                                <span>Grafika</span>
+                            </div>
+                            <div class="stadion-meta">
+                                <span class="stadion-title">Instalacje</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Sekcja: Wygraj bilety (Wyrównana do lewej) -->
+        <section style="max-width: 1200px; margin: 0 auto; padding: 5rem 1rem; text-align: left;">
+            <h2 style="text-align: left;">Wygraj jeden z biletów</h2>
+            <p style="max-width: 800px; margin: 0 0 4rem 0; font-size: 1.15rem; line-height: 1.6;">
+                Są to ekskluzywne bilety, które można zdobyć jedynie w ramach wydarzeń jubileuszowych.
+            </p>
             
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                
+                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem;">
+                    <div class="placeholder-img" style="width: 100%; aspect-ratio: 1 / 1; max-width: 400px; border-radius: 0;"><span>Grafika Nagrody 1</span></div>
+                    <span style="font-weight: bold; font-size: 1.2rem;">4000 biletów standardowych</span>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem;">
+                    <div class="placeholder-img" style="width: 100%; aspect-ratio: 1 / 1; max-width: 400px; border-radius: 0;"><span>Grafika Nagrody 2</span></div>
+                    <span style="font-weight: bold; font-size: 1.2rem;">250 biletów VIP</span>
+                </div>
+
+            </div>
+            
+            <a href="konkurs.html" class="cta-framed" style="display: inline-block; padding: 0.8rem 1.5rem; border: 2px solid var(--text-color); color: var(--text-color); text-transform: uppercase; font-weight: bold; text-decoration: none; font-size: 0.9rem; transition: all 0.2s;">Wygraj bilet</a>
+        </section>
+
+        <!-- Sekcja Laureatów -->
+        <section style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
             <div class="concert-feature-row">
-                <div class="concert-feature-img placeholder-img"><span>Grafika PGE Narodowy</span></div>
+                <div class="concert-feature-img placeholder-img"><span>Grafika Laureaci</span></div>
                 <div class="concert-feature-text">
-                    <h3>Zaplanuj w kalendarzu</h3>
-                    <p>Finałowy koncert trasy odbędzie się 3 września 2026 roku na PGE Narodowym w Warszawie. Przygotuj się na spektakularne show i mnóstwo urodzinowych niespodzianek przygotowanych specjalnie dla naszych gości.</p>
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Poznaj laureatów ostatniego etapu</h2>
+                    <p style="font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.6;">Zobacz komu się poszczęściło! Kto wygrał? Kto jedzie na koncert?</p>
+                    <a href="wyniki.html" class="cta-link">Zobacz wyniki</a>
                 </div>
             </div>
+        </section>
 
-            <div class="concert-feature-row">
-                <div class="concert-feature-img placeholder-img"><span>Grafika Strefa Premium</span></div>
-                <div class="concert-feature-text">
-                    <h3>Oglądaj w strefie Premium</h3>
-                    <p>W strefie Premium jesteś blisko sceny i artystki! Masz zagwarantowane wygodne miejsce siedzące o doskonałej widoczności, a także dostęp do ekskluzywnej strefy z pysznym poczęstunkiem.</p>
-                    <a href="konkurs.html#formularz-zgloszeniowy" class="cta-link">Weź udział w konkursie</a>
-                </div>
-            </div>
+        <!-- Sekcja: Koncert finałowy to nie wszystko (Styl ze strony głównej) -->
+        <section id="wiecej-atrakcji" style="background-color: #fcfcfc; border-top: 1px solid var(--border-color); padding: 5rem 1rem; margin-top: 2rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                
+                <span class="section-label">25 lat Douglas</span>
+                <h2 style="font-size: 2rem; margin-bottom: 1rem; text-align: left;">Koncert finałowy to nie wszystko!</h2>
+                <p style="font-size: 1.1rem; color: var(--text-color); max-width: 800px; text-align: left; margin-bottom: 4rem;">
+                    Mamy dla Ciebie wiele innych wydarzeń. Świętuj z nami jubileusz 25-lecia.
+                </p>
+                
+                <div class="more-attractions-grid">
+                    
+                    <div class="attraction-text-block">
+                        <h4>25 dodatkowych eventów w całej Polsce</h4>
+                        <p>Odwiedź nasze lokalne wydarzenia i skorzystaj z porad ekspertów.</p>
+                        <a href="eventy.html" class="cta-link cta-small">Sprawdź eventy</a>
+                    </div>
 
-            <div class="concert-feature-row">
-                <div class="concert-feature-img placeholder-img"><span>Grafika Płyta Koncertu</span></div>
-                <div class="concert-feature-text">
-                    <h3>Wygraj 1 z 1000 biletów</h3>
-                    <p>Wygraj bilet, dołącz do tłumu fanów i baw się razem z tysiącami innych osób na płycie PGE Narodowego, tworząc niezapomniane wspomnienia w samym centrum muzycznych emocji.</p>
-                    <a href="konkurs.html#formularz-zgloszeniowy" class="cta-link">Weź udział w konkursie</a>
-                </div>
-            </div>
+                    <div class="attraction-text-block">
+                        <h4>Strefa Beauty</h4>
+                        <p>Promocje, okazje i zniżki na zakupy przygotowane specjalnie z okazji jubileuszu.</p>
+                        <a href="beauty.html" class="cta-link cta-small">Odkryj strefę</a>
+                    </div>
 
-        </div>
+                    <div class="attraction-text-block">
+                        <h4>Historia Douglas</h4>
+                        <p>Przypomnij sobie nasze początki w Polsce i najważniejsze momenty 25-lecia.</p>
+                        <a href="nasza-historia.html" class="cta-link cta-small">Poznaj historię</a>
+                    </div>
 
-        <!-- Nowa Sekcja Laureatów - Tekst po lewej, używająca natywnej klasy dla pełnej spójności stylów -->
-        <section id="oni-wygrali" style="padding: 0; margin-top: 5rem; margin-bottom: 3rem;">
-            <div class="split-layout">
-                <div class="concert-feature-text">
-                    <h3>Oni już wygrali bilety</h3>
-                    <p>Kilkaset osób z całej Polski już dołączyło do grona szczęśliwców i otrzymało swoje wymarzone bilety na wielki finał! Zobacz pełną listę nagrodzonych uczestników z poszczególnych tygodni konkursu, sprawdź komu udało się wygrać i przekonaj się, czy na liście jest Twoje nazwisko.</p>
-                    <a href="wyniki.html" class="cta-link">Sprawdź wyniki</a>
-                </div>
-                <div class="concert-feature-img placeholder-img" style="width: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; background: #eaeaea; border: 1px solid var(--border-color);">
-                    <span style="color: var(--text-muted); font-weight: bold;">Grafika laureaci</span>
                 </div>
             </div>
         </section>
