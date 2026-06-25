@@ -1,3 +1,10 @@
+<style>
+    /* Domyślnie ukrywamy linki do regulaminu i polityki na wszystkich stronach */
+    .konkurs-only-link {
+        display: none;
+    }
+</style>
+
 <section id="pre-footer" class="pre-footer-section">
     <div class="pre-footer-container">
         <h3>Potrzebujesz pomocy w zgłoszeniu do konkursu? Nie wiesz jak zapisać się na wydarzenie?</h3>
@@ -7,161 +14,13 @@
 
 <footer>
     <div class="footer-container">
-        
         <div class="footer-links">
-            <a href="regulamin.html">Regulamin konkursu</a>
-            <a href="polityka-prywatnosci.html">Polityka prywatności</a>
-            <a href="https://www.douglas.pl" target="_blank" rel="noopener noreferrer">douglas.pl</a>
+            <a href="polityka-prywatnosci.html" class="konkurs-only-link">Polityka prywatności</a>
+            <a href="#">Dane firmy</a>
+            <a href="#">Alternatywne metody rozwiązywania sporów</a>
+            <a href="regulamin.html" class="konkurs-only-link">Regulamin</a>
+            <a href="#">Ustawienia plików cookies</a>
         </div>
-
-        <div class="footer-socials">
-            <a href="#" class="social-icon" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="#" class="social-icon" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-            </a>
-        </div>
-
         <p class="copyright">&copy; 2026 Perfumeria Douglas Polska Sp. z o.o.</p>
     </div>
 </footer>
-
-<style>
-    /* Pre-footer */
-    .pre-footer-section {
-        background-color: #f4f4f4;
-        padding: 3rem 1rem;
-        text-align: center;
-        border-top: 1px solid var(--border-color, #ccc);
-        margin-bottom: 2rem;
-    }
-    
-    .pre-footer-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    .pre-footer-section h3 {
-        font-size: 1.2rem;
-        font-weight: 400;
-        margin-bottom: 0;
-        text-align: center;
-        line-height: 1.5;
-    }
-
-    /* Główna stopka */
-    footer {
-        padding: 3rem 1rem;
-        background-color: #f4f4f4;
-    }
-    
-    .footer-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
-    /* Układ linków */
-    .footer-links {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        font-size: 0.95rem;
-        font-weight: 400;
-        width: 100%;
-    }
-    
-    .footer-links a {
-        color: var(--text-color, #000);
-        text-decoration: none;
-        transition: text-decoration 0.2s ease;
-    }
-    
-    .footer-links a:hover {
-        text-decoration: underline;
-        color: inherit;
-    }
-
-    /* Układ Social Media */
-    .footer-socials {
-        display: flex;
-        gap: 1.5rem;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .social-icon {
-        color: var(--text-color, #000);
-        transition: color 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .social-icon:hover {
-        color: var(--hover-orange, #FFA500);
-    }
-    
-    /* Copyright */
-    .copyright {
-        color: var(--text-muted, #777);
-        font-size: 0.9rem;
-        margin-bottom: 0;
-        width: 100%;
-    }
-
-    /* Responsywność dla Tabletów i Desktopów */
-    @media (min-width: 768px) {
-        .footer-container {
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            text-align: left;
-        }
-        
-        .footer-links {
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            flex: 1 1 100%;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-socials {
-            flex: 1;
-            justify-content: flex-start;
-        }
-        
-        .copyright {
-            flex: 1;
-            text-align: right;
-        }
-    }
-
-    @media (min-width: 1024px) {
-        .footer-links {
-            flex: auto;
-            justify-content: flex-start;
-            margin-bottom: 0;
-        }
-        
-        .footer-socials {
-            flex: auto;
-            justify-content: center;
-        }
-    }
-</style>

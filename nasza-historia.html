@@ -5,279 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nasza Historia - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* --- STYLE DLA OSI CZASU --- */
-        .homepage-timeline-date {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            display: block;
-            text-align: left;
-        }
-
-        @media (min-width: 768px) {
-            .v-timeline-item.left .homepage-timeline-date {
-                text-align: right;
-            }
-        }
-
-        .homepage-timeline-content {
-            display: flex;
-            flex-direction: column;
-            background: #fff;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            width: 100%; 
-        }
-        
-        .htc-media {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* Proporcje 16:9 na życzenie */
-            background-color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--border-color);
-            font-weight: bold;
-            color: var(--text-muted);
-            position: relative;
-        }
-        
-        .htc-text {
-            padding: 1.5rem;
-            text-align: left;
-        }
-        
-        .htc-text h3 {
-            font-size: 1.15rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .htc-text p {
-            font-size: 0.95rem;
-            margin-bottom: 0;
-            line-height: 1.5;
-        }
-
-        .hidden-timeline-item {
-            display: none;
-        }
-
-        /* --- ZAGĘSZCZANIE OSI CZASU (MIJANKA NA DESKTOPIE) --- */
-        @media (min-width: 768px) {
-            .v-timeline {
-                display: flow-root; /* Clearfix obejmujący floaty */
-            }
-            .v-timeline-item {
-                margin-bottom: 2rem;
-            }
-            .v-timeline-item.left {
-                float: left;
-                clear: left;
-                left: 0 !important; /* Nadpisuje ewentualne style globalne */
-            }
-            .v-timeline-item.right {
-                float: right;
-                clear: right;
-                left: 0 !important; /* Nadpisuje przesunięcie 50% ze styli globalnych */
-            }
-            /* Pierwszy element po prawej przesunięty w dół by zniwelować puste przestrzenie */
-            .v-timeline-item.right:nth-child(2) {
-                margin-top: 120px; 
-            }
-        }
-
-        /* --- DROPDOWN W OSI CZASU ZE SPADAJĄCYM NAGŁÓWKIEM --- */
-        .timeline-dropdown-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 1.5rem;
-            background: #fff;
-            border: none;
-            cursor: pointer;
-            transition: padding 0.4s ease;
-        }
-        .timeline-dropdown-header:hover {
-            background: #fcfcfc;
-        }
-        
-        /* Gdy dropdown jest aktywny, nagłówek udaje H3 */
-        .timeline-dropdown.active .timeline-dropdown-header {
-            padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-            background: #fff;
-        }
-
-        /* Animacja wypychania nagłówka pod grafikę */
-        .anim-dropdown-section {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .anim-dropdown-section > .anim-inner {
-            overflow: hidden;
-        }
-        .timeline-dropdown.active .anim-dropdown-section {
-            grid-template-rows: 1fr;
-        }
-
-        /* --- WEWNĘTRZNA ROZWIJACZKA (Pokaż więcej) --- */
-        .inner-expand-trigger {
-            font-size: 0.85rem;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            font-weight: bold;
-            background: none;
-            color: var(--text-color);
-            border-bottom: 2px solid var(--text-color);
-            padding-bottom: 2px;
-            display: inline-block;
-        }
-        .inner-expand-trigger:hover {
-            color: var(--hover-orange);
-            border-color: var(--hover-orange);
-        }
-
-        /* --- SLIDER WEWNĄTRZ BOKSU OSI CZASU --- */
-        .timeline-slider-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
-        .timeline-slider-container::-webkit-scrollbar {
-            display: none;
-        }
-        .timeline-slide {
-            flex: 0 0 100%;
-            scroll-snap-align: start;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #d5d5d5;
-            border-right: 1px solid var(--border-color);
-        }
-        .ts-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid var(--border-color);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 5;
-            font-weight: bold;
-        }
-        .ts-arrow.prev { left: 10px; }
-        .ts-arrow.next { right: 10px; }
-
-
-        /* --- SEKCJE STANDARDOWE (Działalność / Europa) --- */
-        .two-cols-section {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            max-width: 1000px;
-            margin: 5rem auto;
-        }
-        @media (min-width: 768px) {
-            .two-cols-section {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        .info-card {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-        .info-card .placeholder-img {
-            aspect-ratio: 16 / 9;
-            margin-bottom: 1.5rem;
-            border-radius: 0;
-        }
-        .info-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-
-        /* --- KARUZELA KREACJI --- */
-        .kreacje-carousel-wrapper {
-            position: relative;
-            width: 100%;
-            margin-bottom: 2rem;
-        }
-        .kreacje-carousel {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            padding-bottom: 1rem;
-        }
-        .kreacje-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        .kreacje-card {
-            flex: 0 0 85%;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-        }
-        .kreacje-img {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            background: #e0e0e0;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--text-muted);
-            transition: border-color 0.2s;
-        }
-        .kreacje-card:hover .kreacje-img {
-            border-color: var(--text-color);
-        }
-        .kreacje-carousel-wrapper .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--border-color);
-            width: 44px;
-            height: 48px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .kreacje-carousel-wrapper .carousel-arrow:hover { background: #fff; }
-        .kreacje-carousel-wrapper .carousel-arrow.prev { left: -10px; }
-        .kreacje-carousel-wrapper .carousel-arrow.next { right: -10px; }
-
-        @media (min-width: 768px) {
-            .kreacje-card { flex: 0 0 calc(33.333% - 1rem); }
-            .kreacje-carousel-wrapper .carousel-arrow.prev { left: -22px; }
-            .kreacje-carousel-wrapper .carousel-arrow.next { right: -22px; }
-        }
-    </style>
 </head>
 <body>
 
@@ -288,572 +15,111 @@
     <section id="history-main-section">
         
         <div id="history-intro-page">
-            <h1>25 lat Douglas</h1>
+            <h2>Piękne początki</h2>
             <p>Od 25 lat inspirujemy do odkrywania piękna. Z okazji jubileuszu zapraszamy Cię do wspólnego świętowania i poznania naszej historii. Prześledź, jak ewoluowaliśmy i jakie kamienie milowe osiągnęliśmy przez te lata wspólnie z naszymi Klientami.</p>
+        </div>
+
+        <div class="beauty-tabs timeline-tabs" style="justify-content: center; margin-bottom: 3rem;">
+            <a href="javascript:void(0)" class="active" data-tab="oldest">
+                <span>Od najstarszych</span>
+            </a>
+            <a href="javascript:void(0)" data-tab="newest">
+                <span>Od najnowszych</span>
+            </a>
+            <a href="javascript:void(0)" data-tab="last10">
+                <span>Ostatnie 10 lat</span>
+            </a>
+            <a href="javascript:void(0)" data-tab="douglas-pl">
+                <span>Douglas w Polsce</span>
+            </a>
         </div>
 
         <div class="v-timeline">
             
-            <!-- ELEMENT 1 (Domyślnie rozwinięty + Wewnętrzna Rozwijaczka) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2026 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                    <div class="htc-text">
+            <div class="v-timeline-item left" data-year="1821" data-pl="false">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">1821 r.</div>
+                        <h3>Otwarcie fabryki w Hamburgu</h3>
+                        <p>John Sharp Douglas, mydlarz ze Szkocji, zakłada pierwszą fabrykę artykułów kosmetycznych.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="v-timeline-item right" data-year="1910" data-pl="false">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">1910 r.</div>
+                        <h3>Pierwsza Perfumeria</h3>
+                        <p>Otwarcie pierwszej perfumerii pod kultową już nazwą Douglas, wyznaczającej nowe standardy w branży beauty.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="v-timeline-item left" data-year="2001" data-pl="true">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">2001 r.</div>
+                        <h3>Start w Polsce</h3>
+                        <p>Otwarcie pierwszej perfumerii Douglas w Polsce. Właśnie w tym roku rozpoczyna się nasza piękna, lokalna historia.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="v-timeline-item right" data-year="2011" data-pl="true">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">2011 r.</div>
+                        <h3>Sklep internetowy</h3>
+                        <p>Uruchomienie sklepu online, dzięki któremu nasze produkty stały się dostępne dla Klientów z każdego zakątka Polski.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="v-timeline-item left" data-year="2015" data-pl="true">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">2015 r.</div>
+                        <h3>Nowe marki na wyłączność</h3>
+                        <p>Wprowadzenie do oferty unikalnych marek premium, dostępnych wyłącznie w naszych perfumeriach.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="v-timeline-item right" data-year="2021" data-pl="true">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">2021 r.</div>
+                        <h3>Aplikacja mobilna</h3>
+                        <p>Premiera nowej aplikacji ułatwiającej zakupy i oferującej wirtualne doradztwo dzięki rozszerzonej rzeczywistości.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="v-timeline-item left" data-year="2026" data-pl="true">
+                <div class="v-timeline-content">
+                    <div class="timeline-sq-img">Foto</div>
+                    <div class="timeline-text-content">
+                        <div class="v-timeline-date">2026 r.</div>
                         <h3>25 lat w Polsce</h3>
                         <p>Świętujemy wyjątkowy jubileusz! Ćwierć wieku inspiracji i tysiące produktów dostarczonych dla naszych lojalnych klientów.</p>
-                        
-                        <div class="inner-expand-content" style="display:none; margin-top:1rem; margin-bottom:1.5rem;">
-                            <p style="font-size:0.95rem; line-height:1.5; margin:0;">Z tej okazji zorganizowaliśmy serię wyjątkowych wydarzeń lokalnych, wprowadziliśmy ekskluzywne kolekcje i przygotowaliśmy wielki finał na stadionie PGE Narodowym z udziałem Sanah.</p>
-                        </div>
-                        <button class="inner-expand-trigger">Pokaż więcej ↓</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 2 (Domyślnie rozwinięty) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2025 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                    <div class="htc-text">
-                        <h3>Nowy flagowy salon</h3>
-                        <p>Otwarcie największej perfumerii w Europie Środkowo-Wschodniej, wyznaczającej zupełnie nowe standardy w retailu kosmetycznym.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 3 (Domyślnie rozwinięty + Rozwijaczka z DUŻĄ ilością tekstu) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2024 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                    <div class="htc-text">
-                        <h3>Zatrudniamy 10 000 osób</h3>
-                        <p>Nasz zespół nieustannie rośnie. To dzięki naszym ekspertom możemy tak wspaniale dbać o piękno w całej Europie i Polsce.</p>
-                        
-                        <div class="inner-expand-content" style="display:none; margin-top:1rem; margin-bottom:1.5rem;">
-                            <p style="font-size:0.95rem; line-height:1.5; margin:0;">
-                                Inwestujemy w rozwój i szkolenia naszego personelu. Co roku otwieramy nowe akademie wizażu i pielęgnacji, by świadczyć usługi na najwyższym poziomie. Nasza misja to nie tylko sprzedaż, ale również edukacja i doradztwo. Nasi pracownicy regularnie uczestniczą w międzynarodowych targach i warsztatach, poznając najnowsze trendy oraz innowacyjne składniki kosmetyków. 
-                                <br><br>
-                                Ponadto wprowadziliśmy zaawansowane szkolenia online dostępne 24/7 dla każdego pracownika, by dzielić się wiedzą i pasją niezależnie od lokalizacji. Wierzymy, że sukces marki budują przede wszystkim kompetentni, zmotywowani i uśmiechnięci ludzie.
-                                <br><br>
-                                Dzięki temu każda wizyta w naszej perfumerii to gwarancja profesjonalnej i spersonalizowanej obsługi, która odpowiada na unikalne potrzeby każdej osoby odwiedzającej nasze salony. To właśnie nasza ogromna, 10-tysięczna rodzina sprawia, że historia Douglas wciąż trwa.
-                            </p>
-                        </div>
-                        <button class="inner-expand-trigger">Pokaż więcej ↓</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 4 (Domyślnie rozwinięty) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2023 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                    <div class="htc-text">
-                        <h3>Rozwój marek własnych</h3>
-                        <p>Wprowadzenie innowacyjnej linii kosmetyków pielęgnacyjnych Douglas Collection, odpowiadającej na potrzeby najbardziej wymagających cer.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 5 (Domyślnie rozwinięty + Wewnętrzna Rozwijaczka + Slider) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2022 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media">
-                        <button class="ts-arrow prev" onclick="this.nextElementSibling.scrollBy({left: -300, behavior: 'smooth'})">‹</button>
-                        <div class="timeline-slider-container">
-                            <div class="timeline-slide"><span>Zdjęcie 1</span></div>
-                            <div class="timeline-slide"><span>Zdjęcie 2</span></div>
-                            <div class="timeline-slide"><span>Zdjęcie 3</span></div>
-                        </div>
-                        <button class="ts-arrow next" onclick="this.previousElementSibling.scrollBy({left: 300, behavior: 'smooth'})">›</button>
-                    </div>
-                    <div class="htc-text">
-                        <h3>Zrównoważony rozwój</h3>
-                        <p>Rozpoczynamy kampanię na rzecz ekologii – redukcja plastiku w opakowaniach o 30% oraz wprowadzenie stacji uzupełniania perfum.</p>
-
-                        <div class="inner-expand-content" style="display:none; margin-top:1rem; margin-bottom:1.5rem;">
-                            <p style="font-size:0.95rem; line-height:1.5; margin:0;">Zrównoważony rozwój stał się filarem naszych działań. Czyste składy i cruelty-free to teraz podstawa naszej oferty marek własnych.</p>
-                        </div>
-                        <button class="inner-expand-trigger">Pokaż więcej ↓</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 6 (Domyślnie rozwinięty) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2021 r.</span>
-                <div class="homepage-timeline-content">
-                    <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                    <div class="htc-text">
-                        <h3>Nowa Aplikacja mobilna</h3>
-                        <p>Premiera innowacyjnej aplikacji ułatwiającej zakupy i oferującej wirtualne doradztwo dzięki technologii rozszerzonej rzeczywistości.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 7 (Dropdown animowany, Pełen tekst, Spadający nagłówek) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2020 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Nowy koncept wizualny</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Rozpoczęliśmy proces modernizacji naszych perfumerii, wprowadzając nowoczesny design i specjalne strefy usługowe.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Nowe wnętrza to przede wszystkim jasne pastelowe kolory, ekologiczne materiały i podział na niezwykle intuicyjne strefy tematyczne ułatwiające nawigację.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 8 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2019 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Rozwój stref SPA</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>W wybranych perfumeriach otwieramy luksusowe kabiny zabiegowe, oferując zaawansowane zabiegi na twarz i ciało.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 9 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2018 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">100. perfumeria w Polsce</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Kolejny ważny kamień milowy w ekspansji na polskim rynku – otwarcie setnego salonu stacjonarnego.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Z każdym nowym salonem stajemy się bliżej naszych klientów, nieustannie inwestując w obecność w najlepszych galeriach handlowych w całym kraju.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 10 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2017 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Wprowadzenie usług makijażu</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Nasze perfumerie przekształcają się ze sklepów w miejsca, gdzie profesjonalni makijażyści służą poradą i wykonują usługi na miejscu.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 11 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2016 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Nowe marki premium</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Rozszerzamy nasze portfolio o ekskluzywne brandy, które wcześniej były niedostępne na polskim rynku.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Z dumą wprowadziliśmy do sprzedaży perfumy niszowe i kultowe kosmetyki makijażowe uwielbiane przez celebrytki na całym świecie.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 12 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2015 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Kolekcja na wyłączność</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Stajemy się głównym dystrybutorem kosmetyków selektywnych, posiadających w swoim portfolio największą liczbę marek na wyłączność.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 13 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2014 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Program Lojalnościowy</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Uruchomienie karty Douglas Beauty Card, która natychmiast stała się ulubionym narzędziem dla miłośników piękna.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Zaledwie w rok od premiery, do naszego programu zapisało się ponad milion osób, ciesząc się stałymi zniżkami i niespodziankami z okazji urodzin.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 14 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2013 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Rozwój e-commerce</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Gruntowna przebudowa i powiększenie sklepu internetowego. Wygodne zakupy dostępne 24/7 dla każdego.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 15 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2012 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Pierwsza kampania TV</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Rusza nasza pierwsza wielka kampania telewizyjna, budująca ogólnopolską świadomość marki.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Spoty z charakterystycznym błękitem i uśmiechniętymi doradcami zapisały się w pamięci Polaków na długie lata.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 16 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2011 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Start sklepu internetowego</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Oficjalne uruchomienie nowoczesnego portalu douglas.pl. Otworzyliśmy nowy kanał dystrybucji, by być jeszcze bliżej Ciebie.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 17 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2009 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">50. perfumeria</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Nasz dynamiczny rozwój zaowocował otwarciem pięćdziesiątego sklepu stacjonarnego na mapie Polski.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Tym samym zostaliśmy największą i najszybciej rozwijającą się siecią luksusowych perfumerii w kraju.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 18 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2006 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Pięciolecie na rynku</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Z powodzeniem podbiliśmy serca Polek i Polaków. Organizujemy pierwsze obchody urodzinowe we wszystkich miastach z naszymi salonami.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 19 (Dropdown z pełnym tekstem) -->
-            <div class="v-timeline-item left">
-                <span class="homepage-timeline-date">2003 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie / Wideo</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Ekspansja w całej Polsce</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Douglas pojawia się w Warszawie, Poznaniu, Krakowie i Gdańsku, wprowadzając nową jakość do lokalnych galerii handlowych.</p>
-                                <p style="font-size:0.95rem; line-height:1.5; margin-top:1rem;">Klienci ustawiali się w długich kolejkach, by po raz pierwszy móc przetestować luksusowe zapachy i marki bezpośrednio z europejskich stolic.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ELEMENT 20 (Dropdown) -->
-            <div class="v-timeline-item right">
-                <span class="homepage-timeline-date">2001 r.</span>
-                <div class="homepage-timeline-content timeline-dropdown">
-                    
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-media"><span>Zdjęcie Historyczne</span></div>
-                        </div>
-                    </div>
-
-                    <button class="timeline-dropdown-header">
-                        <span style="font-weight:bold; font-size:1.15rem; text-align:left; font-family: inherit;">Początki w Polsce</span>
-                        <span class="acc-icon" style="transition: transform 0.4s ease;">▼</span>
-                    </button>
-
-                    <div class="anim-dropdown-section">
-                        <div class="anim-inner">
-                            <div class="htc-text" style="padding-top: 0;">
-                                <p>Wrocław to miasto, w którym oficjalnie rozpoczęła się nasza wielka, polska przygoda z odkrywaniem piękna i luksusu.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
-
-        <!-- SEKCJA: DZIAŁALNOŚĆ CHARYTATYWNA I DOUGLAS W EUROPIE -->
-        <section class="two-cols-section">
-            <div class="info-card">
-                <div class="placeholder-img"><span>Grafika - Działalność charytatywna</span></div>
-                <h3>Działalność charytatywna</h3>
-                <p>Od wielu lat aktywnie angażujemy się w inicjatywy społeczne, regularnie wspierając lokalne fundacje i programy prozdrowotne. Wierzymy, że dzielenie się pięknem to również realne działanie i pomoc niesiona najbardziej potrzebującym w naszym społeczeństwie.</p>
-            </div>
-            <div class="info-card">
-                <div class="placeholder-img"><span>Grafika - Douglas w Europie</span></div>
-                <h3>Douglas w Europie</h3>
-                <p>Będąc niekwestionowanym liderem branży beauty, nasza marka z dumą jest obecna w większości europejskich państw. Rozległa sieć naszych perfumerii zapewnia niezmiennie najwyższy standard obsługi i nieprzerwany dostęp do ekskluzywnych marek premium.</p>
-            </div>
-        </section>
-
-        <!-- SEKCJA: NAJWAŻNIEJSZE KREACJE -->
-        <section style="max-width: 1200px; margin: 0 auto 2rem auto;">
-            <h2 style="margin-bottom: 2rem;">Najważniejsze kreacje</h2>
-            <div class="kreacje-carousel-wrapper">
-                <button class="carousel-arrow prev" onclick="document.getElementById('kreacje-carousel').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
-                <button class="carousel-arrow next" onclick="document.getElementById('kreacje-carousel').scrollBy({left: 300, behavior: 'smooth'})">›</button>
-
-                <div class="kreacje-carousel" id="kreacje-carousel">
-                    <a href="javascript:void(0)" class="kreacje-card"><div class="kreacje-img"><span>Zdjęcie kreacji 1</span></div></a>
-                    <a href="javascript:void(0)" class="kreacje-card"><div class="kreacje-img"><span>Zdjęcie kreacji 2</span></div></a>
-                    <a href="javascript:void(0)" class="kreacje-card"><div class="kreacje-img"><span>Zdjęcie kreacji 3</span></div></a>
-                    <a href="javascript:void(0)" class="kreacje-card"><div class="kreacje-img"><span>Zdjęcie kreacji 4</span></div></a>
-                    <a href="javascript:void(0)" class="kreacje-card"><div class="kreacje-img"><span>Zdjęcie kreacji 5</span></div></a>
-                </div>
-            </div>
-        </section>
-
     </section>
 
-    <!-- SEKCJA: SPRAWDŹ JAK CELEBRUJEMY -->
-    <section style="background-image: url('assets/placeholder@0,25x.png'); background-size: cover; background-position: center; border-top: 1px solid var(--border-color); margin-top: 5rem; padding: 6rem 1rem;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="max-width: 800px; text-align: left;">
-                <h2 style="text-align: left;">Sprawdź jak celebrujemy 25 lat Douglasa w Polsce!</h2>
-                <p style="font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.6; color: var(--text-color);">Weź udział w naszym wielkim jubileuszowym konkursie. Podejmij cotygodniowe wyzwania, pokaż nam swoją kreatywność i zdobądź wyjątkowe wejściówki na koncert finałowy.</p>
-                <a href="konkurs.html" class="cta-link">Wygraj bilet</a>
-            </div>
-        </div>
-    </section>
+    <div id="events-widget-placeholder"></div>
 
     <div id="footer-placeholder"></div>
 
     <script src="main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Logika dla dropdownów na osi czasu z wypychaną siatką (elementy 7-20)
-            const dropdownHeaders = document.querySelectorAll('.timeline-dropdown-header');
-            dropdownHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const dropdown = this.closest('.timeline-dropdown');
-                    const isActive = dropdown.classList.contains('active');
-                    const icon = this.querySelector('.acc-icon');
-
-                    if (!isActive) {
-                        dropdown.classList.add('active');
-                        icon.style.transform = 'rotate(180deg)';
-                    } else {
-                        dropdown.classList.remove('active');
-                        icon.style.transform = 'rotate(0deg)';
-                    }
-                });
-            });
-
-            // Logika dla wewnętrznych rozwijaczek ("Pokaż więcej")
-            const innerExpanders = document.querySelectorAll('.inner-expand-trigger');
-            innerExpanders.forEach(trigger => {
-                trigger.addEventListener('click', function() {
-                    const content = this.previousElementSibling;
-                    const isOpen = content.style.display === 'block';
-
-                    if (!isOpen) {
-                        content.style.display = 'block';
-                        this.innerText = 'Zwiń ↑';
-                    } else {
-                        content.style.display = 'none';
-                        this.innerText = 'Pokaż więcej ↓';
-                    }
-                });
-            });
-
-        });
-    </script>
 </body>
 </html>

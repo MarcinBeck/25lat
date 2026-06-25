@@ -47,52 +47,6 @@
             opacity: 0.8;
             z-index: 2;
         }
-
-        /* --- STYLIZACJA PRZEKLIKU Z TYGODNIAMI --- */
-        .beauty-tabs.week-filters {
-            display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 1rem; padding-bottom: 1.5rem; margin-bottom: 2rem; scroll-snap-type: x mandatory; scrollbar-width: none; border-bottom: none; 
-        }
-        .beauty-tabs.week-filters::-webkit-scrollbar { display: none; }
-        .beauty-tabs.week-filters a {
-            flex: 0 0 calc(80% - 0.5rem); flex-direction: column; align-items: flex-start; white-space: normal; border-radius: 0; padding: 1.25rem 1rem; border: 1px solid var(--border-color); background: #ffffff; scroll-snap-align: start; transition: border-color 0.2s, box-shadow 0.2s; cursor: pointer; text-decoration: none;
-        }
-        @media (min-width: 768px) {
-            .beauty-tabs.week-filters a { flex: 0 0 calc(33.333% - 0.75rem); }
-        }
-        @media (min-width: 1024px) {
-            .beauty-tabs.week-filters a { flex: 0 0 calc(25% - 0.75rem); }
-        }
-
-        .beauty-tabs.week-filters a.active { background: #fbfbfb; box-shadow: inset 0 0 0 2px var(--text-color); border-color: var(--text-color); }
-        
-        /* Odróżnienie stanów tygodni */
-        .beauty-tabs.week-filters a.tab-past { background: #fdfdfd; }
-        .beauty-tabs.week-filters a.tab-ongoing { background: #fff8f0; border-color: var(--hover-orange); }
-        .beauty-tabs.week-filters a.tab-ongoing.active { box-shadow: inset 0 0 0 2px var(--hover-orange); }
-        .beauty-tabs.week-filters a.tab-upcoming { background: #f4f4f4; color: #999; pointer-events: none; cursor: default; }
-        .beauty-tabs.week-filters a.tab-upcoming .tab-top-bar { color: #999; border-bottom-color: #ddd; }
-        .beauty-tabs.week-filters a.tab-upcoming .tab-question { color: #999; }
-
-        .tab-top-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem; width: 100%; font-size: 0.9rem; margin-bottom: 0.75rem; color: var(--text-color); font-weight: bold; border-bottom: 1px solid var(--text-color); padding-bottom: 0.5rem; }
-        .tab-question { font-size: 0.85rem; font-weight: normal; line-height: 1.4; color: var(--text-color); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-
-        /* Modyfikacja licznika dla widoku Tygodnia 7 (ukrywa tylko H4) */
-        #content-7 .countdown-h4 {
-            display: none !important;
-        }
-        #content-7 .homepage-countdown {
-            padding: 0 !important;
-            margin-top: 1rem !important;
-            margin-bottom: 1rem !important;
-        }
-
-        /* Usztywnienie okna Pop-up by zapobiec jego zmianom rozmiaru */
-        .modal-fixed-height-view {
-            height: 350px !important;
-            width: 100%;
-            display: flex;
-            box-sizing: border-box;
-        }
     </style>
 </head>
 <body>
@@ -111,103 +65,131 @@
     <main id="gallery-main-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
         
         <div style="margin-bottom: 3rem;">
-            <h1>Najlepsze zgłoszenia</h1>
+            <h1>Galeria zgłoszeń</h1>
             <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px;">Poznaj twórczość innych osób, które do tej pory wzięły udział w konkursie. Przeglądaj nagrodzone prace oraz najciekawsze odpowiedzi uczestników z poszczególnych tygodni.</p>
         </div>
 
-        <!-- PRZEKLIK Z TYGODNIAMI (ODWRÓCONY PORZĄDEK: OD 8 DO 1) -->
         <div class="beauty-tabs week-filters" id="gallery-tabs-container">
-            
-            <a href="javascript:void(0)" class="tab-upcoming" data-tab="8" data-status="upcoming">
-                <div class="tab-top-bar"><span>Tydzień 8</span> <span>19.08 - 25.08</span></div>
-                <div class="tab-question">Napisz krótki, pełen...</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-ongoing tab-clickable" data-tab="7" data-status="ongoing">
-                <div class="tab-top-bar"><span style="color: var(--hover-orange);">Tydzień 7 (Trwa)</span> <span style="color: var(--hover-orange);">12.08 - 18.08</span></div>
-                <div class="tab-question">Zamknij oczy i opisz w krótkim wierszu, może być zdjęcie lub video, swój ulubiony zapach z Douglas. Jakie kolory, dźwięki i wspomnienia budzi w Twojej wyobraźni?</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-past tab-clickable active" data-tab="6" data-status="past" id="active-gallery-tab">
-                <div class="tab-top-bar"><span>Tydzień 6</span> <span>05.08 - 11.08</span></div>
-                <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, o tym, czym jest dla Ciebie piękno, gdy patrzysz w lustro lub obserwujesz świat wokół siebie.</div>
-            </a>
-
-            <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="5" data-status="past">
-                <div class="tab-top-bar"><span>Tydzień 5</span> <span>29.07 - 04.08</span></div>
-                <div class="tab-question">Opisz w krótkim wierszu lub zdjęciu lub video, swój najbardziej szalony, kolorowy i festiwalowy look, który założył(a)byś na koncert sanah.</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="4" data-status="past">
-                <div class="tab-top-bar"><span>Tydzień 4</span> <span>22.07 - 28.07</span></div>
-                <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, w którym połączysz swój codzienny makijaż lub ulubiony kosmetyk z utworem muzycznym najlepiej oddającym Twój dzisiejszy nastrój i wygląd.</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="3" data-status="past">
-                <div class="tab-top-bar"><span>Tydzień 3</span> <span>15.07 - 21.07</span></div>
-                <div class="tab-question">Stwórz krótki wiersz lub zdjęcie lub video -zagadkę o swoim ulubionym produkcie z Douglas. Nie używaj jego nazwy ani kategorii – pozwól słowom podpowiedzieć odpowiedź.</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="2" data-status="past">
-                <div class="tab-top-bar"><span>Tydzień 2</span> <span>08.07 - 14.07</span></div>
-                <div class="tab-question">Ułóż krótki wiersz lub zrób zdjęcie lub video, o swoim największym kosmetycznym odkryciu z Douglas – produkcie, który całkowicie odmienił Twoją codzienną rutynę.</div>
-            </a>
-            
-            <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="1" data-status="past">
+            <a href="javascript:void(0)" data-tab="week1">
                 <div class="tab-top-bar"><span>Tydzień 1</span> <span>01.07 - 07.07</span></div>
-                <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, inspirowany najcenniejszą radą dotyczącą urody lub pielęgnacji, jaką usłyszałaś/eś od mamy, przyjaciółki lub eksperta Douglas.</div>
+                <div class="tab-question">Jaki jest Twój sprawdzony, wakacyjny niezbędnik kosmetyczny?</div>
             </a>
-            
+            <a href="javascript:void(0)" data-tab="week2">
+                <div class="tab-top-bar"><span>Tydzień 2</span> <span>08.07 - 14.07</span></div>
+                <div class="tab-question">Pokaż nam swój najbardziej inspirujący, festiwalowy look makeupowy.</div>
+            </a>
+            <a href="javascript:void(0)" class="active" data-tab="week3" id="active-gallery-tab">
+                <div class="tab-top-bar"><span>Tydzień 3</span> <span>15.07 - 21.07</span></div>
+                <div class="tab-question">Przygotuj stylizację paznokci inspirowaną klasycznym stylem glamour.</div>
+            </a>
+            <a href="javascript:void(0)" data-tab="week4">
+                <div class="tab-top-bar"><span>Tydzień 4</span> <span>22.07 - 28.07</span></div>
+                <div class="tab-question">Napisz, jaka jest Twoja ulubiona letnia rutyna pielęgnacyjna.</div>
+            </a>
+            <a href="javascript:void(0)" data-tab="week5">
+                <div class="tab-top-bar"><span>Tydzień 5</span> <span>29.07 - 04.08</span></div>
+                <div class="tab-question">Opisz swój najbardziej szalony pomysł na makijaż sylwestrowy.</div>
+            </a>
+            <a href="javascript:void(0)" data-tab="week6">
+                <div class="tab-top-bar"><span>Tydzień 6</span> <span>05.08 - 11.08</span></div>
+                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
+            </a>
+            <a href="javascript:void(0)" data-tab="week7">
+                <div class="tab-top-bar"><span>Tydzień 7</span> <span>12.08 - 18.08</span></div>
+                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
+            </a>
+            <a href="javascript:void(0)" data-tab="week8">
+                <div class="tab-top-bar"><span>Tydzień 8</span> <span>19.08 - 25.08</span></div>
+                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
+            </a>
         </div>
 
-        <h3 id="gallery-main-heading" style="margin-top: 3rem; margin-bottom: 1rem; line-height: 1.5; font-size: 1.4rem;">
+        <h3 style="margin-top: 3rem; margin-bottom: 1rem; line-height: 1.5; font-size: 1.4rem;">
             Sprawdź wybrane zgłoszenia i zainspiruj się do udziału<br>w konkursie w kolejnych tygodniach
         </h3>
 
-        <!-- DYNAMICZNE BLOKI DLA GALERII -->
-        <div id="content-1" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-1"></div>
+        <div id="content-week1" class="gallery-content-section" style="display: none; margin-top: 2rem;">
+            <div class="gallery-grid">
+                <script>
+                    for(let i=1; i<=16; i++) {
+                        document.write(`<div class="gallery-item"><div class="gallery-box image-box gallery-trigger" data-type="image" data-content="Zdjęcie Tydz1 ${i}" data-author="Uczestnik ${i}" data-id="Nr 130${i}" onclick="openGalleryModal(this)"><span>Powiększ zdjęcie ↗</span></div><div class="gallery-meta"><span class="author">Uczestnik ${i}</span><span class="sub-id">Nr 130${i}</span></div></div>`);
+                    }
+                </script>
+            </div>
         </div>
 
-        <div id="content-2" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-2"></div>
+        <div id="content-week2" class="gallery-content-section" style="display: none; margin-top: 2rem;">
+            <div class="gallery-grid">
+                <script>
+                    for(let i=1; i<=16; i++) {
+                        document.write(`<div class="gallery-item"><div class="gallery-box image-box gallery-trigger" data-type="image" data-content="Zdjęcie Tydz2 ${i}" data-author="Uczestnik ${i}" data-id="Nr 230${i}" onclick="openGalleryModal(this)"><span>Powiększ zdjęcie ↗</span></div><div class="gallery-meta"><span class="author">Uczestnik ${i}</span><span class="sub-id">Nr 230${i}</span></div></div>`);
+                    }
+                </script>
+            </div>
         </div>
 
-        <div id="content-3" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-3"></div>
+        <!-- TYDZIEŃ 3 Z WIDEO -->
+        <div id="content-week3" class="gallery-content-section" style="display: block; margin-top: 2rem;">
+            <div class="gallery-grid">
+                <script>
+                    for(let i=1; i<=16; i++) {
+                        document.write(`
+                        <div class="gallery-item">
+                            <div class="gallery-box video-box gallery-trigger" data-type="video" data-content="Wideo_Zgloszenie_${i}.mp4" data-author="Uczestnik ${i}" data-id="Nr 340${i}" onclick="openGalleryModal(this)">
+                                <div class="video-play-indicator">▶</div>
+                                <span class="zoom-label">Odtwórz wideo ↗</span>
+                            </div>
+                            <div class="gallery-meta"><span class="author">Uczestnik ${i}</span><span class="sub-id">Nr 340${i}</span></div>
+                        </div>`);
+                    }
+                </script>
+            </div>
         </div>
 
-        <div id="content-4" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-4"></div>
+        <div id="content-week4" class="gallery-content-section" style="display: none; margin-top: 2rem;">
+            <div class="gallery-grid">
+                <script>
+                    const sampleText500 = "Moja letnia rutyna zaczyna się od delikatnego oczyszczania pianką z aloesem. Następnie nakładam serum z witaminą C, które pięknie rozświetla skórę przed wyjściem na słońce. Kluczem jest krem z SPF 50 - bez niego nie ruszam się z domu! Wieczorem stawiam na mocne nawilżenie kwasem hialuronowym. Używam również lekkich mgiełek w ciągu dnia, żeby odświeżyć cerę, kiedy temperatury rosną. Pamiętam też o piciu dużej ilości wody, bo nawilżenie od wewnątrz to podstawa pięknego wyglądu każdego lata.";
+                    for(let i=1; i<=8; i++) {
+                        document.write(`<div class="gallery-item"><div class="gallery-box text-box gallery-trigger" data-type="text" data-content="${sampleText500}" data-author="Uczestnik ${i}" data-id="Nr 450${i}" onclick="openGalleryModal(this)"><div class="gallery-text-snippet">Moja letnia rutyna zaczyna się od delikatnego oczyszczania...</div></div><div class="gallery-meta"><span class="author">Uczestnik ${i}</span><span class="sub-id">Nr 450${i}</span></div></div>`);
+                    }
+                </script>
+            </div>
         </div>
 
-        <div id="content-5" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-5"></div>
+        <div id="content-week5" class="gallery-content-section" style="display: none; margin-top: 2rem;">
+            <div class="counter-container" style="margin-top:0; padding-bottom: 3rem;">
+                <div class="counter-title">DO OGŁOSZENIA WYNIKÓW TEGO ETAPU POZOSTAŁO:</div>
+                <div class="counter-grid">
+                    <div class="counter-box"><span class="counter-number" id="gal-days">00</span><span class="counter-label">DNI</span></div>
+                    <div class="counter-box"><span class="counter-number" id="gal-hours">00</span><span class="counter-label">GODZ</span></div>
+                    <div class="counter-box"><span class="counter-number" id="gal-mins">00</span><span class="counter-label">MIN</span></div>
+                    <div class="counter-box"><span class="counter-number" id="gal-secs">00</span><span class="counter-label">SEK</span></div>
+                </div>
+            </div>
+            <div class="gallery-grid">
+                <script>
+                    for(let i=1; i<=8; i++) {
+                        document.write(`<div class="gallery-item"><div class="gallery-box image-box gallery-trigger" data-type="image" data-content="Trwające Zgłoszenie ${i}" data-author="Uczestnik ${i}" data-id="Nr 500${i}" onclick="openGalleryModal(this)"><span>Powiększ zdjęcie ↗</span></div><div class="gallery-meta"><span class="author">Uczestnik ${i}</span><span class="sub-id">Nr 500${i}</span></div></div>`);
+                    }
+                </script>
+            </div>
         </div>
 
-        <div id="content-6" class="gallery-content-section" style="display: block; margin-top: 2rem;">
-            <div class="gallery-grid" id="grid-week-6"></div>
-        </div>
-
-        <!-- TYDZIEŃ 7 (Trwający - wyświetlamy tylko licznik i chowamy siatkę) -->
-        <div id="content-7" class="gallery-content-section" style="display: none; margin-top: 2rem;">
-            <div id="countdown-widget-placeholder"></div>
-        </div>
-
-        <div id="content-8" class="gallery-content-section" style="display: none; padding: 2rem 1rem 4rem 1rem; text-align: center;">
-            <p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma zgłoszeń</p>
-        </div>
+        <div id="content-week6" class="gallery-content-section" style="display: none; padding: 2rem 1rem 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma zgłoszeń</p></div>
+        <div id="content-week7" class="gallery-content-section" style="display: none; padding: 2rem 1rem 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma zgłoszeń</p></div>
+        <div id="content-week8" class="gallery-content-section" style="display: none; padding: 2rem 1rem 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma zgłoszeń</p></div>
 
         <div class="week-navigation" style="display: flex; justify-content: space-between; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
-            <a href="javascript:void(0)" class="cta-link" id="prev-week-btn" style="text-transform: none; border-bottom: none; font-weight: bold;">&larr; Nowszy etap</a>
-            <a href="javascript:void(0)" class="cta-link" id="next-week-btn" style="text-transform: none; border-bottom: none; font-weight: bold;">Starszy etap &rarr;</a>
+            <a href="javascript:void(0)" class="cta-link" id="prev-week-btn" style="text-transform: none; border-bottom: none; font-weight: bold;">&larr; Poprzedni tydzień</a>
+            <a href="javascript:void(0)" class="cta-link" id="next-week-btn" style="text-transform: none; border-bottom: none; font-weight: bold;">Następny tydzień &rarr;</a>
         </div>
 
         <section style="padding: 0; margin-top: 6rem; margin-bottom: 2rem;">
             <div class="concert-feature-row">
                 <div class="concert-feature-img placeholder-img"><span>Grafika Laureaci</span></div>
                 <div class="concert-feature-text">
-                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Poznaj wszystkich laureatów tego tygodnia</h2>
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem;">Poznaj laureatów tego tygodnia</h2>
                     <p style="font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.6;">Zobacz komu się poszczęściło! Kto wygrał? Kto jedzie na koncert?</p>
                     <a href="wyniki.html" class="cta-link">Zobacz wyniki</a>
                 </div>
@@ -216,14 +198,14 @@
 
     </main>
 
-    <!-- UNIWERSALNY MODAL Z USTALONĄ WYSOKOŚCIĄ -->
+    <!-- UNIWERSALNY MODAL -->
     <div id="gallery-modal-overlay" class="text-modal-overlay" style="display: none;">
         <div class="text-modal-content">
             <button class="close-btn" onclick="closeGalleryModal()">✕</button>
             
             <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: center;">
-                <button id="modal-prev-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="prevModalWeek()">&larr; Nowszy etap</button>
-                <button id="modal-next-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="nextModalWeek()">Starszy etap &rarr;</button>
+                <button id="modal-prev-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="prevModalWeek()">&larr; Poprzedni tydzień</button>
+                <button id="modal-next-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="nextModalWeek()">Następny tydzień &rarr;</button>
             </div>
 
             <!-- NAGŁÓWEK -->
@@ -237,12 +219,12 @@
                     <span class="sub-id" id="modal-id">Nr X</span>
                 </div>
                 
-                <!-- STAŁE WYSOKOŚCI W MODALU (350px) ZABEZPIECZAJĄ PRZED SKAKANIEM ROZMIARU -->
-                <div id="modal-image-view" class="modal-img-container modal-fixed-height-view" style="display:none; background: #e0e0e0; align-items:center; justify-content:center; border: 1px solid var(--border-color); font-weight: bold; color: var(--text-muted);">
+                <div id="modal-image-view" class="modal-img-container" style="display:none; height: 300px; background: #e0e0e0; align-items:center; justify-content:center; border: 1px solid var(--border-color); font-weight: bold; color: var(--text-muted);">
                     <span id="modal-img-placeholder">Podgląd zdjęcia</span>
                 </div>
                 
-                <div id="modal-video-view" class="modal-fixed-height-view" style="display:none; background: #111; flex-direction:column; align-items:center; justify-content:center; border: 1px solid #333; border-radius: 4px; color: #fff; position: relative;">
+                <!-- WIDOK DLA WIDEO W MODALU -->
+                <div id="modal-video-view" style="display:none; height: 350px; background: #111; display:flex; flex-direction:column; align-items:center; justify-content:center; border: 1px solid #333; border-radius: 4px; color: #fff; position: relative;">
                     <div class="video-play-indicator" style="position: relative; transform: none; top: auto; left: auto; margin-bottom: 1rem; border-color: rgba(255, 102, 0, 0.9);">▶</div>
                     <span id="modal-video-placeholder" style="font-weight: normal; color: #ccc;">Podgląd pliku wideo</span>
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: rgba(0,0,0,0.8); display: flex; align-items: center; padding: 0 1rem; gap: 1rem;">
@@ -254,7 +236,7 @@
                     </div>
                 </div>
 
-                <div id="modal-text-view" class="text-modal-body modal-fixed-height-view" style="display:none; font-size: 1.05rem; line-height: 1.6; background: #fbfbfb; padding: 1.5rem; border-radius: 4px; border: 1px solid #eaeaea; color: var(--text-color); overflow-y: auto;">
+                <div id="modal-text-view" class="text-modal-body" style="display:none; font-size: 1.05rem; line-height: 1.6; min-height: 150px; background: #fbfbfb; padding: 1.5rem; border-radius: 4px; border: 1px solid #eaeaea; color: var(--text-color);">
                     Pełny tekst zgłoszenia pojawi się tutaj.
                 </div>
 
@@ -271,141 +253,52 @@
         </div>
     </div>
 
-    <!-- WŁAŚCIWY PLACEHOLDER STOPKI -->
     <div id="footer-placeholder"></div>
 
     <script>
-        const weeksOrder = ['8', '7', '6', '5', '4', '3', '2', '1'];
-        let currentWeekIndex = 2; // Tydzień 6 jest na indeksie 2 w tablicy
+        const weeksOrder = ['week1', 'week2', 'week3', 'week4', 'week5', 'week6', 'week7', 'week8'];
+        let currentWeekIndex = 2; 
 
         function updateNavButtons() {
             const prevBtn = document.getElementById('prev-week-btn');
             const nextBtn = document.getElementById('next-week-btn');
-            
             if(prevBtn) prevBtn.style.visibility = currentWeekIndex > 0 ? 'visible' : 'hidden';
-            
-            let hasNextClickable = false;
-            if(currentWeekIndex < weeksOrder.length - 1) {
-                const nextTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`);
-                if (nextTab && nextTab.classList.contains('tab-clickable')) {
-                    hasNextClickable = true;
-                }
-            }
-            if(nextBtn) nextBtn.style.visibility = hasNextClickable ? 'visible' : 'hidden';
-        }
-
-        // GENERATOR RÓŻNORODNYCH ZGŁOSZEŃ (10 na tydzień)
-        function generateMixedGallery(weekNum) {
-            const grid = document.getElementById('grid-week-' + weekNum);
-            if (!grid) return;
-
-            const types = ['image', 'video', 'text', 'image', 'text', 'video', 'image', 'text', 'image', 'text'];
-            const firstNames = ["Anna", "Michał", "Karolina", "Tomasz", "Ewa", "Piotr", "Magda", "Kamil", "Zofia", "Jakub"];
-            const lastNames = ["K.", "P.", "W.", "L.", "M.", "S.", "D.", "R.", "N.", "B."];
-            const sampleText = "Najlepsza rada jaką usłyszałam to codzienne stosowanie kremu z filtrem SPF50. Niezależnie od pogody, chroni moją skórę przed fotostarzeniem i przebarwieniami. Do tego dokładne dwuetapowe oczyszczanie wieczorem! Dzięki temu moja twarz w końcu zaczęła oddychać.";
-
-            let html = '';
-            for (let i = 0; i < 10; i++) {
-                let type = types[i];
-                let author = firstNames[i] + " " + lastNames[i];
-                let id = `#${weekNum}00${i+1}`;
-                
-                if (type === 'image') {
-                    html += `
-                    <div class="gallery-item">
-                        <div class="gallery-box image-box gallery-trigger" data-type="image" data-content="Zdjęcie Tydzień ${weekNum} - Zgłoszenie ${i+1}" data-author="${author}" data-id="${id}" onclick="openGalleryModal(this)">
-                            <span>Powiększ zdjęcie ↗</span>
-                        </div>
-                        <div class="gallery-meta"><span class="author">${author}</span><span class="sub-id">${id}</span></div>
-                    </div>`;
-                } else if (type === 'video') {
-                    html += `
-                    <div class="gallery-item">
-                        <div class="gallery-box video-box gallery-trigger" data-type="video" data-content="Wideo_T${weekNum}_Zgloszenie_${i+1}.mp4" data-author="${author}" data-id="${id}" onclick="openGalleryModal(this)">
-                            <div class="video-play-indicator">▶</div>
-                            <span class="zoom-label">Odtwórz wideo ↗</span>
-                        </div>
-                        <div class="gallery-meta"><span class="author">${author}</span><span class="sub-id">${id}</span></div>
-                    </div>`;
-                } else {
-                    html += `
-                    <div class="gallery-item">
-                        <div class="gallery-box text-box gallery-trigger" data-type="text" data-content="${sampleText}" data-author="${author}" data-id="${id}" onclick="openGalleryModal(this)">
-                            <div class="gallery-text-snippet" style="-webkit-line-clamp: 2;">${sampleText}</div>
-                        </div>
-                        <div class="gallery-meta"><span class="author">${author}</span><span class="sub-id">${id}</span></div>
-                    </div>`;
-                }
-            }
-            grid.innerHTML = html;
+            if(nextBtn) nextBtn.style.visibility = currentWeekIndex < weeksOrder.length - 1 ? 'visible' : 'hidden';
         }
 
         window.addEventListener('load', () => {
-            // Generujemy dynamicznie po 10 zgłoszeń dla tygodni 1-6
-            for (let w = 1; w <= 6; w++) {
-                generateMixedGallery(w);
-            }
-
-            // Pobieramy widget licznika do Tygodnia 7
-            fetch('countdown-widget.html')
-                .then(response => response.text())
-                .then(data => {
-                    const cwPlaceholder = document.getElementById('countdown-widget-placeholder');
-                    if (cwPlaceholder) {
-                        cwPlaceholder.innerHTML = data;
-                        if(typeof initCountdown === 'function') initCountdown(); 
-                    }
-                })
-                .catch(e => console.log('Brak pliku countdown-widget.html', e));
-
             const activeTab = document.getElementById('active-gallery-tab');
             const container = document.getElementById('gallery-tabs-container');
             if(activeTab && container) {
-                const offset = window.innerWidth < 768 ? 40 : 80; 
-                const scrollPos = activeTab.offsetLeft - offset;
+                const scrollPos = activeTab.offsetLeft - (container.clientWidth / 2) + (activeTab.clientWidth / 2);
                 container.scrollTo({ left: scrollPos, behavior: 'smooth' });
             }
             updateNavButtons();
+            initGalleryTimer();
         });
 
         document.getElementById('prev-week-btn')?.addEventListener('click', () => {
-            if(currentWeekIndex > 0) {
-                const tab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex - 1]}"]`);
-                if (tab && tab.classList.contains('tab-clickable')) tab.click();
-            }
+            if(currentWeekIndex > 0) document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex - 1]}"]`).click();
         });
 
         document.getElementById('next-week-btn')?.addEventListener('click', () => {
-            if(currentWeekIndex < weeksOrder.length - 1) {
-                const tab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`);
-                if (tab && tab.classList.contains('tab-clickable')) tab.click();
-            }
+            if(currentWeekIndex < weeksOrder.length - 1) document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`).click();
         });
 
-        document.querySelectorAll('.week-filters a.tab-clickable').forEach(tab => {
+        document.querySelectorAll('.week-filters a').forEach(tab => {
             tab.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelectorAll('.week-filters a').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
                 
                 const tabId = this.getAttribute('data-tab');
-                const status = this.getAttribute('data-status');
                 currentWeekIndex = weeksOrder.indexOf(tabId);
                 updateNavButtons();
 
                 const container = document.getElementById('gallery-tabs-container');
                 if(container) {
-                    const offset = window.innerWidth < 768 ? 40 : 80; 
-                    const scrollPos = this.offsetLeft - offset;
+                    const scrollPos = this.offsetLeft - (container.clientWidth / 2) + (this.clientWidth / 2);
                     container.scrollTo({ left: scrollPos, behavior: 'smooth' });
-                }
-
-                // Chowanie nagłówka i listy dla trwającego tygodnia
-                const mainHeading = document.getElementById('gallery-main-heading');
-                if (status === 'ongoing') {
-                    if (mainHeading) mainHeading.style.display = 'none';
-                } else {
-                    if (mainHeading) mainHeading.style.display = 'block';
                 }
 
                 document.querySelectorAll('.gallery-content-section').forEach(section => {
@@ -416,7 +309,6 @@
             });
         });
 
-        // LOGIKA MODALA (BEZ ZMIAN W DZIAŁANIU)
         let modalItems = [];
         let modalCurrentIdx = 0;
 
@@ -431,21 +323,14 @@
 
         function prevModalWeek() {
             if (currentWeekIndex > 0) {
-                const prevTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex - 1]}"]`);
-                if(prevTab && prevTab.classList.contains('tab-clickable')) {
-                    prevTab.click();
-                    loadModalDataForCurrentWeek();
-                }
+                document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex - 1]}"]`).click();
+                loadModalDataForCurrentWeek();
             }
         }
-        
         function nextModalWeek() {
             if (currentWeekIndex < weeksOrder.length - 1) {
-                const nextTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`);
-                if(nextTab && nextTab.classList.contains('tab-clickable')) {
-                    nextTab.click();
-                    loadModalDataForCurrentWeek();
-                }
+                document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`).click();
+                loadModalDataForCurrentWeek();
             }
         }
 
@@ -476,14 +361,12 @@
             if(currentWeekIndex > 0) {
                 const prevTabId = weeksOrder[currentWeekIndex - 1];
                 const prevTab = document.querySelector(`.week-filters a[data-tab="${prevTabId}"]`);
-                if(prevTab && prevTab.classList.contains('tab-clickable')) {
+                if(prevTab) {
                     const wStr = prevTab.querySelector('.tab-top-bar span:first-child').innerText;
                     const dStr = prevTab.querySelector('.tab-top-bar span:last-child').innerText;
                     document.getElementById('modal-prev-week').innerHTML = `&larr; ${wStr} (${dStr})`;
-                    document.getElementById('modal-prev-week').style.visibility = 'visible';
-                } else {
-                    document.getElementById('modal-prev-week').style.visibility = 'hidden';
                 }
+                document.getElementById('modal-prev-week').style.visibility = 'visible';
             } else {
                 document.getElementById('modal-prev-week').style.visibility = 'hidden';
             }
@@ -491,14 +374,12 @@
             if(currentWeekIndex < weeksOrder.length - 1) {
                 const nextTabId = weeksOrder[currentWeekIndex + 1];
                 const nextTab = document.querySelector(`.week-filters a[data-tab="${nextTabId}"]`);
-                if(nextTab && nextTab.classList.contains('tab-clickable')) {
+                if(nextTab) {
                     const wStr = nextTab.querySelector('.tab-top-bar span:first-child').innerText;
                     const dStr = nextTab.querySelector('.tab-top-bar span:last-child').innerText;
                     document.getElementById('modal-next-week').innerHTML = `${wStr} (${dStr}) &rarr;`;
-                    document.getElementById('modal-next-week').style.visibility = 'visible';
-                } else {
-                    document.getElementById('modal-next-week').style.visibility = 'hidden';
                 }
+                document.getElementById('modal-next-week').style.visibility = 'visible';
             } else {
                 document.getElementById('modal-next-week').style.visibility = 'hidden';
             }
@@ -553,10 +434,33 @@
         document.getElementById('gallery-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeGalleryModal();
         });
+
+        function initGalleryTimer() {
+            const countDownDate = new Date().getTime() + (4 * 24 * 60 * 60 * 1000) + (11 * 60 * 60 * 1000) + (35 * 60 * 1000); 
+            setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+                if (distance < 0) return;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+
+                const elDays = document.getElementById("gal-days");
+                if(elDays) {
+                    elDays.innerText = days;
+                    document.getElementById("gal-hours").innerText = hours;
+                    document.getElementById("gal-mins").innerText = minutes;
+                    document.getElementById("gal-secs").innerText = seconds;
+                }
+            }, 1000);
+        }
     </script>
     <script src="main.js"></script>
 
     <script>
+        // Skrypt aktywujący stan "Konkurs" w nawigacji
         window.addEventListener('load', () => {
             const highlightInterval = setInterval(() => {
                 const konkursLink = document.querySelector('.global-nav > ul > li > a[href="konkurs.html"]');
