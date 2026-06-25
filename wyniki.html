@@ -3,196 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poznaj Laureatów - Douglas 25 lat</title>
+    <title>Wyniki Konkursu - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        main a:hover {
-            text-decoration: underline !important;
-            color: inherit !important;
+        /* Układ dwukolumnowy na mobile dla nagrodzonych - BEZ RAMEK */
+        .winners-list-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            width: 100%;
+        }
+        .winner-card {
+            padding: 0.5rem 0;
+            background: transparent;
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            gap: 0.5rem;
+        }
+        .winner-number {
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--text-color);
+            min-width: 26px;
+        }
+        .winner-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .winner-name {
+            font-weight: bold;
+            font-size: 1rem;
+            word-wrap: break-word;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+        .winner-id {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+            font-weight: 500;
         }
         
-        .winners-list-container {
-            margin-top: 2rem;
-            padding: 1rem 0; 
-        }
-        .winners-list {
-            column-count: 1;
-            padding-left: 20px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-color);
-        }
+        /* Zmiana na 3 kolumny dla Desktopu */
         @media (min-width: 768px) {
-            .winners-list {
-                column-count: 2;
+            .winners-list-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
             }
-        }
-        @media (min-width: 1024px) {
-            .winners-list {
-                column-count: 3;
+            .winner-name {
+                font-size: 1.1rem;
             }
-        }
-        .winners-list li {
-            margin-bottom: 0.5rem;
         }
 
-        /* Układ wymuszający 100% na mobile i 50/50 na desktopie */
-        .split-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: center;
+        /* --- STYLIZACJA DROPDOWNÓW WYNIKÓW --- */
+        .results-accordion-item {
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
         }
-        @media (min-width: 768px) {
-            .split-layout {
-                grid-template-columns: 1fr 1fr;
-                gap: 4rem;
-            }
+        .results-accordion-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-color);
+            cursor: pointer;
+            text-align: left;
+        }
+        .results-accordion-header span.date-info {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-left: 1rem;
+            display: inline-block;
+        }
+        .results-accordion-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .results-accordion-content {
+            display: none;
+            padding-bottom: 2rem;
+        }
+        
+        /* Aktywny stan akordeonu */
+        .results-accordion-item.active .results-accordion-content {
+            display: block;
+        }
+        .results-accordion-item.active .results-accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- UKRYWANIE ELEMENTÓW WIDGETÓW W DROPDOWNACH --- */
+        #week7-countdown .countdown-h4 {
+            display: none !important;
+        }
+        #week7-countdown .homepage-countdown {
+            padding: 0 !important;
+            margin-top: 1rem !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        /* Nadpisanie marginesów dla widgetów BSW wewnątrz dropdownów */
+        .dropdown-bsw-container .best-submissions-widget {
+            margin-top: 0 !important;
+            margin-bottom: 3rem !important;
         }
     </style>
 </head>
 <body>
-
     <div id="header-placeholder"></div>
 
     <section id="history-hero"></section>
 
-    <!-- Breadcrumbs -->
     <div class="breadcrumb-container" style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1rem; font-size: 0.85rem; color: var(--text-muted);">
         <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> / 
         <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> / 
-        <span style="color: var(--text-color); font-weight: bold;">Strefa laureatów</span>
+        <span style="color: var(--text-color); font-weight: bold;">Wyniki Konkursu</span>
     </div>
 
-    <main id="laureaci-main-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
+    <main id="wyniki-main-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
         
         <div style="margin-bottom: 3rem;">
-            <h1>Strefa laureatów</h1>
-            <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px;">
-                Co tydzień publikujemy listę 100 nagrodzonych osób. Sprawdź, czy się na niej znalazłeś!
+            <h1>Wyniki Konkursu</h1>
+            <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px; line-height: 1.6;">
+                Co tydzień w środę o godzinie 20:00 publikujemy listę zwycięzców aktualnej rundy konkursu. 
+                Każdy nagrodzony dostanie informacje mailem.
             </p>
         </div>
 
-        <div class="beauty-tabs week-filters" id="gallery-tabs-container">
-            <a href="javascript:void(0)" class="active" data-tab="week1">
-                <div class="tab-top-bar"><span>Tydzień 1</span> <span>01.07 - 07.07</span></div>
-                <div class="tab-question">Jaki jest Twój sprawdzony, wakacyjny niezbędnik kosmetyczny?</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week2">
-                <div class="tab-top-bar"><span>Tydzień 2</span> <span>08.07 - 14.07</span></div>
-                <div class="tab-question">Pokaż nam swój najbardziej inspirujący, festiwalowy look makeupowy.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week3">
-                <div class="tab-top-bar"><span>Tydzień 3</span> <span>15.07 - 21.07</span></div>
-                <div class="tab-question">Przygotuj stylizację paznokci inspirowaną klasycznym stylem glamour.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week4">
-                <div class="tab-top-bar"><span>Tydzień 4</span> <span>22.07 - 28.07</span></div>
-                <div class="tab-question">Napisz, jaka jest Twoja ulubiona letnia rutyna pielęgnacyjna.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week5">
-                <div class="tab-top-bar"><span>Tydzień 5</span> <span>29.07 - 04.08</span></div>
-                <div class="tab-question">Opisz swój najbardziej szalony pomysł na makijaż sylwestrowy.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week6">
-                <div class="tab-top-bar"><span>Tydzień 6</span> <span>05.08 - 11.08</span></div>
-                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week7">
-                <div class="tab-top-bar"><span>Tydzień 7</span> <span>12.08 - 18.08</span></div>
-                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
-            </a>
-            <a href="javascript:void(0)" data-tab="week8">
-                <div class="tab-top-bar"><span>Tydzień 8</span> <span>19.08 - 25.08</span></div>
-                <div class="tab-question">Pytanie zostanie opublikowane wkrótce.</div>
-            </a>
-        </div>
-
-        <div id="content-week1" class="gallery-content-section winners-list-container" style="display: block;">
-            <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--text-color); padding-bottom: 0.5rem; display: inline-block;">Laureaci z 1. tygodnia</h3>
-            <ol class="winners-list">
-                <script>
-                    const exampleNames = ["Anna B.", "Kamil T.", "Alicja W.", "Piotr S.", "Marta D.", "Janusz W.", "Karolina F.", "Michał G.", "Klaudia W.", "Marta Z."];
-                    for(let i=1; i<=100; i++) {
-                        const randomName = exampleNames[Math.floor(Math.random() * exampleNames.length)];
-                        const randomId = Math.floor(Math.random() * 9000) + 1000;
-                        document.write(`<li><strong>${randomName}</strong> – nr zgłoszenia: ${randomId}</li>`);
-                    }
-                </script>
-            </ol>
-        </div>
-
-        <div id="content-week2" class="gallery-content-section winners-list-container" style="display: none;">
-            <h3 style="margin-bottom: 1.5rem; border-bottom: 2px solid var(--text-color); padding-bottom: 0.5rem; display: inline-block;">Laureaci z 2. tygodnia</h3>
-            <ol class="winners-list">
-                <script>
-                    for(let i=1; i<=100; i++) {
-                        const randomName = exampleNames[Math.floor(Math.random() * exampleNames.length)];
-                        const randomId = Math.floor(Math.random() * 9000) + 1000;
-                        document.write(`<li><strong>${randomName}</strong> – nr zgłoszenia: ${randomId}</li>`);
-                    }
-                </script>
-            </ol>
-        </div>
-
-        <div id="content-week3" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-        <div id="content-week4" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-        <div id="content-week5" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-        <div id="content-week6" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-        <div id="content-week7" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-        <div id="content-week8" class="gallery-content-section winners-list-container" style="display: none; padding: 4rem 1rem; text-align: center;"><p style="font-size: 1.2rem; font-weight: bold; color: var(--text-muted);">Jeszcze nie ma wyników w tym etapie</p></div>
-
-        <section style="padding: 0; margin-top: 6rem; margin-bottom: 2rem;">
-            <div class="split-layout">
-                <div class="placeholder-img" style="width: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; background: #eaeaea; border: 1px solid var(--border-color);">
-                    <span style="color: var(--text-muted); font-weight: bold;">Grafika najciekawsze zgłoszenia</span>
-                </div>
-                <div style="padding: 1rem 0; text-align: left;">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 2rem;">Sprawdź najciekawsze zgłoszenia</h2>
-                    <p style="font-size: 1.15rem; line-height: 1.6; margin-bottom: 2.5rem; color: var(--text-color);">
-                        Wybraliśmy najciekawsze zgłoszenia z minionych tygodni! Zobacz kreatywne pomysły innych uczestników, przekonaj się, co urzekło jury i zainspiruj się do stworzenia własnej, niepowtarzalnej odpowiedzi w kolejnych etapach naszego urodzinowego konkursu.
-                    </p>
-                    <a href="galeria.html" class="cta-link" style="text-transform: uppercase;">Sprawdź</a>
+        <div class="results-accordion">
+            
+            <div class="results-accordion-item active" data-status="ongoing">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 7 <span class="date-info">19.08 - 25.08</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Zamknij oczy i opisz w krótkim wierszu, może być zdjęcie lub video, swój ulubiony zapach z Douglas. Jakie kolory, dźwięki i wspomnienia budzi w Twojej wyobraźni?</p>
+                    
+                    <div id="week7-countdown"></div>
+                    
+                    <div style="margin-top: 1rem; margin-bottom: 1rem;">
+                        <a href="konkurs.html" class="cta-framed">Wygraj bilet</a>
+                    </div>
                 </div>
             </div>
-        </section>
 
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 6 <span class="date-info">12.08 - 18.08</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Napisz krótki wiersz lub zrób zdjęcie lub video, o tym, czym jest dla Ciebie piękno, gdy patrzysz w lustro lub obserwujesz świat wokół siebie.</p>
+                    
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week6">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 5 <span class="date-info">05.08 - 11.08</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Opisz w krótkim wierszu lub zdjęciu lub video, swój najbardziej szalony, kolorowy i festiwalowy look, który założył(a)byś na koncert sanah.</p>
+                    
+                    <div id="bsw-placeholder-week5" class="dropdown-bsw-container"></div>
+
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 4 <span class="date-info">29.07 - 04.08</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Napisz krótki wiersz lub zrób zdjęcie lub video, w którym połączysz swój codzienny makijaż lub ulubiony kosmetyk z utworem muzycznym najlepiej oddającym Twój dzisiejszy nastrój i wygląd.</p>
+                    
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week4">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 3 <span class="date-info">22.07 - 28.07</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Stwórz krótki wiersz lub zdjęcie lub video -zagadkę o swoim ulubionym produkcie z Douglas. Nie używaj jego nazwy ani kategorii – pozwól słowom podpowiedzieć odpowiedź.</p>
+                    
+                    <div id="bsw-placeholder-week3" class="dropdown-bsw-container"></div>
+
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 2 <span class="date-info">15.07 - 21.07</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Ułóż krótki wiersz lub zrób zdjęcie lub video, o swoim największym kosmetycznym odkryciu z Douglas – produkcie, który całkowicie odmienił Twoją codzienną rutynę.</p>
+                    
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week2">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-accordion-item" data-status="past">
+                <button class="results-accordion-header">
+                    <div>
+                        Tydzień 1 <span class="date-info">08.07 - 14.07</span>
+                    </div>
+                    <span class="results-accordion-icon">▼</span>
+                </button>
+                <div class="results-accordion-content">
+                    <p style="margin-bottom: 2rem; font-style: italic; color: var(--text-muted);">Zadanie: Napisz krótki wiersz lub zrób zdjęcie lub video, inspirowany najcenniejszą radą dotyczącą urody lub pielęgnacji, jaką usłyszałaś/eś od mamy, przyjaciółki lub eksperta Douglas.</p>
+                    
+                    <div id="bsw-placeholder-week1" class="dropdown-bsw-container"></div>
+
+                    <h4 class="subtitle" style="margin-top: 2rem; margin-bottom: 1.5rem;">Lista wyróżnionych</h4>
+                    <div class="winners-list-grid" id="winners-list-week1">
+                    </div>
+                </div>
+            </div>
+
+        </div> 
     </main>
+
+    <div id="best-submissions-widget-placeholder" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;"></div>
 
     <div id="footer-placeholder"></div>
 
-    <script>
-        document.querySelectorAll('.week-filters a').forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.week-filters a').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                const tabId = this.getAttribute('data-tab');
-
-                document.querySelectorAll('.gallery-content-section').forEach(section => {
-                    section.style.display = 'none';
-                });
-                const targetSection = document.getElementById('content-' + tabId);
-                if (targetSection) targetSection.style.display = 'block';
-            });
-        });
-    </script>
     <script src="main.js"></script>
-
     <script>
-        // Skrypt aktywujący stan "Konkurs" w nawigacji
-        window.addEventListener('load', () => {
-            const highlightInterval = setInterval(() => {
-                const konkursLink = document.querySelector('.global-nav > ul > li > a[href="konkurs.html"]');
-                if (konkursLink) {
-                    konkursLink.classList.add('active');
-                    konkursLink.style.fontWeight = 'bold';
-                    konkursLink.style.borderBottom = '2px solid var(--text-color)';
-                    clearInterval(highlightInterval);
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. ŁADOWANIE WIDGETU LICZNIKA DLA TYGODNIA 7
+            fetch('countdown-widget.html')
+                .then(response => response.text())
+                .then(data => {
+                    const cwPlaceholder = document.getElementById('week7-countdown');
+                    if (cwPlaceholder) {
+                        cwPlaceholder.innerHTML = data;
+                        if(typeof initCountdown === 'function') {
+                            initCountdown(); // Inicjalizacja skryptu licznika z main.js
+                        }
+                    }
+                })
+                .catch(e => console.log('Brak pliku countdown-widget.html', e));
+
+            // 2. ŁADOWANIE I MODYFIKACJA WIDGETU NAJLEPSZYCH ZGŁOSZEŃ
+            fetch('best-submissions-widget.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Globalny widget na dole strony
+                    const mainWidget = document.getElementById('best-submissions-widget-placeholder');
+                    if (mainWidget) mainWidget.innerHTML = data;
+
+                    // Widgety dla wnętrza dropdownów: Tydzień 5, 3 i 1
+                    const bswWeeks = [5, 3, 1];
+                    bswWeeks.forEach(w => {
+                        const ph = document.getElementById('bsw-placeholder-week' + w);
+                        if (ph) {
+                            // Zastępujemy stałe ID karuzeli unikalnymi identyfikatorami, by guziki w każdym widgecie działały niezależnie
+                            let modifiedData = data.replace(/bsw-carousel/g, 'bsw-carousel-week' + w);
+                            ph.innerHTML = modifiedData;
+
+                            // Podmiana nagłówka oraz ukrycie tekstu pytania
+                            const heading = ph.querySelector('h4');
+                            if (heading) heading.innerText = "Zobacz najciekawsze odpowiedzi w tej rundzie:";
+                            
+                            const questionText = ph.querySelector('.bsw-question');
+                            if (questionText) questionText.style.display = 'none';
+                        }
+                    });
+                })
+                .catch(e => console.log('Brak pliku best-submissions-widget.html', e));
+
+
+            // 3. LOGIKA AKORDEONU
+            const accordionHeaders = document.querySelectorAll('.results-accordion-header');
+            const globalBswWidget = document.getElementById('best-submissions-widget-placeholder');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const currentItem = this.parentElement;
+                    const isActive = currentItem.classList.contains('active');
+                    
+                    document.querySelectorAll('.results-accordion-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        currentItem.classList.add('active');
+                        
+                        // Pokaż widget na dole strony TYLKO dla tygodnia ze statusem "ongoing"
+                        if (globalBswWidget) {
+                            globalBswWidget.style.display = currentItem.dataset.status === 'ongoing' ? 'block' : 'none';
+                        }
+                        
+                        setTimeout(() => {
+                           currentItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 150);
+                    } else {
+                        // Kiedy akordeon zostaje zwinięty, ukryj globalny widget
+                        if (globalBswWidget) {
+                            globalBswWidget.style.display = 'none';
+                        }
+                    }
+                });
+            });
+
+
+            // 4. GENEROWANIE LIST LAUREATÓW
+            function generateWinnersList(targetElementId, seedId) {
+                const winnersGrid = document.getElementById(targetElementId);
+                if(!winnersGrid) return;
+
+                const firstNames = ["Aleksandra", "Włodzimierz", "Maksymilian", "Katarzyna", "Agnieszka", "Przemysław", "Małgorzata", "Jan", "Krzysztof", "Tomasz", "Anna", "Karolina"];
+                const lastNames = ["S.", "K.", "W.", "P.", "M.", "D.", "Ż.", "A.", "B.", "L.", "R.", "N."];
+                
+                let htmlContent = '';
+                for(let i = 1; i <= 100; i++) {
+                    let name = "";
+                    if(i === 1) {
+                        name = "Aleksandra Małgorzata";
+                    } else {
+                        let fName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                        let lName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                        name = fName + " " + lName;
+                    }
+                    // seedId - by każdy tydzień miał inny numer zamówienia zaczynający się inną cyfrą
+                    let id = seedId + i; 
+                    
+                    htmlContent += `
+                    <div class="winner-card">
+                        <div class="winner-number">${i}.</div>
+                        <div class="winner-details">
+                            <span class="winner-name">${name}</span>
+                            <span class="winner-id">nr zgłoszenia: #${id}</span>
+                        </div>
+                    </div>`;
                 }
-            }, 100);
-            setTimeout(() => clearInterval(highlightInterval), 3000);
+                winnersGrid.innerHTML = htmlContent;
+            }
+
+            generateWinnersList('winners-list-week6', 16000);
+            generateWinnersList('winners-list-week5', 15000);
+            generateWinnersList('winners-list-week4', 14000);
+            generateWinnersList('winners-list-week3', 13000);
+            generateWinnersList('winners-list-week2', 12000);
+            generateWinnersList('winners-list-week1', 11000);
+
         });
     </script>
 </body>

@@ -3,154 +3,877 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jubileuszowe Eventy - Douglas 25 lat</title>
+    <title>Wydarzenia - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- WYMUSZENIE KĄTÓW OSTRYCH DLA MAKIETY LOW-FI --- */
+        * { border-radius: 0 !important; }
+
+        /* --- HERO SEKCJA --- */
+        .tour-hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem 3rem 1rem;
+            text-align: left;
+        }
+        .tour-hero-container h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        .tour-hero-container p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        /* --- MAPA NA CAŁĄ SZEROKOŚĆ --- */
+        .map-full-width {
+            width: 100%;
+            height: 350px;
+            background: #e0e0e0;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .map-full-width { height: 500px; }
+        }
+        .map-full-width img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- NAKŁADAJĄCY SIĘ BOX HARMONOGRAMU --- */
+        .schedule-overlapping-box {
+            background: transparent; /* Zgodnie z wytycznymi - brak białego boxa */
+            max-width: 1000px;
+            margin: -100px 1rem 4rem 1rem; 
+            position: relative;
+            z-index: 10;
+            border: none;
+            padding: 2rem 0;
+        }
+        @media (min-width: 768px) {
+            .schedule-overlapping-box {
+                margin: -200px auto 4rem auto; 
+                padding: 3rem 0;
+            }
+        }
+        
+        .schedule-overlapping-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8); /* Lekki cień dla widoczności na mapie */
+        }
+
+        /* --- FILTRY KATEGORII W BOKSIE --- */
+        .beauty-tabs.type-tabs {
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+        .beauty-tabs.type-tabs a {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            white-space: nowrap;
+        }
+
+        /* NAPRAWA UKŁADU ZAKŁADEK NA DESKTOPIE (Blokada układu pionowego z globalnego CSS) */
+        @media (min-width: 1024px) {
+            .beauty-tabs.type-tabs {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 1rem !important;
+            }
+            .beauty-tabs.type-tabs a {
+                width: auto !important;
+            }
+        }
+
+        /* --- SLIDER WYDARZEŃ --- */
+        .events-slider-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 4rem;
+        }
+        .events-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .events-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .event-slider-card {
+            flex: 0 0 85%;
+            scroll-snap-align: start;
+            border: 1px solid var(--border-color);
+            background-color: #fcfcfc;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            transition: border-color 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .event-slider-card:hover {
+            border-color: var(--text-color);
+        }
+        @media (min-width: 768px) {
+            .event-slider-card { flex: 0 0 calc(50% - 0.75rem); }
+        }
+        @media (min-width: 1024px) {
+            .event-slider-card { flex: 0 0 calc(33.333% - 1rem); }
+        }
+
+        .esc-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .esc-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .esc-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 0.3rem;
+        }
+
+        .esc-location {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .esc-date {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        .esc-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+        
+        .esc-ctas {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .events-slider-wrapper .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color);
+            width: 44px;
+            height: 48px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .events-slider-wrapper .carousel-arrow:hover { background: #fff; }
+        .events-slider-wrapper .carousel-arrow.prev { left: -15px; }
+        .events-slider-wrapper .carousel-arrow.next { right: -15px; }
+
+        /* --- OZNACZENIA STATUSU - NAPRAWA PODWÓJNYCH NAPISÓW --- */
+        .event-status-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 0.3rem 0.6rem;
+            white-space: nowrap;
+            z-index: 2;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+        /* Blokujemy nadpisywanie tekstu pseudo-elementem z zewnętrznego CSS */
+        .event-status-badge::before { content: none !important; }
+        
+        .status-past .event-status-badge { background-color: #eeeeee; color: var(--text-muted); border-color: var(--border-color); }
+        .status-ongoing .event-status-badge { background-color: var(--hover-orange); border-color: var(--hover-orange); }
+        .status-upcoming .event-status-badge { background-color: var(--text-color); border-color: var(--text-color); }
+
+        /* --- ZAKOŃCZONE WYDARZENIA - NOWY POZIOMY UKŁAD (GRAFIKA Z BOKU NA MOBILE) --- */
+        .past-horizontal-card {
+            display: flex;
+            flex-direction: row; 
+            border: 1px solid var(--border-color);
+            background: #fcfcfc;
+            margin-bottom: 1rem;
+            transition: border-color 0.2s;
+            align-items: stretch;
+        }
+        .past-horizontal-card:hover {
+            border-color: var(--text-color);
+        }
+        
+        .phc-img {
+            width: 35%; /* Grafika na boku, na mobile 35% szerokości */
+            max-width: 140px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: bold;
+            position: relative;
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+            padding: 0.5rem;
+        }
+        @media (min-width: 768px) {
+            .phc-img {
+                width: 25%;
+                max-width: 250px;
+            }
+        }
+
+        .phc-content {
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: left;
+            justify-content: space-between;
+        }
+        .phc-title {
+            font-size: 1rem; /* Mniejszy font na mobile */
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+        }
+        .phc-location {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+        .phc-date {
+            font-size: 0.85rem; /* Mniejszy font daty na mobile */
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+        }
+        .phc-content .cta-link {
+            font-size: 0.8rem;
+        }
+        
+        @media (min-width: 768px) {
+            .phc-content { padding: 1.5rem; }
+            .phc-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+            .phc-location { font-size: 0.95rem; margin-bottom: 0.5rem; }
+            .phc-date { font-size: 0.95rem; margin-bottom: 1.5rem; }
+            .phc-content .cta-link { font-size: 0.9rem; }
+        }
+
+        /* --- POPUP (MODAL) --- */
+        .map-popup-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        .map-popup-card {
+            width: 90%;
+            max-width: 550px;
+            background: var(--bg-color);
+            padding: 0; 
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            text-align: left;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.6rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-color);
+            z-index: 10;
+        }
+        .close-popup:hover { background: #fff; }
+        .popup-img {
+            width: 100%;
+            height: 250px;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .popup-body {
+            padding: 2.5rem;
+        }
+        
+        .popup-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .popup-nav button {
+            background: #f4f4f4;
+            border: 1px solid var(--border-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            width: 50px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .popup-nav button:hover:not(:disabled) { background: #e0e0e0; }
+        .popup-nav button:disabled { color: #ccc; cursor: default; background: #fafafa; }
+        
+        /* SLIDER DLA ZAKOŃCZONYCH (MAKEUP CORNER) ORAZ GŁÓWNY */
+        .events-slider-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 4rem;
+        }
+        .events-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .events-carousel::-webkit-scrollbar { display: none; }
+        .events-carousel .event-slider-card {
+            flex: 0 0 85%;
+            scroll-snap-align: start;
+            border: 1px solid var(--border-color);
+            background-color: #fcfcfc;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+        .events-carousel .event-slider-card:hover { border-color: var(--text-color); }
+        @media (min-width: 768px) {
+            .events-carousel .event-slider-card { flex: 0 0 calc(50% - 0.75rem); }
+        }
+        @media (min-width: 1024px) {
+            .events-carousel .event-slider-card { flex: 0 0 calc(33.333% - 1rem); }
+        }
+        
+        .events-slider-wrapper .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color);
+            width: 44px;
+            height: 48px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .events-slider-wrapper .carousel-arrow:hover { background: #fff; }
+        .events-slider-wrapper .carousel-arrow.prev { left: -15px; }
+        .events-slider-wrapper .carousel-arrow.next { right: -15px; }
+
+    </style>
 </head>
 <body>
 
     <div id="header-placeholder"></div>
 
-    <section id="history-hero"></section>
-
-    <section id="events-main-section"> 
+    <main>
         
-        <div class="events-page-header">
-            <h2 style="margin-bottom: 0.5rem;">Urodzinowy Tour</h2>
-            <p style="margin-bottom: 0;">Znajdź i wybierz wydarzenie w twoim mieście</p>
+        <div class="tour-hero-container">
+            <h1>Urodzinowy Tour</h1>
+            <p>
+                Z okazji 25. rocznicy przygotowaliśmy dla Was niezwykłą, mobilną strefę piękna! Dołącz do naszego urodzinowego świętowania, które odwiedzi największe polskie miasta. Poznaj najnowsze trendy, skorzystaj z porad ekspertów i weź udział w wyjątkowych metamorfozach. Sprawdź, kiedy będziemy u Ciebie!
+            </p>
+            <a href="#harmonogram" class="cta-link" onclick="document.getElementById('harmonogram').scrollIntoView({behavior: 'smooth'}); return false;">Znajdź i wybierz miejsce w twoim mieście</a>
         </div>
 
-        <div class="events-layout-wrapper">
+        <div class="map-full-width">
+            <img src="assets/mapa-draft-2.png" alt="Mapa Polski" onerror="this.src='https://via.placeholder.com/1200x500/e0e0e0/999?text=MAPA+POLSKI'">
+        </div>
+
+        <div id="harmonogram" class="schedule-overlapping-box">
             
-            <aside class="events-sidebar">
-                <!-- Dropdown i przełącznik widoku ułożone w 1 rzędzie na mobile (zaktualizowane w CSS) -->
-                <div class="sidebar-top-row">
-                    <div class="view-toggle">
-                        <a href="javascript:void(0)" data-target="view-map">Mapa</a> / 
-                        <a href="javascript:void(0)" class="active" data-target="view-list">Lista</a>
-                    </div>
-                    <select id="city-select" class="custom-dropdown">
-                        <option value="all">Wszystkie miasta</option>
-                        <option value="Warszawa">Warszawa</option>
-                        <option value="Kraków">Kraków</option>
-                        <option value="Wrocław">Wrocław</option>
-                        <option value="Poznań">Poznań</option>
-                        <option value="Szczecin">Szczecin</option>
-                        <option value="Gdańsk">Gdańsk</option>
-                        <option value="Lublin">Lublin</option>
-                        <option value="Katowice">Katowice</option>
-                        <option value="Bydgoszcz">Bydgoszcz</option>
-                        <option value="Łódź">Łódź</option>
-                    </select>
-                </div>
+            <h2>Znajdź wydarzenie dla siebie</h2>
 
-                <div class="filter-type-group">
-                    <span class="filter-label">Wybierz typ wydarzenia:</span>
-                    <div class="beauty-tabs type-tabs">
-                        <a href="javascript:void(0)" class="active" data-tab="all"><span>Wszystkie</span></a>
-                        <a href="javascript:void(0)" data-tab="pop-up"><span>Beauty Street Pop Up</span></a>
-                        <a href="javascript:void(0)" data-tab="beauty-street"><span>Beauty Street</span></a>
-                        <a href="javascript:void(0)" data-tab="make-up"><span>Make up Corner</span></a>
-                    </div>
-                </div>
-            </aside>
-
-            <main class="events-content">
-                <div id="view-list" class="event-view-section" style="display: block;">
-                    <div id="no-events-msg" style="display: none; text-align: left; padding: 2rem 0; color: var(--text-muted);">Sprawdź w innym mieście</div>
-                    <div class="event-carousel-group" id="group-ongoing" style="display: none;">
-                        <h3>Trwające teraz</h3>
-                        <div class="inspiration-carousel-wrapper">
-                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-ongoing').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
-                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-ongoing').scrollBy({left: 300, behavior: 'smooth'})">›</button>
-                            <div class="inspiration-carousel event-carousel" id="carousel-ongoing"></div>
-                        </div>
-                    </div>
-                    <div class="event-carousel-group" id="group-upcoming" style="display: none;">
-                        <h3>Nadchodzące</h3>
-                        <div class="inspiration-carousel-wrapper">
-                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-upcoming').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
-                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-upcoming').scrollBy({left: 300, behavior: 'smooth'})">›</button>
-                            <div class="inspiration-carousel event-carousel" id="carousel-upcoming"></div>
-                        </div>
-                    </div>
-                    <div class="event-carousel-group" id="group-past" style="display: none;">
-                        <h3>Zakończone</h3>
-                        <div class="inspiration-carousel-wrapper">
-                            <button class="carousel-arrow prev" onclick="document.getElementById('carousel-past').scrollBy({left: -300, behavior: 'smooth'})">‹</button>
-                            <button class="carousel-arrow next" onclick="document.getElementById('carousel-past').scrollBy({left: 300, behavior: 'smooth'})">›</button>
-                            <div class="inspiration-carousel event-carousel" id="carousel-past"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="view-map" class="event-view-section" style="display: none;">
-                    <div class="map-container placeholder-img" style="min-height: 600px; position: relative; background-color: #eaeaea;">
-                        <span style="position: absolute; top: 1rem; left: 1rem; font-weight: bold; color: var(--text-muted);">Mapa Polski</span>
-                        <div class="map-pin" data-category="pop-up" data-city="Warszawa" data-start-date="2026-07-02" data-end-date="2026-07-04" data-venue="Westfield Mokotów" data-date-str="02-04 LIPCA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 30%; left: 55%;">
-                            <div class="pin-marker"></div><div class="pin-label">Westfield Mokotów<br><small>02-04 LIPCA 2026</small></div>
-                        </div>
-                        <div class="map-pin" data-category="make-up" data-city="Szczecin" data-start-date="2026-06-15" data-end-date="2026-06-20" data-venue="Galaxy Centrum" data-date-str="15-20 CZERWCA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 15%; left: 15%;">
-                            <div class="pin-marker"></div><div class="pin-label">Galaxy Centrum<br><small>15-20 CZERWCA 2026</small></div>
-                        </div>
-                        <div class="map-pin" data-category="beauty-street" data-city="Poznań" data-start-date="2026-05-12" data-end-date="2026-05-14" data-venue="Stary Browar" data-date-str="12-14 MAJA 2026" data-link="https://booksy.com/pl-pl#ba_s=seo" style="top: 40%; left: 30%;">
-                            <div class="pin-marker"></div><div class="pin-label">Stary Browar<br><small>12-14 MAJA 2026</small></div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </section>
-
-    <!-- NOWA SEKCJA: KONCERT FINAŁOWY NA DOLE -->
-    <section class="final-concert-promo">
-        <div class="final-concert-img placeholder-img"><span>Grafika na całą szerokość</span></div>
-        <div class="final-concert-text">
-            <span class="section-label">Koncert finałowy</span>
-            <h2>Wielki finał jubileuszu</h2>
-            <p>Świętuj z nami 25-lecie Douglasa na finałowym koncercie trasy w sanach na PGE Narodowym w Warszawie.</p>
-            <a href="koncert-finalowy.html" class="cta-link">Zobacz więcej</a>
-        </div>
-    </section>
-
-    <!-- Modal Mapy -->
-    <div id="map-popup-modal" class="map-popup-overlay" style="display: none;">
-        <div class="event-card map-popup-card">
-            <button class="close-popup" onclick="document.getElementById('map-popup-modal').style.display='none'">✕</button>
-            <div class="event-card-header">
-                <h3 class="event-card-name" id="popup-name">Miejsce</h3>
-                <span class="event-status-badge" id="popup-badge"></span>
+            <div class="beauty-tabs type-tabs" id="category-filters">
+                <a href="#" data-type="all" class="active">Wszystkie</a>
+                <a href="#" data-type="Beauty Street">Beauty Street</a>
+                <a href="#" data-type="Beauty Street Pop-up">Beauty Street Pop-up</a>
+                <a href="#" data-type="Makeup Corner">Makeup Corner</a>
             </div>
-            <div class="event-card-city" id="popup-city">Miasto</div>
-            <div class="event-card-date" id="popup-date">Data</div>
-            <div class="event-card-bottom">
-                <a href="#" id="popup-cta" class="cta-link cta-small" target="_blank" style="margin-left: auto;">Zapisz się</a>
+
+            <div class="events-slider-wrapper">
+                <button class="carousel-arrow prev" id="slider-btn-prev">‹</button>
+                <div class="events-carousel" id="schedule-slider">
+                    </div>
+                <button class="carousel-arrow next" id="slider-btn-next">›</button>
+            </div>
+
+            <p id="no-events-msg" style="display: none; text-align: center; font-weight: bold; font-size: 1.2rem; color: var(--text-muted); margin: 3rem 0;">
+                Brak wydarzeń w wybranej kategorii.
+            </p>
+            
+        </div>
+
+        <div style="max-width: 1200px; margin: 5rem auto 0 auto; padding: 0 1rem;">
+            <h2 style="margin-bottom: 2rem; text-align: left;">Zakończone wydarzenia</h2>
+
+            <h4 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Beauty Street</h4>
+            <div id="past-beautystreet-container">
+                </div>
+
+            <h4 style="font-size: 1.25rem; margin-bottom: 1.5rem; margin-top: 4rem;">Beauty Street Pop-up</h4>
+            <div id="past-popup-container">
+                </div>
+
+            <h4 style="font-size: 1.25rem; margin-bottom: 1.5rem; margin-top: 4rem;">Makeup Corner</h4>
+            <div class="events-slider-wrapper">
+                <button class="carousel-arrow prev" onclick="document.getElementById('past-slider-container').scrollBy({left: -350, behavior: 'smooth'})">‹</button>
+                <div class="events-carousel" id="past-slider-container">
+                    </div>
+                <button class="carousel-arrow next" onclick="document.getElementById('past-slider-container').scrollBy({left: 350, behavior: 'smooth'})">›</button>
             </div>
         </div>
-    </div>
 
-    <!-- Dane eventów używane przez plik main.js -->
-    <div id="master-events-data" style="display: none;">
-        <div class="event-card" data-category="pop-up" data-city="Warszawa" data-start-date="2026-07-02" data-end-date="2026-07-04">
-            <h3 class="event-card-name">Westfield Mokotów</h3>
-            <div class="event-card-city">Warszawa</div>
-            <div class="event-card-date">02-04 LIPCA 2026</div>
-            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
-        </div>
-        <div class="event-card" data-category="make-up" data-city="Szczecin" data-start-date="2026-06-15" data-end-date="2026-06-20">
-            <h3 class="event-card-name">Galaxy Centrum</h3>
-            <div class="event-card-city">Szczecin</div>
-            <div class="event-card-date">15-20 CZERWCA 2026</div>
-            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
-        </div>
-        <div class="event-card" data-category="beauty-street" data-city="Poznań" data-start-date="2026-05-12" data-end-date="2026-05-14">
-            <h3 class="event-card-name">Stary Browar</h3>
-            <div class="event-card-city">Poznań</div>
-            <div class="event-card-date">12-14 MAJA 2026</div>
-            <div class="event-card-bottom"><a href="https://booksy.com/pl-pl#ba_s=seo" target="_blank" class="cta-link cta-small">Zapisz się</a></div>
+        <section style="background-image: url('assets/placeholder@0,25x.png'); background-size: cover; background-position: center; border-top: 1px solid var(--border-color); margin-top: 5rem; padding: 6rem 1rem;">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="max-width: 800px; text-align: left;">
+                    <h2 style="text-align: left;">Sprawdź jak jeszcze celebrujemy 25 lat Douglasa w Polsce!</h2>
+                    <p style="font-size: 1.15rem; margin-bottom: 2.5rem; line-height: 1.6; color: var(--text-color);">Weź udział w naszym wielkim jubileuszowym konkursie. Podejmij cotygodniowe wyzwania, pokaż nam swoją kreatywność i zdobądź wyjątkowe wejściówki na koncert finałowy.</p>
+                    <a href="konkurs.html" class="cta-link">Wygraj bilety</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="event-popup-modal" class="map-popup-overlay">
+        <div class="map-popup-card">
+            <button class="close-popup" id="close-modal-btn">✕</button>
+            <div class="popup-img" id="popup-image"><span>Grafika Wydarzenia na całą szerokość</span></div>
+            
+            <div class="popup-body">
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem;">
+                    <span id="popup-badge" class="event-status-badge" style="position: static;"></span>
+                    <span id="popup-category" style="font-size: 0.85rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase;"></span>
+                </div>
+                
+                <h3 id="popup-title" style="font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.2;">Tytuł</h3>
+                <p id="popup-details" style="font-size: 1.05rem; font-weight: bold; margin-bottom: 1.5rem; color: var(--text-color);">Data | Miejsce</p>
+                <p id="popup-desc" style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; color: var(--text-color);">Opis</p>
+                
+                <a href="https://booksi.pl" target="_blank" id="popup-cta-booksi" class="cta-link" style="font-weight: bold; color: var(--text-color); border-bottom-color: var(--text-color);">Zapisz się</a>
+
+                <div class="popup-nav">
+                    <button id="popup-prev-btn" title="Poprzednie">&#8592;</button>
+                    <button id="popup-next-btn" title="Następne">&#8594;</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="footer-placeholder"></div>
+
     <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Główne dane - Harmonogram (Szczecin jako pierwsze, TRWA)
+            const scheduleEvents = [
+                { title: 'Galaxy Centrum', type: 'Makeup Corner', city: 'Szczecin', dateStr: '01-04 LIPCA', time: '10:00', desc: 'Wyjątkowe, jubileuszowe spotkania ze specjalistami od makijażu i profesjonalnego wizażu. Przyjdź po spersonalizowaną poradę, przetestuj z nami nowości na ten sezon i ciesz się wyjątkowymi zniżkami podczas eventu.', statusClass: 'status-ongoing' },
+                { title: 'Westfield Mokotów', type: 'Beauty Street Pop-up', city: 'Warszawa', dateStr: '02-04 LIPCA', time: '09:00', desc: 'Mobilna strefa piękna pełna nowości, darmowych próbek kosmetycznych i unikalnych niespodzianek od Douglas. Nasi doradcy pomogą Ci dobrać idealną pielęgnację i zapach na nadchodzące miesiące. Zarezerwuj swój czas.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Echo', type: 'Makeup Corner', city: 'Kielce', dateStr: '08-11 LIPCA', time: '10:00', desc: 'Konsultacje kosmetyczne i szybkie makijaże gwiazd wykonywane na miejscu przez naszych ekspertów. To doskonała okazja by nauczyć się najnowszych technik makijażowych prosto z czerwonych dywanów.', statusClass: 'status-upcoming' },
+                { title: 'Manufaktura', type: 'Beauty Street Pop-up', city: 'Łódź', dateStr: '09-11 LIPCA', time: '09:00', desc: 'Świętuj z nami ćwierć wieku w Polsce! Czekają na Ciebie strefy testów, konkursy z nagrodami i rabaty. Zobacz, jak ewoluowało piękno na przestrzeni ostatnich 25 lat wraz z naszymi kultowymi markami.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Copernicus', type: 'Makeup Corner', city: 'Toruń', dateStr: '15-18 LIPCA', time: '11:00', desc: 'Wyjątkowe, jubileuszowe spotkania ze specjalistami od makijażu i profesjonalnego wizażu. Poznaj tajniki trwałego make-upu na całą noc i zgarnij zestaw mini produktów do domowego testowania.', statusClass: 'status-upcoming' },
+                { title: 'Focus Mall', type: 'Beauty Street Pop-up', city: 'Zielona Góra', dateStr: '16-18 LIPCA', time: '10:00', desc: 'Mobilna strefa piękna pełna nowości, darmowych próbek kosmetycznych i unikalnych niespodzianek od Douglas. Oprócz tego na uczestników czekają spotkania z gośćmi specjalnymi oraz zniżki na zapachy.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Leszno', type: 'Makeup Corner', city: 'Leszno', dateStr: '22-25 LIPCA', time: '09:00', desc: 'Konsultacje kosmetyczne i szybkie makijaże gwiazd wykonywane na miejscu przez naszych ekspertów. Dodatkowo strefa analizy cery przy pomocy najnowocześniejszych urządzeń diagnostycznych.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Warmińska', type: 'Beauty Street Pop-up', city: 'Olsztyn', dateStr: '23-25 LIPCA', time: '10:00', desc: 'Świętuj z nami ćwierć wieku w Polsce! Czekają na Ciebie strefy testów, konkursy z nagrodami i rabaty. Czeka również na Was gigantyczny tort urodzinowy i specjalne vouchery rabatowe do salonów.', statusClass: 'status-upcoming' },
+                { title: 'Bonarka City Center', type: 'Makeup Corner', city: 'Kraków', dateStr: '29 LIPCA - 01 SIERPNIA', time: '10:00', desc: 'Wyjątkowe, jubileuszowe spotkania ze specjalistami od makijażu i profesjonalnego wizażu. Przyjdź po spersonalizowaną poradę, przetestuj z nami nowości na ten sezon i ciesz się wyjątkowymi zniżkami.', statusClass: 'status-upcoming' },
+                { title: 'Magnolia Park', type: 'Beauty Street Pop-up', city: 'Wrocław', dateStr: '30 LIPCA - 01 SIERPNIA', time: '09:00', desc: 'Mobilna strefa piękna pełna nowości, darmowych próbek kosmetycznych i unikalnych niespodzianek od Douglas. Czeka na Ciebie mnóstwo interaktywnych instalacji i fotosfer, z których zabierzesz super pamiątkę.', statusClass: 'status-upcoming' },
+                { title: 'Westfield Arkadia', type: 'Makeup Corner', city: 'Warszawa', dateStr: '05-08 SIERPNIA', time: '10:00', desc: 'Konsultacje kosmetyczne i szybkie makijaże gwiazd wykonywane na miejscu przez naszych ekspertów. Skorzystaj z okazji na bezpłatny dobór odcieni przez doświadczonych kolorystów i stylistów.', statusClass: 'status-upcoming' },
+                { title: 'Silesia City Center', type: 'Beauty Street Pop-up', city: 'Katowice', dateStr: '06-08 SIERPNIA', time: '10:00', desc: 'Świętuj z nami ćwierć wieku w Polsce! Czekają na Ciebie strefy testów, konkursy z nagrodami i rabaty. Spędź weekend w atmosferze wielkiej celebry z wyjątkowymi DJ-skimi setami i muzyką na żywo.', statusClass: 'status-upcoming' },
+                { title: 'Stary Browar', type: 'Beauty Street', city: 'Poznań', dateStr: '12-14 SIERPNIA', time: '09:00', desc: 'Nasze największe święto piękna, eksperci i strefy metamorfoz. Specjalnie z tej okazji naszą główną scenę przejmą znani influencerzy beauty. Nie możesz tego przegapić, szykujemy darmowe upominki!', statusClass: 'status-upcoming' },
+                { title: 'Galeria Słoneczna', type: 'Makeup Corner', city: 'Radom', dateStr: '19-22 SIERPNIA', time: '11:00', desc: 'Wyjątkowe, jubileuszowe spotkania ze specjalistami od makijażu i profesjonalnego wizażu. Przyjdź po spersonalizowaną poradę, przetestuj z nami nowości i dobierz idealne kosmetyki z rabatem.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Jurajska', type: 'Beauty Street Pop-up', city: 'Częstochowa', dateStr: '20-22 SIERPNIA', time: '10:00', desc: 'Mobilna strefa piękna pełna nowości, darmowych próbek kosmetycznych i unikalnych niespodzianek od Douglas. Odkrywaj piękno na nowo i celebruj ćwierć wieku sukcesu marki w Polsce.', statusClass: 'status-upcoming' },
+                { title: 'Galeria Trzy Korony', type: 'Makeup Corner', city: 'Nowy Sącz', dateStr: '26-29 SIERPNIA', time: '09:00', desc: 'Konsultacje kosmetyczne i szybkie makijaże gwiazd wykonywane na miejscu przez naszych ekspertów. Idealny czas na znalezienie perfekcyjnego looku z użyciem najlepszych selektywnych marek.', statusClass: 'status-upcoming' },
+                { title: 'Alfa', type: 'Beauty Street Pop-up', city: 'Białystok', dateStr: '27-29 SIERPNIA', time: '10:00', desc: 'Świętuj z nami ćwierć wieku w Polsce! Czekają na Ciebie strefy testów, konkursy z nagrodami i rabaty. Gwarantujemy wspaniałą zabawę dla wszystkich fanek pielęgnacji i kolorówki.', statusClass: 'status-upcoming' }
+            ];
+
+            let currentFilteredEvents = [...scheduleEvents];
+            
+            const scheduleSlider = document.getElementById('schedule-slider');
+            const noEventsMsg = document.getElementById('no-events-msg');
+            const categoryFilters = document.querySelectorAll('#category-filters a');
+
+            // Generator kart slidera w harmonogramie
+            function renderSchedule() {
+                scheduleSlider.innerHTML = '';
+
+                if (currentFilteredEvents.length === 0) {
+                    noEventsMsg.style.display = 'block';
+                    return;
+                }
+                noEventsMsg.style.display = 'none';
+
+                currentFilteredEvents.forEach((ev, index) => {
+                    const badgeText = ev.statusClass === 'status-ongoing' ? 'TRWA' : 'NADCHODZĄCE';
+                    
+                    const card = document.createElement('div');
+                    card.className = `event-slider-card ${ev.statusClass}`;
+                    
+                    card.innerHTML = `
+                        <div class="esc-img">
+                            <span class="event-status-badge" style="border:none;">${badgeText}</span>
+                            <span>Zdjęcie</span>
+                        </div>
+                        <div class="esc-content">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.3rem;">
+                                <h3 class="esc-title" style="margin-bottom: 0;">${ev.title}</h3>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase; text-align: right; flex-shrink: 0; line-height: 1.3; margin-top: 0.2rem;">${ev.type}</span>
+                            </div>
+                            <div class="esc-location">
+                                <span class="placeholder-icon" style="width:16px;height:16px;font-size:10px;border:none;">📍</span>
+                                ${ev.city}
+                            </div>
+                            <div class="esc-date">
+                                ${ev.dateStr}, ${ev.time}
+                            </div>
+                            <p class="esc-desc">${ev.desc}</p>
+                            
+                            <div class="esc-ctas">
+                                <a href="javascript:void(0)" class="cta-link cta-small btn-szczegoly" style="color: var(--text-color); border-bottom-color: var(--text-color);">Pokaż więcej</a>
+                                <a href="https://booksi.pl" target="_blank" class="cta-link cta-small btn-zapisz" style="color: var(--hover-orange); border-bottom-color: var(--hover-orange);">Zapisz się</a>
+                            </div>
+                        </div>
+                    `;
+                    card.querySelector('.btn-szczegoly').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openModal(currentFilteredEvents, index);
+                    });
+                    scheduleSlider.appendChild(card);
+                });
+            }
+
+            // Filtrowanie po kategorii
+            function applyFilters() {
+                const activeTypeTab = document.querySelector('#category-filters a.active');
+                const filterType = activeTypeTab ? activeTypeTab.getAttribute('data-type') : 'all';
+
+                currentFilteredEvents = scheduleEvents.filter(ev => {
+                    return filterType === 'all' || ev.type === filterType;
+                });
+                
+                renderSchedule();
+                scheduleSlider.scrollTo({ left: 0, behavior: 'smooth' });
+            }
+
+            categoryFilters.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    categoryFilters.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    applyFilters();
+                });
+            });
+
+            // --- GENEROWANIE ZAKOŃCZONYCH WYDARZEŃ ---
+            
+            // Pojedyncze (dawny hero, teraz horizontal) Beauty Street
+            const pastBSContainer = document.getElementById('past-beautystreet-container');
+            const pastBSEvent = [{ 
+                title: 'Galeria Posnania', type: 'Beauty Street', city: 'Poznań', dateStr: '12-14 MAJA', time: '10:00', 
+                desc: 'Inauguracyjne, wielkie święto urodzinowe z cyklu Beauty Street. Dziękujemy za rekordową frekwencję, niesamowitą energię oraz setki przeprowadzonych metamorfoz pod okiem naszych topowych makijażystów. Było niezwykle inspirująco. Widzimy się wkrótce znowu!', 
+                statusClass: 'status-past' 
+            }];
+            
+            pastBSEvent.forEach((ev, index) => {
+                const card = document.createElement('div');
+                card.className = `past-horizontal-card ${ev.statusClass}`;
+                
+                card.innerHTML = `
+                    <div class="phc-img">
+                        <span>Zdjęcie</span>
+                    </div>
+                    <div class="phc-content" style="justify-content: space-between;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.3rem;">
+                                <h3 class="schedule-title" style="margin-bottom: 0;">${ev.title}</h3>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase; text-align: right; flex-shrink: 0; line-height: 1.3; margin-top: 0.2rem;">${ev.type}</span>
+                            </div>
+                            <div class="schedule-location">
+                                <span class="placeholder-icon" style="width:16px;height:16px;font-size:10px;border:none;">📍</span>
+                                ${ev.city}
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div class="schedule-date" style="margin-bottom: 0; text-transform:none; font-size:1rem; color:var(--text-color);">
+                                ${ev.dateStr}, ${ev.time}
+                            </div>
+                            <div class="esc-ctas" style="margin-top: 0;">
+                                <a href="javascript:void(0)" class="cta-link cta-small btn-szczegoly">Pokaż więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                card.querySelector('.btn-szczegoly').addEventListener('click', () => openModal(pastBSEvent, index));
+                pastBSContainer.appendChild(card);
+            });
+
+            // Beauty Street Pop-up (Lista)
+            const pastPopupContainer = document.getElementById('past-popup-container');
+            const dummyCities = ['Lublin', 'Bydgoszcz', 'Opole', 'Gdynia', 'Rzeszów'];
+            const pastPopupData = [];
+            for(let i=1; i<=4; i++) {
+                let city = dummyCities[i % dummyCities.length];
+                pastPopupData.push({
+                    title: `Galeria Handlowa`,
+                    type: 'Beauty Street Pop-up',
+                    city: city,
+                    dateStr: `10-12 KWIETNIA`,
+                    time: `09:00`,
+                    desc: 'To wydarzenie już się zakończyło. Dziękujemy za liczne przybycie i wspólne testowanie kosmetycznych nowości. Galeria była pełna uśmiechów i pięknych metamorfoz. Nasi klienci odebrali łącznie tysiące wspaniałych mini produktów i voucherów na zakupy.',
+                    statusClass: 'status-past'
+                });
+            }
+            pastPopupData.forEach((ev, index) => {
+                const card = document.createElement('div');
+                card.className = `past-horizontal-card ${ev.statusClass}`;
+                card.innerHTML = `
+                    <div class="phc-img">
+                        <span>Zdjęcie</span>
+                    </div>
+                    <div class="phc-content" style="justify-content: space-between;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.3rem;">
+                                <h3 class="schedule-title" style="margin-bottom: 0;">${ev.title}</h3>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase; text-align: right; flex-shrink: 0; line-height: 1.3; margin-top: 0.2rem;">${ev.type}</span>
+                            </div>
+                            <div class="schedule-location">
+                                <span class="placeholder-icon" style="width:16px;height:16px;font-size:10px;border:none;">📍</span>
+                                ${ev.city}
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                            <div class="schedule-date" style="margin-bottom: 0; text-transform:none; font-size:1rem; color:var(--text-color);">
+                                ${ev.dateStr}, ${ev.time}
+                            </div>
+                            <div class="esc-ctas" style="margin-top: 0;">
+                                <a href="javascript:void(0)" class="cta-link cta-small btn-szczegoly">Pokaż więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                card.querySelector('.btn-szczegoly').addEventListener('click', () => openModal(pastPopupData, index));
+                pastPopupContainer.appendChild(card);
+            });
+
+            // Makeup Corner (Slider)
+            const pastSliderContainer = document.getElementById('past-slider-container');
+            const pastSliderData = [];
+            for(let i=1; i<=6; i++) {
+                let city = dummyCities[(i+2) % dummyCities.length];
+                pastSliderData.push({
+                    title: `Pasaż Północny`,
+                    type: 'Makeup Corner',
+                    city: city,
+                    dateStr: `02-04 MARCA`,
+                    time: `10:00`,
+                    desc: 'Wydarzenie zakończone. Mamy nadzieję, że przeprowadzone makijaże i dobór barw przyniosły mnóstwo inspiracji wszystkim uczestniczkom naszego stoiska Makeup Corner. Wasi doradcy zaprezentowali najlepsze triki ze świata najsłynniejszych wizażystów.',
+                    statusClass: 'status-past'
+                });
+            }
+            pastSliderData.forEach((ev, index) => {
+                const card = document.createElement('div');
+                card.className = `event-slider-card ${ev.statusClass}`;
+                card.innerHTML = `
+                    <div class="esc-img" style="border-bottom:none; margin-bottom:1rem;">
+                        <span>Zdjęcie</span>
+                    </div>
+                    <div class="esc-content" style="padding-top:0;">
+                        <div>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.3rem;">
+                                <h3 class="esc-title" style="margin-bottom: 0;">${ev.title}</h3>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase; text-align: right; flex-shrink: 0; line-height: 1.3; margin-top: 0.2rem;">${ev.type}</span>
+                            </div>
+                            <div class="schedule-location">
+                                <span class="placeholder-icon" style="width:16px;height:16px;font-size:10px;border:none;">📍</span>
+                                ${ev.city}
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top:1rem;">
+                            <div class="schedule-date" style="margin-bottom: 0; text-transform:none; font-size:1rem; color:var(--text-color);">
+                                ${ev.dateStr}, ${ev.time}
+                            </div>
+                            <div class="esc-ctas" style="margin-top: 0;">
+                                <a href="javascript:void(0)" class="cta-link cta-small btn-szczegoly" style="margin-bottom:0;">Pokaż więcej</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                card.querySelector('.btn-szczegoly').addEventListener('click', () => openModal(pastSliderData, index));
+                pastSliderContainer.appendChild(card);
+            });
+
+            // --- LOGIKA MODALA ---
+            let activeModalArray = [];
+            let currentPopupIndex = 0;
+
+            const modal = document.getElementById('event-popup-modal');
+            const modalTitle = document.getElementById('popup-title');
+            const modalBadge = document.getElementById('popup-badge');
+            const modalCategory = document.getElementById('popup-category');
+            const modalDetails = document.getElementById('popup-details');
+            const modalDesc = document.getElementById('popup-desc');
+            const prevBtn = document.getElementById('popup-prev-btn');
+            const nextBtn = document.getElementById('popup-next-btn');
+            const ctaBtnBooksi = document.getElementById('popup-cta-booksi');
+
+            function openModal(dataArray, index) {
+                activeModalArray = dataArray;
+                currentPopupIndex = index;
+                updateModalContent();
+                modal.style.display = 'flex';
+            }
+
+            function updateModalContent() {
+                const ev = activeModalArray[currentPopupIndex];
+                
+                modalTitle.innerText = ev.title;
+                modalCategory.innerText = ev.type;
+                modalDetails.innerText = `${ev.dateStr}, ${ev.time} | ${ev.city}`;
+                modalDesc.innerText = ev.desc; 
+
+                // Reset i nadanie badge
+                modalBadge.className = 'event-status-badge'; 
+                modalBadge.style.border = 'none';
+                
+                if (ev.statusClass === 'status-ongoing') {
+                    modalBadge.innerText = 'TRWA';
+                    modalBadge.style.backgroundColor = 'var(--hover-orange)';
+                    modalBadge.style.color = '#fff';
+                    ctaBtnBooksi.style.display = 'inline-block';
+                } else if (ev.statusClass === 'status-upcoming') {
+                    modalBadge.innerText = 'NADCHODZĄCE';
+                    modalBadge.style.backgroundColor = 'var(--text-color)';
+                    modalBadge.style.color = '#fff';
+                    ctaBtnBooksi.style.display = 'inline-block';
+                } else {
+                    modalBadge.innerText = 'ZAKOŃCZONE';
+                    modalBadge.style.backgroundColor = '#eeeeee';
+                    modalBadge.style.color = 'var(--text-muted)';
+                    ctaBtnBooksi.style.display = 'none'; // Zakończone wydarzenia nie mają zapisów
+                }
+
+                prevBtn.disabled = currentPopupIndex === 0;
+                nextBtn.disabled = currentPopupIndex === activeModalArray.length - 1;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPopupIndex > 0) {
+                    currentPopupIndex--;
+                    updateModalContent();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPopupIndex < activeModalArray.length - 1) {
+                    currentPopupIndex++;
+                    updateModalContent();
+                }
+            });
+
+            document.getElementById('close-modal-btn').addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+
+            // Strzałki slidera głównego
+            document.getElementById('slider-btn-prev').addEventListener('click', () => {
+                scheduleSlider.scrollBy({ left: -350, behavior: 'smooth' });
+            });
+            document.getElementById('slider-btn-next').addEventListener('click', () => {
+                scheduleSlider.scrollBy({ left: 350, behavior: 'smooth' });
+            });
+
+            const pastSliderWrapper = document.getElementById('past-slider-container');
+            if (pastSliderWrapper) {
+                document.querySelector('.events-slider-wrapper .prev').addEventListener('click', () => {
+                    pastSliderWrapper.scrollBy({ left: -350, behavior: 'smooth' });
+                });
+                document.querySelector('.events-slider-wrapper .next').addEventListener('click', () => {
+                    pastSliderWrapper.scrollBy({ left: 350, behavior: 'smooth' });
+                });
+            }
+
+            renderSchedule();
+        });
+    </script>
 </body>
 </html>

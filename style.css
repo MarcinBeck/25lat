@@ -546,17 +546,11 @@ footer {
   scrollbar-width: none;
 }
 .timeline::-webkit-scrollbar { display: none; }
+
+/* Usunięcie kropek z osi czasu poziomej na stronie głównej */
 .timeline-item { position: relative; flex: 0 0 50vw; scroll-snap-align: start; }
 .timeline-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: calc(-1.5rem - 6px);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--bg-color);
-  border: 2px solid var(--text-color);
+  display: none;
 }
 .timeline-date { font-weight: bold; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.3rem; }
 
@@ -631,13 +625,18 @@ footer {
 .v-timeline { position: relative; max-width: 1000px; margin: 0 auto; }
 .v-timeline::after { content: ''; position: absolute; width: 2px; background-color: var(--text-color); top: 0; bottom: 0; left: 50%; margin-left: -1px; }
 .v-timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; box-sizing: border-box; }
-.v-timeline-item::after { content: ''; position: absolute; width: 16px; height: 16px; background-color: var(--bg-color); border: 3px solid var(--text-color); top: 25px; border-radius: 50%; z-index: 1; }
+
+/* Usunięcie kropek z osi czasu pionowej (Nasza Historia) */
+.v-timeline-item::after { 
+  display: none; 
+}
+
 .v-timeline-item.left { left: 0; }
 .v-timeline-item.right { left: 50%; }
 .v-timeline-item.left::after { right: -11px; }
 .v-timeline-item.right::after { left: -11px; }
 .v-timeline-content { padding: 0; background-color: #fcfcfc; border: 1px solid var(--border-color); position: relative; text-align: left; display: flex; align-items: stretch; overflow: hidden; }
-.timeline-sq-img { width: 120px; background-color: #e0e0e0; border-right: 1px solid var(--border-color); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; }
+.timeline-sq-img { width: 120px; background-color: #e0e0e0; border: 1px solid var(--border-color); flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; }
 .timeline-text-content { flex: 1; padding: 20px 30px; }
 .v-timeline-date { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-muted); }
 .v-timeline-content h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
@@ -856,7 +855,7 @@ footer {
 .audio-info { display: flex; flex-direction: column; flex-grow: 1; }
 .audio-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.2rem; }
 .audio-action { font-size: 0.85rem; color: var(--hover-orange); text-transform: uppercase; font-weight: bold; }
-.audio-wave { display: none; color: var(--text-muted); font-weight: bold; letter-spacing: 2px; font-size: 0.8rem; }
+.audio-wave { display: block; color: var(--text-muted); font-weight: bold; letter-spacing: 2px; font-size: 0.8rem; }
 
 
 /* =========================================
@@ -996,4 +995,162 @@ footer {
       flex: 1; 
       min-width: 0; 
   }
+}
+
+/* =========================================
+COUNTDOWN WIDGET (wspólny dla wszystkich podstron)
+========================================= */
+.homepage-countdown {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.countdown-subtitle {
+    margin-bottom: 1.5rem;
+}
+
+.countdown-responsive {
+    justify-content: flex-start;
+}
+
+/* MOBILE - licznik mieści się w szerokości ekranu */
+@media (max-width: 767px) {
+    .countdown-responsive {
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+    }
+    .countdown-responsive .counter-box {
+        flex: 1;
+        min-width: 0;
+    }
+    .countdown-responsive .counter-number {
+        width: 100%;
+        min-width: auto;
+        font-size: 2rem;
+        padding: 0.75rem 0.25rem;
+    }
+    .countdown-responsive .counter-label {
+        font-size: 0.7rem;
+    }
+}
+
+/* =========================================
+   15. NOWE STYLE DLA STRONY GŁÓWNEJ (MAKIETA LO-FI)
+   ========================================= */
+.new-koncert-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+@media (min-width: 768px) {
+    .new-koncert-info-wrapper {
+        flex-direction: row;
+        align-items: center;
+    }
+    .nki-image {
+        flex: 1;
+    }
+    .nki-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+.nki-icons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.nki-icons .placeholder-icon-lg {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+.nki-date-place {
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+.nki-desc {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+.cta-framed {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+.cta-framed:hover {
+    background: var(--text-color);
+    color: #fff;
+}
+
+.steps-grid-static {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+@media (min-width: 768px) {
+    .steps-grid-static {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+}
+.step-item-horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: left;
+    flex: 1;
+}
+.step-item-horizontal .placeholder-img {
+    width: 80px;
+    height: 80px;
+    min-height: auto;
+    flex-shrink: 0;
+}
+.step-item-horizontal p {
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.homepage-countdown-fullwidth {
+    background-color: #fff;
+    width: 100%;
+    padding: 4rem 1rem;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.countdown-inner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.countdown-h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
 }

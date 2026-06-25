@@ -3,35 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urodzinowa Strefa Beauty - Douglas 25 lat</title>
+    <title>Strefa Beauty</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Globalny Header -->
     <div id="header-placeholder"></div>
 
-    <!-- Grafika Hero -->
     <section id="history-hero"></section>
 
-    <!-- Główna zawartość -->
     <main id="beauty-main-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
         
-        <!-- Opis główny -->
         <div class="beauty-intro" style="margin-bottom: 2rem; max-width: 900px; margin-left: 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 1rem;">Urodzinowa strefa Beauty</h1>
+            <h1 style="font-size: 2.2rem; margin-bottom: 1rem;">Strefa Beauty</h1>
             <p style="font-size: 1.15rem; color: var(--text-color); line-height: 1.6; margin-bottom: 1rem;">
                 Z okazji 25. urodzin przygotowaliśmy dla Ciebie wyjątkową ofertę! W każdym miesiącu znajdziesz inne jubileuszowe zestawy, promocje, niespodzianki i limitowane oferty. Pamiętaj, że w <strong>lipcu i sierpniu zaprezentujemy zupełnie nowe zestawy</strong>. Bądź na bieżąco i nie przegap najlepszych okazji!
             </p>
         </div>
 
-        <!-- PRZEŁĄCZNIK: Aktualne / Zapowiadane -->
         <div class="view-toggle" style="margin-bottom: 1.5rem; text-align: left;">
             <a href="javascript:void(0)" class="active" style="padding-left: 0;">Aktualne promocje</a> / 
             <a href="javascript:void(0)">Zapowiadane</a>
         </div>
 
-        <!-- Karuzela wyboru marek -->
         <div class="brands-filter-section" style="margin-bottom: 4rem;">
             <div class="brands-carousel" id="brands-carousel" style="justify-content: flex-start; padding: 1rem 0;">
                 <button class="brand-item active" data-brand="Wszystkie">Wszystkie marki</button>
@@ -43,11 +37,9 @@
             </div>
         </div>
 
-        <!-- Sekcja 1: Bestsellery -->
         <section class="beauty-bestsellers" style="padding: 0; margin-bottom: 5rem;">
             <h2 style="margin-bottom: 1.5rem;">Bestsellery</h2>
             
-            <!-- DODANE STRZAŁKI DO KARUZELI PRODUKTÓW -->
             <div class="product-carousel-wrapper">
                 <button class="carousel-arrow prev" onclick="document.getElementById('bestsellery-carousel').scrollBy({left: -200, behavior: 'smooth'})">‹</button>
                 <button class="carousel-arrow next" onclick="document.getElementById('bestsellery-carousel').scrollBy({left: 200, behavior: 'smooth'})">›</button>
@@ -87,7 +79,6 @@
             </div>
         </section>
 
-        <!-- Sekcja 2: Jubileuszowe ikony stylu (12 prod) -->
         <section class="beauty-icons" style="padding: 0; margin-bottom: 5rem;">
             <h2 style="margin-bottom: 1.5rem;">Jubileuszowe ikony stylu</h2>
             <div class="products-mosaic">
@@ -100,7 +91,6 @@
                                 <span class="brand-name-tag">MARKA PRESTIGE</span>
                                 <span class="product-name-tag">Luksusowy produkt jubileuszowy ${i}</span>
                                 <span class="promo-badge">Edycja limitowana</span>
-                                <span class="price-tag">3${i}9,00 zł</span>
                             </a>
                         </div>
                         `);
@@ -109,7 +99,6 @@
             </div>
         </section>
 
-        <!-- Sekcja 3: Virale (4 duże zdjęcia) -->
         <section class="beauty-virals" style="padding: 0; margin-bottom: 4rem;">
             <h2 style="margin-bottom: 1.5rem;">Produkty viralowe w jubileuszowych cenach</h2>
             <div class="virals-grid">
@@ -122,7 +111,6 @@
                     <div class="viral-info">
                         <div class="viral-title">Powiększający błyszczyk do ust</div>
                         <div class="viral-desc">Hit internetu, który nadaje ustom niesamowitą objętość i lustrzany blask. Must-have każdej kosmetyczki!</div>
-                        <div class="viral-price">89,00 zł</div>
                     </div>
                 </a>
 
@@ -134,7 +122,6 @@
                     <div class="viral-info">
                         <div class="viral-title">Płynny róż z aplikatorem</div>
                         <div class="viral-desc">Długotrwała formuła, która stała się absolutnym viralem na TikToku. Daje efekt naturalnych wypieków.</div>
-                        <div class="viral-price">115,00 zł</div>
                     </div>
                 </a>
 
@@ -146,7 +133,6 @@
                     <div class="viral-info">
                         <div class="viral-title">Olejek regenerujący do włosów</div>
                         <div class="viral-desc">Rewolucja w pielęgnacji! Formuła naprawiająca zerwane wiązania we włosach, nadająca jedwabistą gładkość.</div>
-                        <div class="viral-price">135,00 zł</div>
                     </div>
                 </a>
 
@@ -158,21 +144,19 @@
                     <div class="viral-info">
                         <div class="viral-title">Matujący puder utrwalający</div>
                         <div class="viral-desc">Kultowy puder transparentny, który wygładza teksturę skóry jak filtr z Instagrama. Nie bieli i nie zapycha porów.</div>
-                        <div class="viral-price">210,00 zł</div>
                     </div>
                 </a>
 
             </div>
         </section>
 
-        <!-- Link dolny -->
-        <div style="text-align: center; margin-top: 4rem;">
-            <a href="#" class="cta-link" style="text-transform: none; font-weight: bold;">Sprawdź wcześniejsze promocje</a>
+        <div class="view-toggle" style="text-align: left; margin-top: 4rem;">
+            <a href="javascript:void(0)" class="active" style="padding-left: 0;">Aktualne promocje</a> / 
+            <a href="javascript:void(0)">Zapowiadane</a>
         </div>
 
     </main>
 
-    <!-- Globalny Footer -->
     <div id="footer-placeholder"></div>
 
     <script src="main.js"></script>
