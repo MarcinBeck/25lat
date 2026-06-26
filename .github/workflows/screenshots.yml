@@ -1,0 +1,39 @@
+name: Screenshot History
+
+on:
+  workflow_run:
+    workflows: ["Deploy to GCS"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  screenshot:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          npm install playwright
+          npx playwright install chromium --with-deps
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Take screenshots & upload
+        env:
+          TIMESTAMP: ${{ github.event.workflow_run.run_started_at }}
+        run: node .github/scripts/screenshots.js
