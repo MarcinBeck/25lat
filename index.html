@@ -63,7 +63,7 @@
                 flex-direction: row; /* Zachowanie układu poziomego na desktopie, by tekst był po cyfrze */
                 justify-content: flex-start;
                 gap: 0.75rem;
-                align-items: center; 
+                align-items: center;
                 text-align: left;
                 flex: 1;
                 border-bottom: none;
@@ -193,35 +193,6 @@
             line-height: 1.4;
         }
 
-        /* === COUNTER === */
-        .homepage-countdown-nested {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            background-color: #fff;
-            padding: 4rem 1rem;
-            margin-top: 5rem;
-            box-sizing: border-box;
-            border-bottom: 1px solid var(--border-color);
-            border-top: 1px solid var(--border-color);
-        }
-        .countdown-inner-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        /* CELOWO UKRYTY NAGŁÓWEK NA STRONIE GŁÓWNEJ */
-        .countdown-h4 {
-            display: none !important;
-        }
-        @media (min-width: 768px) {
-            .homepage-countdown-nested { padding: 4rem 3rem; }
-        }
-        @media (min-width: 1024px) {
-            .homepage-countdown-nested { padding: 4rem 10%; }
-        }
-
         /* === SEKCJA: 25 LAT DOUGLAS === */
         #jubileusz-info {
             background-color: #fcfcfc;
@@ -323,11 +294,11 @@
             background: #fff;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            width: 100%; 
+            width: 100%;
         }
         .htc-media {
             width: 100%;
-            height: 250px; 
+            height: 250px;
             background-color: #e0e0e0;
             display: flex;
             align-items: center;
@@ -358,7 +329,7 @@
 </head>
 <body>
     <div id="header-placeholder"></div>
-    
+
     <section id="hero">
         <div class="hero-content">
             <h1>Celebruj razem z nami<br>25 lat piękna</h1>
@@ -425,7 +396,7 @@
                         <span>PGE Narodowy w Warszawie</span>
                     </div>
                 </div>
-                
+
                 <p class="nki-desc">
                     Ten koncert to prezent i podziękowania, że obdarzacie nas zaufaniem każdego dnia. Bilety na to wydarzenie są ekskluzywne i można je zdobyć wyłącznie w ramach jubileuszowych akcji Douglas.
                 </p>
@@ -452,10 +423,11 @@
             </div>
         </div>
 
-        <div class="homepage-countdown-nested">
+        <section class="homepage-countdown-nested global-countdown-widget">
             <div class="countdown-inner-container">
                 <span class="section-label countdown-label">Koniec aktualnej rundy konkursu za:</span>
-                
+                <h2 class="countdown-heading">Co tydzień nowa runda konkursu i nowa szansa na nagrodę!</h2>
+
                 <div class="counter-grid countdown-responsive">
                     <div class="counter-box">
                         <span class="counter-number" id="home-days">00</span>
@@ -474,12 +446,19 @@
                         <span class="counter-label">SEK</span>
                     </div>
                 </div>
-                
+
                 <div style="margin-top: 2rem;">
                     <a href="konkurs.html" class="cta-framed">Wygraj bilet</a>
                 </div>
             </div>
-        </div>
+            <div class="countdown-badge-wrap" aria-hidden="true">
+                <div class="countdown-badge-rotating">
+                    <img src="assets/badge/time_to_glow_badge-tlo.svg" alt="" class="countdown-badge-bg">
+                </div>
+                <img src="assets/badge/time_to_glow_badge-napis.svg" alt="" class="countdown-badge-label">
+            </div>
+            <div class="global-countdown-image-mobile"></div>
+        </section>
 
         <div id="best-submissions-widget-placeholder"></div>
 
@@ -493,7 +472,7 @@
         </p>
 
         <div class="jubileusz-content-split">
-            
+
             <div class="jubileusz-split-col" style="flex: 1;">
                 <div class="placeholder-img" style="height: 250px; padding: 0; overflow: hidden; border: none;">
                     <img src="assets/mapa-draft.png" alt="Mapa eventów lokalnych" style="width: 100%; height: 100%; object-fit: cover;">
@@ -527,7 +506,7 @@
         <div class="promo-carousel-wrapper">
             <button class="carousel-arrow prev" onclick="document.getElementById('promo-col-carousel').scrollBy({left: -180, behavior: 'smooth'})">‹</button>
             <button class="carousel-arrow next" onclick="document.getElementById('promo-col-carousel').scrollBy({left: 180, behavior: 'smooth'})">›</button>
-            
+
             <div class="promo-carousel" id="promo-col-carousel">
                 <div class="product-card">
                     <div class="placeholder-img product-img"><span>Zdjęcie produktu</span></div>
@@ -587,9 +566,9 @@
         <span class="section-label">25 lat Douglas</span>
         <h2>Nasza historia</h2>
         <p class="history-intro">Od 25 lat inspirujemy do odkrywania piękna. Z okazji jubileuszu zapraszamy Cię do wspólnego świętowania i poznania naszej historii.</p>
-        
+
         <div class="v-timeline">
-            
+
             <div class="v-timeline-item left">
                 <span class="homepage-timeline-date">10-01-2026</span>
                 <div class="homepage-timeline-content">
@@ -629,19 +608,19 @@
             <a href="nasza-historia.html" class="cta-framed">Poznaj całą historię</a>
         </div>
     </section>
-    
+
     <div id="footer-placeholder"></div>
     <script src="main.js"></script>
     <script>
         fetch('best-submissions-widget.html')
             .then(response => response.text())
             .then(data => document.getElementById('best-submissions-widget-placeholder').innerHTML = data);
-            
+
         // Animacja liczb w sekcji statystyk
         document.addEventListener("DOMContentLoaded", function() {
             const statsSection = document.getElementById('jubileusz-stats');
             const statElements = document.querySelectorAll('.animated-stat');
-            
+
             function formatNumber(num) {
                 return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
             }
@@ -667,16 +646,16 @@
                 for (let i = 0; i < statElements.length; i++) {
                     const target = parseInt(statElements[i].getAttribute('data-target'), 10);
                     const parentItem = statElements[i].closest('.stat-item');
-                    
+
                     if (parentItem.classList.contains('stat-hidden')) {
                         parentItem.classList.remove('stat-hidden');
-                        await new Promise(r => setTimeout(r, 100)); 
+                        await new Promise(r => setTimeout(r, 100));
                     }
-                    
+
                     const startVal = target > 2 ? target - 2 : 0;
                     statElements[i].innerHTML = formatNumber(startVal);
-                    await animateValue(statElements[i], startVal, target, 350); 
-                    
+                    await animateValue(statElements[i], startVal, target, 350);
+
                     await new Promise(r => setTimeout(r, 150));
                 }
             }
@@ -684,7 +663,7 @@
             const observer = new IntersectionObserver((entries) => {
                 if(entries[0].isIntersecting) {
                     runAnimations();
-                    observer.disconnect(); 
+                    observer.disconnect();
                 }
             }, { threshold: 0.5 });
 

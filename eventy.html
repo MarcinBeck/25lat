@@ -26,7 +26,7 @@
             line-height: 1.6;
             margin-bottom: 2rem;
         }
-        
+
         /* --- MAPA NA CAŁĄ SZEROKOŚĆ --- */
         .map-full-width {
             width: 100%;
@@ -48,7 +48,7 @@
         .schedule-overlapping-box {
             background: transparent; /* Zgodnie z wytycznymi - brak białego boxa */
             max-width: 1000px;
-            margin: -100px 1rem 4rem 1rem; 
+            margin: -100px 1rem 4rem 1rem;
             position: relative;
             z-index: 10;
             border: none;
@@ -56,11 +56,11 @@
         }
         @media (min-width: 768px) {
             .schedule-overlapping-box {
-                margin: -200px auto 4rem auto; 
+                margin: -200px auto 4rem auto;
                 padding: 3rem 0;
             }
         }
-        
+
         .schedule-overlapping-box h2 {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
@@ -78,7 +78,7 @@
             flex-wrap: nowrap;
         }
         .beauty-tabs.type-tabs a {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             white-space: nowrap;
         }
 
@@ -112,7 +112,7 @@
         .events-carousel::-webkit-scrollbar {
             display: none;
         }
-        
+
         .event-slider-card {
             flex: 0 0 85%;
             scroll-snap-align: start;
@@ -146,14 +146,14 @@
             border-bottom: 1px solid var(--border-color);
             position: relative;
         }
-        
+
         .esc-content {
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
-        
+
         .esc-title {
             font-size: 1.25rem;
             font-weight: bold;
@@ -169,26 +169,26 @@
             align-items: center;
             gap: 0.4rem;
         }
-        
+
         .esc-date {
             font-size: 0.95rem;
             font-weight: bold;
             color: var(--text-color);
             margin-bottom: 1rem;
         }
-        
+
         .esc-desc {
             font-size: 0.95rem;
             line-height: 1.5;
             color: var(--text-color);
             margin-bottom: 1.5rem;
             display: -webkit-box;
-            -webkit-line-clamp: 2; 
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             flex-grow: 1;
         }
-        
+
         .esc-ctas {
             display: flex;
             gap: 1.5rem;
@@ -231,7 +231,7 @@
         }
         /* Blokujemy nadpisywanie tekstu pseudo-elementem z zewnętrznego CSS */
         .event-status-badge::before { content: none !important; }
-        
+
         .status-past .event-status-badge { background-color: #eeeeee; color: var(--text-muted); border-color: var(--border-color); }
         .status-ongoing .event-status-badge { background-color: var(--hover-orange); border-color: var(--hover-orange); }
         .status-upcoming .event-status-badge { background-color: var(--text-color); border-color: var(--text-color); }
@@ -239,7 +239,7 @@
         /* --- ZAKOŃCZONE WYDARZENIA - NOWY POZIOMY UKŁAD (GRAFIKA Z BOKU NA MOBILE) --- */
         .past-horizontal-card {
             display: flex;
-            flex-direction: row; 
+            flex-direction: row;
             border: 1px solid var(--border-color);
             background: #fcfcfc;
             margin-bottom: 1rem;
@@ -249,7 +249,7 @@
         .past-horizontal-card:hover {
             border-color: var(--text-color);
         }
-        
+
         .phc-img {
             width: 35%; /* Grafika na boku, na mobile 35% szerokości */
             max-width: 140px;
@@ -302,7 +302,7 @@
         .phc-content .cta-link {
             font-size: 0.8rem;
         }
-        
+
         @media (min-width: 768px) {
             .phc-content { padding: 1.5rem; }
             .phc-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
@@ -325,7 +325,7 @@
             width: 90%;
             max-width: 550px;
             background: var(--bg-color);
-            padding: 0; 
+            padding: 0;
             position: relative;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             text-align: left;
@@ -359,7 +359,7 @@
         .popup-body {
             padding: 2.5rem;
         }
-        
+
         .popup-nav {
             display: flex;
             justify-content: space-between;
@@ -382,7 +382,7 @@
         }
         .popup-nav button:hover:not(:disabled) { background: #e0e0e0; }
         .popup-nav button:disabled { color: #ccc; cursor: default; background: #fafafa; }
-        
+
         /* SLIDER DLA ZAKOŃCZONYCH (MAKEUP CORNER) ORAZ GŁÓWNY */
         .events-slider-wrapper {
             position: relative;
@@ -416,7 +416,7 @@
         @media (min-width: 1024px) {
             .events-carousel .event-slider-card { flex: 0 0 calc(33.333% - 1rem); }
         }
-        
+
         .events-slider-wrapper .carousel-arrow {
             position: absolute;
             top: 50%;
@@ -443,7 +443,7 @@
     <div id="header-placeholder"></div>
 
     <main>
-        
+
         <div class="tour-hero-container">
             <h1>Urodzinowy Tour</h1>
             <p>
@@ -457,7 +457,7 @@
         </div>
 
         <div id="harmonogram" class="schedule-overlapping-box">
-            
+
             <h2>Znajdź wydarzenie dla siebie</h2>
 
             <div class="beauty-tabs type-tabs" id="category-filters">
@@ -477,7 +477,7 @@
             <p id="no-events-msg" style="display: none; text-align: center; font-weight: bold; font-size: 1.2rem; color: var(--text-muted); margin: 3rem 0;">
                 Brak wydarzeń w wybranej kategorii.
             </p>
-            
+
         </div>
 
         <div style="max-width: 1200px; margin: 5rem auto 0 auto; padding: 0 1rem;">
@@ -516,17 +516,17 @@
         <div class="map-popup-card">
             <button class="close-popup" id="close-modal-btn">✕</button>
             <div class="popup-img" id="popup-image"><span>Grafika Wydarzenia na całą szerokość</span></div>
-            
+
             <div class="popup-body">
                 <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem;">
                     <span id="popup-badge" class="event-status-badge" style="position: static;"></span>
                     <span id="popup-category" style="font-size: 0.85rem; font-weight: bold; color: var(--hover-orange); text-transform: uppercase;"></span>
                 </div>
-                
+
                 <h3 id="popup-title" style="font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.2;">Tytuł</h3>
                 <p id="popup-details" style="font-size: 1.05rem; font-weight: bold; margin-bottom: 1.5rem; color: var(--text-color);">Data | Miejsce</p>
                 <p id="popup-desc" style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; color: var(--text-color);">Opis</p>
-                
+
                 <a href="https://booksi.pl" target="_blank" id="popup-cta-booksi" class="cta-link" style="font-weight: bold; color: var(--text-color); border-bottom-color: var(--text-color);">Zapisz się</a>
 
                 <div class="popup-nav">
@@ -542,7 +542,7 @@
     <script src="main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
+
             // 1. Główne dane - Harmonogram (Szczecin jako pierwsze, TRWA)
             const scheduleEvents = [
                 { title: 'Galaxy Centrum', type: 'Makeup Corner', city: 'Szczecin', dateStr: '01-04 LIPCA', time: '10:00', desc: 'Wyjątkowe, jubileuszowe spotkania ze specjalistami od makijażu i profesjonalnego wizażu. Przyjdź po spersonalizowaną poradę, przetestuj z nami nowości na ten sezon i ciesz się wyjątkowymi zniżkami podczas eventu.', statusClass: 'status-ongoing' },
@@ -565,7 +565,7 @@
             ];
 
             let currentFilteredEvents = [...scheduleEvents];
-            
+
             const scheduleSlider = document.getElementById('schedule-slider');
             const noEventsMsg = document.getElementById('no-events-msg');
             const categoryFilters = document.querySelectorAll('#category-filters a');
@@ -582,10 +582,10 @@
 
                 currentFilteredEvents.forEach((ev, index) => {
                     const badgeText = ev.statusClass === 'status-ongoing' ? 'TRWA' : 'NADCHODZĄCE';
-                    
+
                     const card = document.createElement('div');
                     card.className = `event-slider-card ${ev.statusClass}`;
-                    
+
                     card.innerHTML = `
                         <div class="esc-img">
                             <span class="event-status-badge" style="border:none;">${badgeText}</span>
@@ -604,7 +604,7 @@
                                 ${ev.dateStr}, ${ev.time}
                             </div>
                             <p class="esc-desc">${ev.desc}</p>
-                            
+
                             <div class="esc-ctas">
                                 <a href="javascript:void(0)" class="cta-link cta-small btn-szczegoly" style="color: var(--text-color); border-bottom-color: var(--text-color);">Pokaż więcej</a>
                                 <a href="https://booksi.pl" target="_blank" class="cta-link cta-small btn-zapisz" style="color: var(--hover-orange); border-bottom-color: var(--hover-orange);">Zapisz się</a>
@@ -627,7 +627,7 @@
                 currentFilteredEvents = scheduleEvents.filter(ev => {
                     return filterType === 'all' || ev.type === filterType;
                 });
-                
+
                 renderSchedule();
                 scheduleSlider.scrollTo({ left: 0, behavior: 'smooth' });
             }
@@ -642,19 +642,19 @@
             });
 
             // --- GENEROWANIE ZAKOŃCZONYCH WYDARZEŃ ---
-            
+
             // Pojedyncze (dawny hero, teraz horizontal) Beauty Street
             const pastBSContainer = document.getElementById('past-beautystreet-container');
-            const pastBSEvent = [{ 
-                title: 'Galeria Posnania', type: 'Beauty Street', city: 'Poznań', dateStr: '12-14 MAJA', time: '10:00', 
-                desc: 'Inauguracyjne, wielkie święto urodzinowe z cyklu Beauty Street. Dziękujemy za rekordową frekwencję, niesamowitą energię oraz setki przeprowadzonych metamorfoz pod okiem naszych topowych makijażystów. Było niezwykle inspirująco. Widzimy się wkrótce znowu!', 
-                statusClass: 'status-past' 
+            const pastBSEvent = [{
+                title: 'Galeria Posnania', type: 'Beauty Street', city: 'Poznań', dateStr: '12-14 MAJA', time: '10:00',
+                desc: 'Inauguracyjne, wielkie święto urodzinowe z cyklu Beauty Street. Dziękujemy za rekordową frekwencję, niesamowitą energię oraz setki przeprowadzonych metamorfoz pod okiem naszych topowych makijażystów. Było niezwykle inspirująco. Widzimy się wkrótce znowu!',
+                statusClass: 'status-past'
             }];
-            
+
             pastBSEvent.forEach((ev, index) => {
                 const card = document.createElement('div');
                 card.className = `past-horizontal-card ${ev.statusClass}`;
-                
+
                 card.innerHTML = `
                     <div class="phc-img">
                         <span>Zdjęcie</span>
@@ -802,16 +802,16 @@
 
             function updateModalContent() {
                 const ev = activeModalArray[currentPopupIndex];
-                
+
                 modalTitle.innerText = ev.title;
                 modalCategory.innerText = ev.type;
                 modalDetails.innerText = `${ev.dateStr}, ${ev.time} | ${ev.city}`;
-                modalDesc.innerText = ev.desc; 
+                modalDesc.innerText = ev.desc;
 
                 // Reset i nadanie badge
-                modalBadge.className = 'event-status-badge'; 
+                modalBadge.className = 'event-status-badge';
                 modalBadge.style.border = 'none';
-                
+
                 if (ev.statusClass === 'status-ongoing') {
                     modalBadge.innerText = 'TRWA';
                     modalBadge.style.backgroundColor = 'var(--hover-orange)';

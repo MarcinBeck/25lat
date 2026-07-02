@@ -6,15 +6,11 @@
     <title>FAQ - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Ukrywamy sekcję pre-footer z pomocą tylko na podstronie FAQ */
-        #pre-footer {
-            display: none !important;
-        }
-        
         .faq-contact-section {
             margin-top: 4rem;
-            padding-top: 2.5rem;
-            border-top: 2px solid var(--border-color);
+            padding-top: 0;
+            border-top: none; /* Usunięto linię separatora */
+            text-align: left;
         }
         .faq-contact-section h2 {
             font-size: 1.5rem;
@@ -26,94 +22,169 @@
         }
     </style>
 </head>
-<body>
+<body class="faq-page"> <div id="header-placeholder"></div>
 
-    <div id="header-placeholder"></div>
+    <section class="faq-hero-widget">
+        <div class="faq-hero-image">
+            <picture>
+                <source media="(min-width: 768px)" srcset="assets/foto_masz-pytania.png">
+                <img src="assets/foto_masz-pytania_mobile.png" alt="Masz pytania?">
+            </picture>
+        </div>
+        <div class="faq-hero-content">
+            <h1 class="faq-hero-heading">Najczęściej zadawane pytania</h1>
+            <p class="faq-hero-desc">Masz pytania dotyczące konkursu jubileuszowego? Tutaj znajdziesz odpowiedzi na najważniejsze z nich.</p>
+        </div>
+    </section>
 
-    <section id="history-hero"></section>
-
-    <!-- Breadcrumbs -->
-    <div class="breadcrumb-container" style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1rem; font-size: 0.85rem; color: var(--text-muted);">
-        <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> / 
-        <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> / 
-        <span style="color: var(--text-color); font-weight: bold;">FAQ</span>
+    <div class="breadcrumb-section">
+        <div class="breadcrumb-inner">
+            <a href="index.html">Homepage</a> &nbsp;/&nbsp;
+            <a href="konkurs.html">Konkurs</a> &nbsp;/&nbsp;
+            <span class="breadcrumb-current">FAQ</span>
+        </div>
     </div>
 
-    <main class="text-page-main">
-        <div class="text-page-header">
-            <h1>Najczęściej zadawane pytania</h1>
-            <p style="color: var(--text-muted); font-size: 1.1rem;">Masz pytania dotyczące konkursu jubileuszowego? Tutaj znajdziesz odpowiedzi na najważniejsze z nich.</p>
+    <main class="faq-main-wrapper" style="padding: 3rem 0 5rem 0;">
+        
+        <div class="faq-list-wrapper">
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Kto może wziąć udział w konkursie?</summary>
+                <div class="faq-page-answer">
+                    <p>W konkursie mogą wziąć udział osoby posiadające kartę Douglas Beauty Card, którzy dokonali co najmniej jednego zakupu w okresie 8 lipca 2026 r. - 31 sierpnia 2026 r. - zarówno w sklepach stacjonarnych Douglas, na douglas.pl lub w aplikacji mobilnej Douglas.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Do kiedy muszę zrobić zakupy, żeby się kwalifikować?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Kiedy trwa konkurs?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Jaka jest minimalna kwota zakupu, aby kwalifikować się do konkursu?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Czy zakupy online i stacjonarne są równoważne?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Skąd wziąć numer swojej karty Douglas Beauty Card?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Jak sprawdzić numer karty Douglas Beauty Card?</summary>
+                <div class="faq-page-answer">
+                    <div class="faq-q7-container">
+                        <div class="faq-q7-steps">
+                            <div class="faq-q7-step">
+                                <div class="faq-q7-step-text">1. Po zalogowaniu się na swoje konto w aplikacji Douglas lub na douglas.pl w sekcji TWOJE KONTO w profilu Klienta</div>
+                                <img src="assets/faq/icon-tel+card.png" alt="Aplikacja">
+                            </div>
+                            <div class="faq-q7-step">
+                                <div class="faq-q7-step-text">2. W dowolnej perfumerii po podaniu Konsultantowi danych do weryfikacji np. numer telefonu, adres email itp.</div>
+                                <img src="assets/faq/icon-shop.png" alt="Perfumeria">
+                            </div>
+                            <div class="faq-q7-step">
+                                <div class="faq-q7-step-text">3. Na naszej Infolinii pod numerem (22) 278 14 14 lub adresem <a href="mailto:info@douglas.pl">info@douglas.pl</a></div>
+                                <img src="assets/faq/icon-tel.png" alt="Telefon">
+                            </div>
+                        </div>
+                        <div class="faq-q7-image">
+                            <img src="assets/faq/card-mobile 1.png" alt="Karta Douglas w aplikacji">
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Nie mam jeszcze karty Douglas Beauty Card - czy mogę wziąć udział w konkursie?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Mam kartę, ale nie pamiętam numeru ani hasła do konta - co robić?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Jak wygląda proces zgłoszenia się do konkursu?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Dlaczego tylko posiadacze karty Douglas mogą wziąć udział w konkursie?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Nie zdążyłem założyć karty albo nie mam zakupu w wymaganym czasie - co dalej?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Czy mogę wziąć udział w konkursie więcej niż jeden raz?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Problemy z zarejestrowaniem formularza do konkursu - gdzie szukać pomocy?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <details class="faq-page-item">
+                <summary class="faq-page-question">Gdzie i kiedy odbędzie się koncert sanah?</summary>
+                <div class="faq-page-answer">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </details>
+
+            <div class="faq-contact-section">
+                <h2>Kontakt</h2>
+                <p style="font-family: inherit; font-size: inherit; font-weight: inherit;">Nie znalazłeś/aś odpowiedzi na swoje pytanie? Chętnie Ci pomożemy!</p>
+                <p style="font-family: inherit; font-size: inherit; font-weight: inherit;">Skontaktuj się z naszym Biurem Obsługi Klienta, pisząc na adres e-mail:<br>
+                <a href="mailto:bok@douglas.pl">bok@douglas.pl</a></p>
+            </div>
+
         </div>
 
-        <div class="faq-container">
-            
-            <details class="faq-item">
-                <summary class="faq-question">1. Kto może wziąć udział w konkursie?</summary>
-                <div class="faq-answer">
-                    <p>W konkursie może wziąć udział każda osoba pełnoletnia, która w okresie trwania promocji (od 01.07 do 25.08.2026 r.) dokona dowolnego zakupu w perfumeriach stacjonarnych Douglas lub na douglas.pl i zachowa dowód zakupu.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">2. Jak prawidłowo zgłosić swój udział?</summary>
-                <div class="faq-answer">
-                    <p>Wystarczy przejść na podstronę "Konkurs", wypełnić formularz zgłoszeniowy podając numer paragonu/zamówienia, wgrać zdjęcie przedstawiające realizację aktualnego zadania konkursowego oraz opisać swoją inspirację.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">3. Czy mogę zgłosić się więcej niż jeden raz?</summary>
-                <div class="faq-answer">
-                    <p>Tak! Możesz wysłać dowolną liczbę zgłoszeń, zarówno w ramach jednego etapu (tygodnia), jak i w różnych etapach. Pamiętaj jednak, że każde nowe zgłoszenie musi być poparte nowym, unikalnym dowodem zakupu.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">4. Jakie są nagrody w konkursie?</summary>
-                <div class="faq-answer">
-                    <p>Do wygrania jest łącznie 1000 standardowych biletów na finałowy koncert trasy Sanah na PGE Narodowym (zaplanowany na 3 września 2026 r.) oraz 100 ekskluzywnych biletów Premium z dostępem do strefy VIP.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">5. Kiedy i gdzie zostaną ogłoszone wyniki?</summary>
-                <div class="faq-answer">
-                    <p>Wyniki są ogłaszane co tydzień, w każdy piątek po zakończeniu danego etapu. Lista laureatów publikowana jest na podstronie "Konkurs" w sekcji "Poznaj laureatów". Zwycięzcy zostaną również powiadomieni mailowo.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">6. Jakie wymagania musi spełniać zdjęcie konkursowe?</summary>
-                <div class="faq-answer">
-                    <p>Zdjęcie musi być zapisane w formacie JPG, JPEG lub PNG, a jego maksymalny rozmiar nie może przekraczać 1 MB. Zdjęcie musi być Twojego autorstwa i wyraźnie nawiązywać do tematu zadania z danego tygodnia.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">7. W jaki sposób otrzymam bilet na koncert?</summary>
-                <div class="faq-answer">
-                    <p>Bilety zostaną wysłane drogą elektroniczną (jako e-ticket) na adres e-mail podany w formularzu zgłoszeniowym w ciągu 7 dni roboczych od momentu ogłoszenia wyników danego etapu.</p>
-                </div>
-            </details>
-
-            <details class="faq-item">
-                <summary class="faq-question">8. Gdzie znajdę pełen regulamin konkursu?</summary>
-                <div class="faq-answer">
-                    <p>Pełny regulamin jest dostępny do wglądu oraz pobrania w formacie PDF na naszej podstronie <a href="regulamin.html" style="text-decoration: underline; font-weight: bold;">Regulamin</a> </p>
-                </div>
-            </details>
-
-        </div>
-
-        <div class="faq-contact-section">
-            <h2>Kontakt</h2>
-            <p>Nie znalazłeś/aś odpowiedzi na swoje pytanie? Chętnie Ci pomożemy!</p>
-            <p>Skontaktuj się z naszym Biurem Obsługi Klienta, pisząc na adres e-mail:<br>
-            <a href="mailto:bok@douglas.pl">bok@douglas.pl</a></p>
-        </div>
     </main>
 
     <div id="footer-placeholder"></div>
+    
     <script src="main.js"></script>
 
     <script>

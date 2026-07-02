@@ -2,3 +2,4 @@ node_modules/
 screenshots/
 shot.cjs
 *.env
+25lat-*.zip

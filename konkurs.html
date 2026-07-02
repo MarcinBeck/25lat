@@ -1,21 +1,128 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <script>window.isKonkursPage = true;</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konkurs - Douglas 25 lat</title>
     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
     <style>
+        /* USUNIĘTO GRAFIKĘ TŁA DLA CAŁEJ STRONY (page-bg-wrapper) */
         .page-bg-wrapper {
-            background-image: url('assets/placeholder@0,25x.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            background-color: #ffffff;
             width: 100%;
             min-height: 100vh;
         }
 
+        /* =========================================
+           NOWA SEKCJA HERO DLA KONKURSU
+           ========================================= */
+        #hero-konkurs {
+            background-color: #CDEBE2; /* Zmieniony kolor tła */
+            position: relative;
+            padding: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-konkurs-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- MOBILE HERO --- */
+        .hero-img-box-mobile {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+        .hero-img-box-mobile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-img-box-desktop { display: none; }
+
+        .hero-text-content {
+            padding: 0 16px 58px 16px;
+            text-align: left;
+        }
+
+        .badge-25lat-desktop { display: none; }
+        .badge-25lat-mobile {
+            height: 126px;
+            width: auto;
+            margin-bottom: 60px;
+            display: block;
+        }
+
+        .hero-text-content h1 {
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .hero-text-content p.hero-teaser {
+            color: #000;
+            margin-bottom: 30px;
+            margin-top: 0;
+            max-width: 700px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        /* --- DESKTOP HERO (od 768px) --- */
+        @media (min-width: 768px) {
+            .hero-konkurs-container {
+                flex-direction: row;
+                align-items: stretch;
+            }
+            .hero-img-box-mobile { display: none; }
+            .badge-25lat-mobile { display: none; }
+
+            /* Grafika */
+            .hero-img-box-desktop {
+                display: block;
+                width: 50%;
+            }
+            .hero-img-box-desktop img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            /* Tekst i ułożenie */
+            .hero-text-content {
+                width: 50%;
+                padding: 40px 3rem 50px 40px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+
+            .badge-25lat-desktop {
+                display: block;
+                width: clamp(120px, 15vw, 213px);
+                height: auto;
+                margin-bottom: clamp(40px, 10vw, 134px);
+            }
+        }
+
+        /* --- SKALOWANIE > 1440PX --- */
+        @media (min-width: 1440px) {
+            .hero-konkurs-container {
+                max-width: 100%;
+            }
+            .hero-text-content {
+                padding-left: calc((100vw - 1200px) / 2 + 40px);
+            }
+        }
+
+        /* POZOSTAŁE STYLE */
         #konkurs-main-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -55,7 +162,7 @@
             flex-direction: column;
             align-items: stretch;
             overflow: hidden;
-            border-radius: 0; 
+            border-radius: 0;
         }
 
         .box-card-full-img .box-content {
@@ -78,64 +185,24 @@
             margin-bottom: 4rem;
         }
 
-        .timeline-carousel {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            padding-bottom: 1.5rem;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none; 
-            margin-top: 1.5rem;
-            scroll-behavior: smooth;
-        }
-        .timeline-carousel::-webkit-scrollbar { display: none; }
-
-        .timeline-card {
-            flex: 0 0 320px;
-            scroll-snap-align: start;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            border-radius: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .timeline-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #000;
-        }
-        .timeline-card.status-ongoing::before { background: var(--hover-orange); }
-        .timeline-card.status-past::before { background: var(--border-color); }
-        .timeline-card.status-upcoming::before { background: var(--text-color); }
-
-        .timeline-card h4 { font-size: 1.2rem; margin-bottom: 0.5rem; text-transform: uppercase; }
-        .timeline-card .date { font-weight: bold; font-size: 1.1rem; margin-bottom: 1rem; color: var(--text-muted); }
-        .timeline-card .task { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; line-height: 1.5; }
-        
-        .status-badge { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; margin-left: 0.5rem; }
-        .timeline-link { text-decoration: none; font-weight: bold; color: var(--text-color); font-size: 0.85rem; text-transform: uppercase; display: inline-block; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 1rem; width: 100%; transition: color 0.2s;}
-        .timeline-link:hover { color: var(--hover-orange); text-decoration: underline; }
-        
         .form-container {
             background: #ffffff;
             border: 1px solid var(--border-color);
             padding: 2.5rem;
             border-radius: 0;
         }
-        
+
         .form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
         .form-group label { font-weight: bold; font-size: 0.9rem; text-transform: uppercase; }
         .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="tel"], .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); font-family: inherit; font-size: 1rem; border-radius: 0;}
         .file-upload-zone { border: 2px dashed var(--text-muted); background-color: #fbfbfb; padding: 2.5rem 1rem; text-align: center; cursor: pointer; border-radius: 0; }
         .dz-title { display: block; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; text-transform: uppercase; }
         .dz-desc { display: block; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; }
-        
+
         .form-checkbox { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
         .form-checkbox input[type="checkbox"] { flex-shrink: 0; margin-top: 4px; width: 18px; height: 18px; border-radius: 0; accent-color: #000; }
         .form-checkbox label { font-size: 0.95rem; line-height: 1.4; font-weight: normal; text-transform: none; cursor: pointer; }
-        
+
         .form-link-style { text-decoration: underline; color: var(--text-color); font-weight: bold; cursor: pointer; font-size: 0.9rem; }
 
         .cta-framed {
@@ -176,40 +243,19 @@
             }
         }
 
-        .hero-teaser {
-            font-size: 1.15rem;
-            line-height: 1.6;
-            margin-top: 1rem;
-            max-width: 700px;
-        }
-        
-        .steps-grid-static {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        @media (min-width: 768px) {
-            .steps-grid-static { flex-direction: row; justify-content: space-between; gap: 2rem; }
-        }
-        .step-item-horizontal { display: flex; flex-direction: row; align-items: center; gap: 1.25rem; text-align: left; flex: 1; }
-        .step-item-horizontal .placeholder-img { width: 80px; height: 80px; min-height: auto; flex-shrink: 0; }
-        .step-text-content { display: flex; flex-direction: column; }
-        .step-text-content p { font-weight: 600; font-size: 1.05rem; margin-bottom: 0; line-height: 1.4; }
-        .step-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.4; margin-top: 0.35rem; display: block; }
-
         .form-section {
-            margin-bottom: 2.5rem; 
+            margin-bottom: 2.5rem;
         }
         .form-section:last-of-type {
             margin-bottom: 1.5rem;
         }
-        
+
         .form-section h4 {
             font-size: 1.25rem;
             font-weight: 600;
             line-height: 1.4;
             margin: 0 0 1.5rem 0;
-            text-transform: none; 
+            text-transform: none;
         }
 
         .form-row-2col {
@@ -219,7 +265,7 @@
             margin-bottom: 1rem;
         }
         @media (min-width: 768px) { .form-row-2col { grid-template-columns: 1fr 1fr; } }
-        
+
         .plus-black-frame {
             width: 50px;
             height: 50px;
@@ -234,7 +280,7 @@
             background: #fff;
         }
         .plus-black-frame:hover { background: #000; color: #fff; }
-        
+
         .task-pane { animation: fadeIn 0.3s ease; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
@@ -244,14 +290,14 @@
         .consent-text-container {
             font-size: 0.85rem;
             line-height: 1.5;
-            max-height: 2.8em; 
+            max-height: 2.8em;
             overflow: hidden;
             color: var(--text-color);
             transition: max-height 0.3s ease-in-out;
             margin-bottom: 0.25rem;
         }
         .consent-text-container.expanded { max-height: 500px; }
-        
+
         .consent-text-static {
             font-size: 0.85rem;
             line-height: 1.5;
@@ -269,71 +315,379 @@
             display: inline-block;
         }
 
-        .white-full-width-block {
-            background-color: #fff;
+        /* --- HARMONOGRAM KONKURSU --- */
+        .schedule-full-width-block {
+            background-color: #F4F1EE;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 140px 0 4rem 16px; /* Zwiększony górny padding dla mobile */
+            margin-top: 0;
+            box-sizing: border-box;
+            border-bottom: none; /* Usunięto obrys */
+        }
+        @media (min-width: 768px) { 
+            .schedule-full-width-block { padding: 200px 0 5rem 40px; } /* Zwiększony górny padding dla desktop */
+        }
+
+        .schedule-block-inner {
+            width: 100%;
+        }
+
+        .timeline-carousel {
+            display: flex;
+            gap: 2px;
+            overflow-x: auto;
+            padding-bottom: 1.5rem;
+            padding-right: 1rem;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            margin-top: 1.5rem;
+            scroll-behavior: smooth;
+        }
+        .timeline-carousel::-webkit-scrollbar { display: none; }
+
+        .timeline-card {
+            flex: 0 0 320px;
+            scroll-snap-align: start;
+            background: #ffffff;
+            border: none;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .timeline-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+        }
+        .timeline-card.status-ongoing::before { background: #6FC4A9; }
+        .timeline-card.status-past::before { background: #D1D1D1; }
+        .timeline-card.status-upcoming::before { background: #FFC4C4; }
+
+        .timeline-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .timeline-card-header h4 { 
+            font-size: 1rem; 
+            margin: 0; 
+            text-transform: uppercase; 
+            font-weight: 500;
+        }
+        .timeline-badge {
+            font-size: 0.65rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+        .status-ongoing .timeline-badge { background-color: #6FC4A9; color: #000; }
+        .status-past .timeline-badge { background-color: #D1D1D1; color: #000; }
+        .status-upcoming .timeline-badge { background-color: #FFC4C4; color: #000; }
+
+        .timeline-card .date { font-weight: normal; font-size: 1.25rem; margin-bottom: 1rem; color: #000; }
+        .timeline-card .task { font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; line-height: 1.5; color: #000; }
+
+        .timeline-link-wrapper {
+            border-top: 1px solid #000;
+            padding-top: 1rem;
+            margin-top: auto;
+        }
+        .timeline-link { 
+            text-decoration: underline; 
+            font-weight: 500; 
+            color: var(--text-color); 
+            font-size: 0.9rem; 
+            transition: color 0.2s;
+            display: inline-block;
+        }
+        .timeline-link:hover { color: var(--hover-orange); }
+
+        /* =========================================
+           SEKCJA: KONCERT FINAŁOWY
+           ========================================= */
+        .concert-final-section {
+            background-color: #F98491;
             width: 100vw;
             margin-left: calc(-50vw + 50%);
             padding: 4rem 1rem;
-            margin-top: 4rem;
-            box-sizing: border-box;
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-        @media (min-width: 768px) { .white-full-width-block { padding: 5rem 3rem; } }
-        @media (min-width: 1024px) { .white-full-width-block { padding: 5rem 10%; } }
-        
-        .white-block-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .concert-final-section {
-            background-color: #e6e6e6;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            padding: 5rem 1rem;
-            margin-top: 4rem;
+            margin-top: 0; /* Zredukowane, wstążka jest nad sekcją */
             box-sizing: border-box;
         }
         .concert-final-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
             align-items: center;
         }
         @media (min-width: 900px) {
-            .concert-final-container { grid-template-columns: 1.2fr 1fr; }
+            .concert-final-container {
+                flex-direction: row;
+                gap: 4rem;
+                align-items: flex-start;
+            }
         }
-        .concert-img-placeholder {
+        
+        .concert-img-wrapper {
             width: 100%;
-            aspect-ratio: 4/3;
-            background-color: #d8d8d8;
-            border: 1px solid #b3b3b3;
-            position: relative;
             display: flex;
-            align-items: center;
             justify-content: center;
         }
-        .concert-img-placeholder::before, .concert-img-placeholder::after {
-            content: ''; position: absolute; width: 100%; height: 1px; background: #b3b3b3;
-        }
-        .concert-img-placeholder::before { transform: rotate(37deg); }
-        .concert-img-placeholder::after { transform: rotate(-37deg); }
-        
-        .concert-img-badge {
-            background: #fff; padding: 0.5rem 1rem; font-weight: bold; font-size: 0.9rem; z-index: 2; border: 1px solid #ccc;
+        @media (min-width: 900px) {
+            .concert-img-wrapper {
+                width: 50%;
+                justify-content: flex-start;
+            }
         }
         
+        .concert-poster-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .with-love-badge-wrapper {
+            position: absolute;
+            top: 44px;
+            left: 0;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .with-love-badge {
+            width: 120px;
+            height: auto;
+            display: block;
+            /* Usunięto animację tętna, zastąpiono ją scrollem w main.js */
+        }
+        @media (min-width: 768px) {
+            .with-love-badge {
+                width: 140px;
+            }
+        }
+
+        .concert-poster {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .concert-info-box {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        @media (min-width: 900px) {
+            .concert-info-box {
+                width: 50%;
+            }
+        }
+
+        .concert-info-box h2 {
+            font-size: 1.5rem;
+            line-height: 1.3;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 0;
+        }
+        @media (min-width: 768px) {
+            .concert-info-box h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        .concert-divider {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 1.25rem 0;
+            width: 100%;
+        }
+
         .concert-details-list {
-            list-style: none; padding: 0; margin: 1.5rem 0 2rem 0;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
         }
         .concert-details-list li {
-            display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-weight: 600; font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            font-size: 0.95rem;
         }
-        .icon-box {
-            width: 36px; height: 36px; border: 1px solid #aaa; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #555; background: #f0f0f0; flex-shrink: 0;
+        .concert-details-list li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .concert-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        
+        .concert-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .cta-solid-black {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 1rem 2.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            border: 1px solid #000;
+            text-align: center;
+        }
+        .cta-solid-black:hover {
+            opacity: 0.8;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* =========================================
+           SEKCJA: JAK ZDOBYĆ BILETY
+           ========================================= */
+        .how-to-win-section {
+            background-color: #CDEBE2;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 80px 16px 73px 16px; 
+            box-sizing: border-box;
+            position: relative;
+            margin-top: 4rem; 
+        }
+
+        @media (min-width: 768px) {
+            .how-to-win-section {
+                padding: 100px 40px 103px 40px; 
+            }
+        }
+
+        .how-to-win-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 3;
+        }
+
+        .how-to-win-section-label {
+            display: block;
+            font-family: var(--font-family-heading);
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .how-to-win-heading {
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        .how-to-win-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px; 
+        }
+
+        @media (min-width: 768px) {
+            .how-to-win-grid {
+                flex-direction: row; 
+            }
+        }
+
+        .win-step {
+            display: flex;
+            flex-direction: column;
+            flex: 1; 
+        }
+
+        .win-step-number {
+            font-family: var(--font-family-heading);
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px; 
+        }
+
+        .win-step-line {
+            height: 1px;
+            background-color: #000000;
+            width: 100%;
+            margin-bottom: 21px; 
+        }
+
+        .win-step-title {
+            font-family: var(--font-family-heading);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 100%;
+            margin-bottom: 12px; 
+            text-transform: none; 
+        }
+
+        .win-step-desc {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* --- BADGE CELEBRATION --- */
+        .celebration-badge-wrapper {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            width: 130px;
+            height: 130px;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @media (min-width: 768px) {
+            .celebration-badge-wrapper {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .badge-base {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; 
+        }
+
+        .badge-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; 
+            transform-origin: center;
+            will-change: transform; 
         }
 
     </style>
@@ -343,24 +697,80 @@
     <div id="header-placeholder"></div>
 
     <div class="page-bg-wrapper">
-        
-        <section id="hero" style="background: transparent;">
-            <div class="hero-content" style="align-items: flex-start; text-align: left; justify-content: flex-start;">
-                <h1>25 lat piękna! Celebruj z nami <br>i wygraj tysiące biletów na stadionowy koncert Sanah</h1>
-                <p class="hero-teaser">Pokaż nam swoją kreatywność! Odpowiedz na aktualne pytanie konkursowe, podziel się z nami swoimi trikami beauty i zgarnij ekskluzywne bilety na wydarzenie roku. Nie zwlekaj, czas ucieka!</p>
+
+        <section id="hero-konkurs">
+            <div class="hero-konkurs-container">
+                <div class="hero-img-box-mobile">
+                    <img src="assets/foto-sanah-mobile.png" alt="Sanah Konkurs">
+                </div>
+                <div class="hero-text-content">
+                    <img src="assets/badge/25 LAT.svg" alt="25 lat Douglas" class="badge-25lat-desktop">
+                    <img src="assets/badge/25 LAT.svg" alt="25 lat Douglas" class="badge-25lat-mobile">
+                    <h1>25 lat piękna! Celebruj z nami <br>i wygraj tysiące biletów na stadionowy koncert Sanah</h1>
+                    <p class="hero-teaser">Pokaż nam swoją kreatywność! Odpowiedz na aktualne pytanie konkursowe, podziel się z nami swoimi trikami beauty i zgarnij ekskluzywne bilety na wydarzenie roku. Nie zwlekaj, czas ucieka!</p>
+                    <a href="#formularz-zgloszeniowy" class="cta-link">Weź udział w konkursie</a>
+                </div>
+                <div class="hero-img-box-desktop">
+                    <img src="assets/foto-sanah.png" alt="Sanah Konkurs">
+                </div>
             </div>
         </section>
 
-        <main id="konkurs-main-section" style="padding-top: 0;">
+        <div class="marquee-ribbon">
+            <div class="marquee-track-scroll" id="birthday-track">
+                <div class="marquee-content-fixed">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                </div>
+                <div class="marquee-content-fixed">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                </div>
+                <div class="marquee-content-fixed">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                </div>
+                <div class="marquee-content-fixed">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                    <span>BIRTHDAY EDIT</span><img src="assets/ikony/star.svg" alt="Star">
+                </div>
+            </div>
+        </div>
+
+        <main id="konkurs-main-section">
 
             <section id="formularz-zgloszeniowy" class="konkurs-section-spacing">
                 <h2>Formularz zgłoszeniowy</h2>
                 <div class="form-container">
                     <form action="#" method="POST" onsubmit="event.preventDefault();">
-                        
+
                         <div class="form-section">
                             <h4>Dodaj zdjęcie paragonu:</h4>
-                            
+
                             <div class="form-row-2col" style="display: none;">
                                 <div class="form-group">
                                     <label for="receipt-number">Podaj numer paragonu</label>
@@ -373,18 +783,18 @@
                             </div>
 
                             <div class="form-group" style="margin-top: 0; margin-bottom: 0;">
-                                <div class="file-upload-zone" style="padding: 1.25rem 1rem;" onclick="document.getElementById('receipt-upload').click()">
+                                <div class="file-upload-zone" style="padding: 1.25rem 1rem;" data-upload-target="receipt-upload">
                                     <span class="dz-title">Kliknij, aby dodać zdjęcie paragonu</span>
                                     <span class="dz-desc">Plik w formacie JPG, PNG, max 1 MB</span>
                                 </div>
 
                                 <div style="display: none; align-items: center; gap: 1.5rem; margin-top: 1rem;">
-                                    <div class="plus-black-frame" onclick="document.getElementById('receipt-upload').click()" title="Wybierz plik paragonu">
+                                    <div class="plus-black-frame" data-upload-target="receipt-upload" title="Wybierz plik paragonu">
                                         <span>+</span>
                                     </div>
-                                    <label style="font-weight: bold; font-size: 0.95rem; text-transform: uppercase; margin: 0; cursor: pointer;" onclick="document.getElementById('receipt-upload').click()">Dodaj zdjęcie paragonu</label>
+                                    <label for="receipt-upload" style="font-weight: bold; font-size: 0.95rem; text-transform: uppercase; margin: 0; cursor: pointer;">Dodaj zdjęcie paragonu</label>
                                 </div>
-                                
+
                                 <input type="file" id="receipt-upload" name="paragon_zdjecie" accept=".jpg,.jpeg,.png" style="display: none;" required>
                                 <span id="receipt-file-status" style="font-size: 0.85rem; color: var(--hover-orange); margin-top: 0.5rem; display: block; font-weight: 600;"></span>
                             </div>
@@ -420,7 +830,7 @@
                                 <div id="pane-zdjecie" class="task-pane" style="display: none;">
                                     <div class="form-group">
                                         <label>Plik graficzny projektu</label>
-                                        <div class="file-upload-zone" onclick="document.getElementById('task-image-upload').click()">
+                                        <div class="file-upload-zone" data-upload-target="task-image-upload">
                                             <span class="dz-title">Kliknij, aby dodać zdjęcie pracy</span>
                                             <span class="dz-desc">Zapisz JPG/PNG | Max 1 MB</span>
                                         </div>
@@ -432,7 +842,7 @@
                                 <div id="pane-video" class="task-pane" style="display: none;">
                                     <div class="form-group">
                                         <label>Plik wideo projektu</label>
-                                        <div class="file-upload-zone" onclick="document.getElementById('task-video-upload').click()">
+                                        <div class="file-upload-zone" data-upload-target="task-video-upload">
                                             <span class="dz-title">Kliknij, aby dodać plik wideo</span>
                                             <span class="dz-desc">Format MP4/MOV | Max 30 MB</span>
                                         </div>
@@ -445,7 +855,7 @@
 
                         <div class="form-section">
                             <h4>Podaj swoje dane:</h4>
-                            
+
                             <div class="form-row-2col">
                                 <div class="form-group"><label for="user-imie">Imię</label><input type="text" id="user-imie" name="imie" placeholder="Anna" required></div>
                                 <div class="form-group"><label for="user-nazwisko">Nazwisko</label><input type="text" id="user-nazwisko" name="nazwisko" placeholder="Nowak" required></div>
@@ -478,7 +888,7 @@
                             <input type="checkbox" id="zgoda_c" class="consent-cb" required>
                             <label for="zgoda_c">
                                 <div id="consent-text-c" class="consent-text-container">Oświadczam, że zapoznałem/am się z Polityką Ochrony Prywatności i wyrażam zgodę na przetwarzanie moich danych osobowych przez Współadministratorów: Douglas Polska Sp. z o.o. oraz pp1 Sp. z o.o. z siedzibą w Warszawie dla celów związanych z przeprowadzeniem Konkursu, weryfikacją zgłoszeń, ogłoszeniem wyników oraz wydaniem Nagród, zgodnie z RODO.</div>
-                                <span class="toggle-consent-btn" onclick="toggleConsentBox('consent-text-c', this); event.preventDefault();">Rozwiń</span>
+                                <span class="toggle-consent-btn" data-toggle-target="consent-text-c">Rozwiń</span>
                             </label>
                         </div>
 
@@ -486,7 +896,7 @@
                             <input type="checkbox" id="zgoda_d" class="consent-cb" required>
                             <label for="zgoda_d">
                                 <div id="consent-text-d" class="consent-text-container">Oświadczam, że jestem wyłącznym autorem zgłoszonego Zadania Konkursowego (wiersza, zdjęcia lub materiału wideo) i przysługują mi do niego pełne oraz nieograniczone autorskie prawa majątkowe i osobiste, a utwór ten nie jest w żaden sposób ograniczony ani obciążony prawami osób trzecich.</div>
-                                <span class="toggle-consent-btn" onclick="toggleConsentBox('consent-text-d', this); event.preventDefault();">Rozwiń</span>
+                                <span class="toggle-consent-btn" data-toggle-target="consent-text-d">Rozwiń</span>
                             </label>
                         </div>
 
@@ -494,7 +904,7 @@
                             <input type="checkbox" id="zgoda_e" class="consent-cb" required>
                             <label for="zgoda_e">
                                 <div id="consent-text-e" class="consent-text-container">Oświadczam, że posiadam pełną i bezwarunkową zgodę na wykorzystanie wizerunku własnego oraz wizerunku wszystkich osób trzecich, które zostały utrwalone w nagrodzonym Zadaniu Konkursowym. W przypadku wygranej, udzielam Współadministratorom niewyłącznej licencji na korzystanie z utworu na polach eksploatacji określonych w § 6 Regulaminu.</div>
-                                <span class="toggle-consent-btn" onclick="toggleConsentBox('consent-text-e', this); event.preventDefault();">Rozwiń</span>
+                                <span class="toggle-consent-btn" data-toggle-target="consent-text-e">Rozwiń</span>
                             </label>
                         </div>
 
@@ -502,7 +912,7 @@
                             <input type="checkbox" id="zgoda_f" class="consent-cb" required>
                             <label for="zgoda_f">
                                 <div id="consent-text-f" class="consent-text-container">Oświadczam, że zgłoszone przeze mnie Zadanie Konkursowe nie narusza przepisów obowiązującego prawa ani jakichkolwiek praw lub dóbr osobistych osób trzecich. Przyjmuję na siebie pełną i wyłączną odpowiedzialność w przypadku, gdy osoba trzecia będzie formułowała roszczenia skierowane do Organizatora lub Douglas Polska Sp. z o.o., dotyczące przesłanego przeze mnie utworu lub wizerunku.</div>
-                                <span class="toggle-consent-btn" onclick="toggleConsentBox('consent-text-f', this); event.preventDefault();">Rozwiń</span>
+                                <span class="toggle-consent-btn" data-toggle-target="consent-text-f">Rozwiń</span>
                             </label>
                         </div>
 
@@ -520,137 +930,324 @@
                 </div>
             </section>
 
-            <section id="zasady-konkursu" class="konkurs-section-spacing" style="margin-top: 4rem;">
-                <div class="jak-zdobyc-wrapper">
-                    <span class="section-label">Zasady konkursu</span>
-                    <h2>Jak zdobyć bilet?</h2>
-                    <div class="steps-grid-static">
-                        <div class="step-item-horizontal">
-                            <div class="placeholder-img"><span>Grafika</span></div>
-                            <div class="step-text-content">
-                                <p>1. Kup produkt w Douglas</p>
-                                <span class="step-desc">Zrób zakupy w dowolnej perfumerii lub na douglas.pl.<br>Koniecznie zachowaj paragon lub numer swojego zamówienia!</span>
-                            </div>
+            <section id="zasady-konkursu" class="how-to-win-section">
+                <div class="celebration-badge-wrapper">
+                    <img src="assets/badge/badge-celebration.svg" class="badge-text" alt="Celebration Text">
+                </div>
+
+                <div class="how-to-win-content">
+                    <span class="how-to-win-section-label">ZASADY KONKURSU</span>
+                    <h2 class="how-to-win-heading">JAK ZDOBYĆ BILET?</h2>
+
+                    <div class="how-to-win-grid">
+                        <div class="win-step">
+                            <div class="win-step-number">01</div>
+                            <div class="win-step-line"></div>
+                            <h4 class="win-step-title">Kup produkt w Douglas</h4>
+                            <div class="win-step-desc">Zrób zakupy w dowolnej perfumerii lub na douglas.pl.<br>Koniecznie zachowaj paragon lub numer swojego zamówienia!</div>
                         </div>
-                        <div class="step-item-horizontal">
-                            <div class="placeholder-img"><span>Grafika</span></div>
-                            <div class="step-text-content">
-                                <p>2. Odpowiedz na pytanie tygodnia</p>
-                                <span class="step-desc">Wypełnij formularz powyżej w aktualnej rundzie.<br>Bądź kreatywny/a – dodaj tekst, zdjęcie lub wideo!</span>
-                            </div>
+                        <div class="win-step">
+                            <div class="win-step-number">02</div>
+                            <div class="win-step-line"></div>
+                            <h4 class="win-step-title">Odpowiedz na pytanie tygodnia</h4>
+                            <div class="win-step-desc">Wypełnij formularz powyżej w aktualnej rundzie.<br>Bądź kreatywny/a – dodaj tekst, zdjęcie lub wideo!</div>
                         </div>
-                        <div class="step-item-horizontal">
-                            <div class="placeholder-img"><span>Grafika</span></div>
-                            <div class="step-text-content">
-                                <p>3. Wygraj bilety na koncert</p>
-                                <span class="step-desc">Jury wybierze najciekawsze odpowiedzi w każdym tygodniu.<br>Otrzymasz powiadomienie, jeśli to właśnie Ty wygrasz bilety.</span>
-                            </div>
+                        <div class="win-step">
+                            <div class="win-step-number">03</div>
+                            <div class="win-step-line"></div>
+                            <h4 class="win-step-title">Wygraj bilety na koncert</h4>
+                            <div class="win-step-desc">Jury wybierze najciekawsze odpowiedzi w każdym tygodniu.<br>Otrzymasz powiadomienie, jeśli to właśnie Ty wygrasz bilety.</div>
+                        </div>
+                        <div class="win-step">
+                            <div class="win-step-number">04</div>
+                            <div class="win-step-line"></div>
+                            <h4 class="win-step-title">Co tydzień do wygrania</h4>
+                            <div class="win-step-desc">200 podwójnych biletów oraz 5 podwójnych biletów VIP</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="white-full-width-block">
-                <div class="white-block-inner">
-                    <div class="countdown-inner-container" style="margin-bottom: 5rem;">
-                        <span class="section-label countdown-label">Koniec aktualnej rundy zgłoszeń za:</span>
-                        <h4 class="countdown-h4" style="margin-bottom: 2rem;">Co tydzień nowa runda konkursu i nowe szanse na nagrody!</h4>
-                        <div class="counter-grid countdown-responsive">
-                            <div class="counter-box"><span class="counter-number" id="home-days">00</span><span class="counter-label">DNI</span></div>
-                            <div class="counter-box"><span class="counter-number" id="home-hours">00</span><span class="counter-label">GODZ</span></div>
-                            <div class="counter-box"><span class="counter-number" id="home-mins">00</span><span class="counter-label">MIN</span></div>
-                            <div class="counter-box"><span class="counter-number" id="home-secs">00</span><span class="counter-label">SEK</span></div>
+            <section class="homepage-countdown-nested global-countdown-widget">
+                <div class="countdown-inner-container">
+                    <span class="section-label countdown-label">Koniec aktualnej rundy zgłoszeń za:</span>
+                    <h2 class="countdown-heading">Co tydzień nowa runda konkursu i nowa szansa na nagrodę!</h2>
+                    <div class="counter-grid countdown-responsive">
+                        <div class="counter-box">
+                            <span class="counter-number" id="home-days">00</span>
+                            <span class="counter-label">DNI</span>
+                        </div>
+                        <div class="counter-box">
+                            <span class="counter-number" id="home-hours">00</span>
+                            <span class="counter-label">GODZ</span>
+                        </div>
+                        <div class="counter-box">
+                            <span class="counter-number" id="home-mins">00</span>
+                            <span class="counter-label">MIN</span>
+                        </div>
+                        <div class="counter-box">
+                            <span class="counter-number" id="home-secs">00</span>
+                            <span class="counter-label">SEK</span>
                         </div>
                     </div>
+                </div>
+                <div class="countdown-badge-wrap" aria-hidden="true">
+                    <div class="countdown-badge-rotating">
+                        <img src="assets/badge/time_to_glow_badge-tlo.svg" alt="" class="countdown-badge-bg">
+                    </div>
+                    <img src="assets/badge/time_to_glow_badge-napis.svg" alt="" class="countdown-badge-label">
+                </div>
+                <div class="global-countdown-image-mobile"></div>
+            </section>
 
+            <section class="schedule-full-width-block">
+                <div class="schedule-block-inner">
                     <h2>Harmonogram konkursu</h2>
 
                     <div class="timeline-carousel" id="schedule-carousel">
+                        
                         <div class="timeline-card status-upcoming">
-                            <h4>Tydzień 8 <span class="status-badge" style="color:var(--text-color)">(Nadchodzące)</span></h4>
-                            <p class="date">26.08 - 01.09</p>
-                            <p class="task">Napisz krótki, pełen...</p>
-                            <div class="timeline-link" style="border:none; color: var(--text-muted); text-transform: none; font-weight: 500;">Ogłoszenie wyników: 06.09</div>
-                        </div>
-                        <div class="timeline-card status-upcoming">
-                            <h4>Tydzień 7 <span class="status-badge" style="color:var(--text-color)">(Nadchodzące)</span></h4>
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 8</h4>
+                                <span class="timeline-badge">Nadchodzące</span>
+                            </div>
                             <p class="date">19.08 - 25.08</p>
-                            <p class="task">Zamknij oczy i...</p>
-                            <div class="timeline-link" style="border:none; color: var(--text-muted); text-transform: none; font-weight: 500;">Ogłoszenie wyników: 30.08</div>
+                            <p class="task">Napisz krótki, pełen pasji wiersz lub stwórz wideo o swoim wymarzonym wieczorze spa z markami z Douglas.</p>
                         </div>
+
                         <div class="timeline-card status-upcoming">
-                            <h4>Tydzień 6 <span class="status-badge" style="color:var(--text-color)">(Nadchodzące)</span></h4>
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 7</h4>
+                                <span class="timeline-badge">Nadchodzące</span>
+                            </div>
                             <p class="date">12.08 - 18.08</p>
-                            <p class="task">Napisz krótki wiersz...</p>
-                            <div class="timeline-link" style="border:none; color: var(--text-muted); text-transform: none; font-weight: 500;">Ogłoszenie wyników: 23.08</div>
+                            <p class="task">Zamknij oczy i wyobraź sobie idealny zapach. Opisz go w wierszu lub pokaż na zdjęciu z produktami Douglas.</p>
                         </div>
+
                         <div class="timeline-card status-upcoming">
-                            <h4>Tydzień 5 <span class="status-badge" style="color:var(--text-color)">(Nadchodzące)</span></h4>
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 6</h4>
+                                <span class="timeline-badge">Nadchodzące</span>
+                            </div>
                             <p class="date">05.08 - 11.08</p>
-                            <p class="task">Opisz w krótkim...</p>
-                            <div class="timeline-link" style="border:none; color: var(--text-muted); text-transform: none; font-weight: 500;">Ogłoszenie wyników: 16.08</div>
+                            <p class="task">Opisz w krótkim wierszu swój poranny rytuał pielęgnacyjny, wykorzystując nazwy trzech ulubionych kosmetyków.</p>
                         </div>
+
                         <div class="timeline-card status-upcoming">
-                            <h4>Tydzień 4 <span class="status-badge" style="color:var(--text-color)">(Nadchodzące)</span></h4>
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 5</h4>
+                                <span class="timeline-badge">Nadchodzące</span>
+                            </div>
                             <p class="date">29.07 - 04.08</p>
-                            <p class="task">Napisz krótki wiersz...</p>
-                            <div class="timeline-link" style="border:none; color: var(--text-muted); text-transform: none; font-weight: 500;">Ogłoszenie wyników: 09.08</div>
+                            <p class="task">Napisz krótki wiersz lub zrób zdjęcie inspirowane blaskiem słońca i letnim makijażem glow z Douglas.</p>
                         </div>
-                        <div class="timeline-card status-ongoing" id="current-week-card">
-                            <h4>Tydzień 3 <span class="status-badge" style="color:var(--hover-orange)">(Trwa teraz)</span></h4>
+
+                        <div class="timeline-card status-upcoming">
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 4</h4>
+                                <span class="timeline-badge">Nadchodzące</span>
+                            </div>
                             <p class="date">22.07 - 28.07</p>
-                            <p class="task">Stwórz krótki wiersz lub zdjęcie lub video -zagadkę o swoim ulubionym produkcie z Douglas. Nie używaj jego nazwy ani kategorii – pozwól słowom podpowiedzieć odpowiedź.</p>
+                            <p class="task">Napisz krótki wiersz lub zrób zdjęcie lub video, w którym połączysz swój codzienny makijaż lub ulubiony kosmetyk z utworem muzycznym najlepiej oddającym Twój dzisiejszy nastrój i wygląd.</p>
                         </div>
-                        <div class="timeline-card status-past">
-                            <h4>Tydzień 2 <span class="status-badge" style="color:var(--text-muted)">(Zakończony)</span></h4>
+
+                        <div class="timeline-card status-ongoing" id="current-week-card">
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 3</h4>
+                                <span class="timeline-badge">Trwa teraz</span>
+                            </div>
                             <p class="date">15.07 - 21.07</p>
-                            <p class="task">Ułóż krótki wiersz lub zrób zdjęcie lub video, o swoim największym kosmetycznym odkryciu z Douglas – produkcie, który całkowicie odmienił Twoją codzienną rutynę.</p>
-                            <a href="galeria.html" class="timeline-link">Sprawdź wyniki</a>
+                            <p class="task">Stwórz krótki wiersz lub zdjęcie lub video - zagadkę o swoim ulubionym produkcie z Douglas. Nie używaj jego nazwy ani kategorii - pozwól słowom podpowiedzieć odpowiedź.</p>
                         </div>
+
                         <div class="timeline-card status-past">
-                            <h4>Tydzień 1 <span class="status-badge" style="color:var(--text-muted)">(Zakończony)</span></h4>
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 2</h4>
+                                <span class="timeline-badge">Zakończony</span>
+                            </div>
                             <p class="date">08.07 - 14.07</p>
-                            <p class="task">Napisz krótki wiersz lub zrób zdjęcie lub video, inspirowany najcenniejszą radą dotyczącą urody lub pielęgnacji, jaką usłyszałeś/aś od mamy, przyjaciółki lub eksperta Douglas.</p>
-                            <a href="galeria.html" class="timeline-link">Sprawdź wyniki</a>
+                            <p class="task">Ułóż krótki wiersz lub zrób zdjęcie lub video, o swoim największym kosmetycznym odkryciu z Douglas - produkcie, który całkowicie odmienił Twoją codzienną rutynę.</p>
+                            <div class="timeline-link-wrapper">
+                                <a href="#" class="timeline-link">Sprawdź wyniki</a>
+                            </div>
                         </div>
+
+                        <div class="timeline-card status-past">
+                            <div class="timeline-card-header">
+                                <h4>Tydzień 1</h4>
+                                <span class="timeline-badge">Zakończony</span>
+                            </div>
+                            <p class="date">01.07 - 07.07</p>
+                            <p class="task">Napisz krótki wiersz lub zrób zdjęcie lub video, inspirowany najcenniejszą radą dotyczącą urody lub pielęgnacji, jaką usłyszałeś/aś od mamy, przyjaciółki lub eksperta Douglas.</p>
+                            <div class="timeline-link-wrapper">
+                                <a href="#" class="timeline-link">Sprawdź wyniki</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            <section id="nagrody-konkursowe" class="konkurs-section-spacing" style="margin-top: 4rem;">
-                <h2>Nagrody</h2>
-                <div class="grid-2-columns">
-                    <div class="box-card-full-img">
-                        <div class="uniform-height-img" style="background-image: url('assets/placeholder@0,25x.png'); background-size: cover; background-position: center;"></div>
-                        <div class="box-content"><h3>4000 biletów standardowych</h3></div>
+            <section id="nagrody" class="nagrody-section">
+                <div class="nagrody-header">
+                    <h2>NAGRODY</h2>
+                    <p>Co tydzień do wygrania podwójne bilety na:</p>
+                </div>
+                
+                <div class="ticket-mobile-wrapper">
+                    <div class="ticket-mobile">
+                        <div class="tm-top">
+                            <h3 class="black-text">Sanah NA STADIONACH</h3>
+                            <p class="black-text">Koncert Finałowy<br>powered by Douglas</p>
+                            <div class="tm-info-row">
+                                <div class="ticket-info black-text">
+                                    <img src="assets/ikony/ico-calendar.svg" alt="Kalendarz" class="icon-black">
+                                    <span>4 września 2026</span>
+                                </div>
+                                <div class="ticket-info black-text">
+                                    <img src="assets/ikony/ico-pin.svg" alt="Pinezka" class="icon-black">
+                                    <span>PGE Narodowy w Warszawie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ticket-separator white-line">
+                        <div class="tm-mid">
+                            <div class="ticket-big-number-row">
+                                <span class="ticket-num black-text">5</span>
+                                <span class="ticket-num-text black-text">podwójnych<br>biletów VIP</span>
+                            </div>
+                            <ul class="ticket-list black-text">
+                                <li>udział w koncercie w strefie premium</li>
+                                <li>udział w próbie zespołu Artystki</li>
+                                <li>obecność na backstage</li>
+                            </ul>
+                        </div>
+                        <div class="tm-bot">
+                            <div class="ticket-big-number-row">
+                                <span class="ticket-num mint-text">250</span>
+                                <span class="ticket-num-text white-text">podwójnych<br>biletów<br>standardowych</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="box-card-full-img">
-                        <div class="uniform-height-img" style="background-image: url('assets/placeholder@0,25x.png'); background-size: cover; background-position: center;"></div>
-                        <div class="box-content"><h3>250 biletów VIP</h3></div>
+                </div>
+
+                <div class="tickets-desktop-wrapper">
+                    <div class="ticket-left">
+                        <div class="td-top">
+                            <h3 class="white-text">Sanah NA STADIONACH</h3>
+                            <p class="white-text">Koncert Finałowy powered by Douglas</p>
+                        </div>
+                        <hr class="ticket-separator white-line">
+                        <div class="td-bot">
+                            <div class="ticket-big-number-row align-items-center">
+                                <span class="ticket-num mint-text">250</span>
+                                <span class="ticket-num-text white-text">podwójnych<br>biletów<br>standardowych</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-right">
+                        <div class="td-top">
+                            <div class="td-info-row">
+                                <div class="ticket-info black-text">
+                                    <img src="assets/ikony/ico-calendar.svg" alt="Kalendarz" class="icon-black">
+                                    <span>4 września 2026</span>
+                                </div>
+                                <div class="ticket-info black-text">
+                                    <img src="assets/ikony/ico-pin.svg" alt="Pinezka" class="icon-black">
+                                    <span>PGE Narodowy w Warszawie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="ticket-separator white-line">
+                        <div class="td-bot">
+                            <div class="ticket-big-number-row align-items-center">
+                                <span class="ticket-num black-text">5</span>
+                                <span class="ticket-num-text black-text">podwójnych<br>biletów VIP</span>
+                            </div>
+                            <ul class="ticket-list black-text">
+                                <li>udział w koncercie w strefie premium</li>
+                                <li>udział w próbie zespołu Artystki</li>
+                                <li>obecność na backstage</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <div id="best-submissions-widget-placeholder"></div>
 
+            <div class="marquee-ribbon" style="background-color: #E3CA95; margin-top: 4rem; width: 100vw; margin-left: calc(-50vw + 50%);">
+                <div class="marquee-track-scroll" id="thank-you-track">
+                    <div class="marquee-content-fixed">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                    </div>
+                    <div class="marquee-content-fixed">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                    </div>
+                    <div class="marquee-content-fixed">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                    </div>
+                    <div class="marquee-content-fixed">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                        <span>THANK YOU</span><img src="assets/ikony/star.svg" alt="Star">
+                    </div>
+                </div>
+            </div>
+
             <section class="concert-final-section">
                 <div class="concert-final-container">
-                    <div class="concert-img-placeholder">
-                        <span class="concert-img-badge">Grafika z lewej</span>
+                    <div class="concert-img-wrapper">
+                        <div class="concert-poster-container">
+                            <div class="with-love-badge-wrapper">
+                                <img src="assets/badge/with_love-badge.svg" alt="With Love Douglas" class="with-love-badge">
+                            </div>
+                            <img src="assets/SNS2026_PGE-Narodowy_plakat 1.png" alt="Koncert Finałowy Sanah" class="concert-poster">
+                        </div>
                     </div>
-                    <div class="concert-content">
-                        <h2>Koncert Finałowy Sanah na Stadionach</h2>
-                        
+                    <div class="concert-info-box">
+                        <h2>KONCERT FINAŁOWY SANAH NA STADIONACH</h2>
+                        <hr class="concert-divider">
                         <ul class="concert-details-list">
-                            <li><div class="icon-box">Iko</div> 4 września 2026</li>
-                            <li><div class="icon-box">Iko</div> PGE Narodowy w Warszawie</li>
+                            <li>
+                                <img src="assets/ikony/ico-calendar.svg" alt="Data" class="concert-icon">
+                                <span>4 września 2026</span>
+                            </li>
+                            <li>
+                                <img src="assets/ikony/ico-pin.svg" alt="Miejsce" class="concert-icon">
+                                <span>PGE Narodowy w Warszawie</span>
+                            </li>
                         </ul>
-                        
-                        <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem; color: #111;">
-                            Jako partner tytularny trasy Sanah zapraszamy do świętowania jubileuszu Douglas na koncercie.
-                        </p>
-                        
-                        <a href="koncert-finalowy.html" class="cta-framed">Zobacz szczegóły</a>
+                        <hr class="concert-divider">
+                        <p class="concert-desc">Jako partner tytularny trasy Sanah zapraszamy do świętowania jubileuszu Douglas na koncercie.</p>
+                        <a href="#" class="cta-solid-black" target="_blank">ZOBACZ SZCZEGÓŁY</a>
                     </div>
                 </div>
             </section>
@@ -658,43 +1255,12 @@
         </main>
     </div>
 
+    <div id="questions-widget-placeholder"></div>
     <div id="footer-placeholder"></div>
 
-  <script>
-        // Formularz typy zadań
-        document.querySelectorAll('input[name="zadanie_typ"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('.task-pane').forEach(pane => pane.style.display = 'none');
-                const activePane = document.getElementById('pane-' + this.value);
-                if (activePane) activePane.style.display = 'block';
-                
-                const txt = document.getElementById('task-textarea');
-                const img = document.getElementById('task-image-upload');
-                const vid = document.getElementById('task-video-upload');
-                
-                if (txt) txt.required = (this.value === 'wiersz');
-                if (img) img.required = (this.value === 'zdjecie');
-                if (vid) vid.required = (this.value === 'video');
-            });
-        });
-
-        document.getElementById('receipt-upload')?.addEventListener('change', function() {
-            const status = document.getElementById('receipt-file-status');
-            if (status) status.textContent = this.files[0] ? "Dodano paragon: " + this.files[0].name : "";
-        });
-
-        document.getElementById('task-image-upload')?.addEventListener('change', function() {
-            const status = document.getElementById('image-file-status');
-            if (status) status.textContent = this.files[0] ? "Dodano zdjęcie: " + this.files[0].name : "";
-        });
-
-        document.getElementById('task-video-upload')?.addEventListener('change', function() {
-            const status = document.getElementById('video-file-status');
-            if (status) status.textContent = this.files[0] ? "Dodano wideo: " + this.files[0].name : "";
-        });
-
-        function toggleConsentBox(containerId, buttonElement) {
-            const container = document.getElementById(containerId);
+    <script>
+        function toggleConsentBox(id, buttonElement) {
+            const container = document.getElementById(id);
             if (container) {
                 if (container.classList.contains('expanded')) {
                     container.classList.remove('expanded');
@@ -710,26 +1276,21 @@
             document.querySelectorAll('.consent-cb').forEach(cb => cb.checked = true);
         });
 
-        // Przesuwanie harmonogramu do aktualnego tygodnia (tylko w poziomie, bez ruszania całej strony)
         window.addEventListener('DOMContentLoaded', () => {
             const currentWeekCard = document.getElementById('current-week-card');
             const carousel = document.getElementById('schedule-carousel');
             if (currentWeekCard && carousel) {
                 setTimeout(() => {
-                    // Obliczamy pozycję karty względem kontenera karuzeli i przesuwamy tylko karuzelę
-                    const scrollPos = currentWeekCard.offsetLeft - carousel.offsetLeft - 24; // 24px marginesu dla estetyki
+                    const scrollPos = currentWeekCard.offsetLeft - carousel.offsetLeft - 16;
                     carousel.scrollTo({ left: scrollPos, behavior: 'smooth' });
                 }, 300);
             }
         });
 
-        // Poniższy widget ładuje się asynchronicznie, zostawiamy go tutaj
-        fetch('best-submissions-widget.html').then(response => response.text()).then(data => { 
+        fetch('best-submissions-widget.html').then(response => response.text()).then(data => {
             const ph = document.getElementById('best-submissions-widget-placeholder');
-            if(ph) ph.innerHTML = data; 
+            if(ph) ph.innerHTML = data;
         }).catch(err => console.log('Brak widgetu', err));
     </script>
-    <script src="main.js"></script>
-
 </body>
 </html>

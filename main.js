@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Ładowanie globalnych komponentów (Header, Footer, Widgety)
     await loadGlobalComponents();
+    // 1a. Inicjalizacja poprawnie scrollującego się headera
+    initSmartHeader();
     // 2. Skrypt widgetu ze strony głównej (ukrywanie przeszłych wydarzeń)
     filterPastEventsInWidget();
+    // 2a. Obsługa wspólnych zdarzeń kliknięć i przycisków
+    initCommonPageHandlers();
     // 3. Główna inicjalizacja interakcji (filtry, mapy, karuzele)
     initApp();
     // 4. Inicjalizacja licznika countdown widgetu
@@ -28,20 +32,47 @@ async function loadGlobalComponents() {
     }
 
     await fetchAndReplace('header.html', 'header-placeholder');
+    initMobileMenu();
     await fetchAndReplace('events-widget.html', 'events-widget-placeholder');
     await fetchAndReplace('countdown-widget.html', 'countdown-widget-placeholder');
+    await fetchAndReplace('questions-widget.html', 'questions-widget-placeholder');
     await fetchAndReplace('footer.html', 'footer-placeholder');
 
-    const path = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.global-nav a');
-    navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === path) {
-            link.classList.add('active');
-        } else if ((path === '' || path === 'index.html') && href === 'index.html') {
-            link.classList.add('active');
+    setActiveNavLink();
+}
+
+// Logika headera - zachowuje się jak zwykły element (scrolluje się w dół),
+// a przy przewijaniu w górę przykleja się i wysuwa z góry.
+function initSmartHeader() {
+    const header = document.querySelector('.main-header');
+    if (!header) return;
+
+    const headerHeight = header.offsetHeight;
+    document.body.style.paddingTop = headerHeight + 'px';
+
+    let lastScrollTop = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        
+        if (scrollTop <= headerHeight) {
+            // Na samej górze - powrót do naturalnego osadzenia na stronie (znika z opóźnieniem)
+            header.classList.remove('is-fixed', 'is-visible');
+        } else if (scrollTop > headerHeight * 1.5) {
+            // Jesteśmy niżej - dodajemy status fixed (domyślnie schowany na -100%)
+            header.classList.add('is-fixed');
+            
+            if (scrollTop > lastScrollTop) {
+                // Scroll w dół - zachowujemy schowany stan
+                header.classList.remove('is-visible');
+            } else {
+                // Scroll w górę - wysuwamy menu
+                header.classList.add('is-visible');
+            }
         }
-    });
+        
+        lastScrollTop = Math.max(0, scrollTop);
+    }, { passive: true });
 }
 
 function filterPastEventsInWidget() {
@@ -69,15 +100,14 @@ function initCountdown() {
 
     if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
 
-    // Przeliczenie odliczania do najbliższej niedzieli do godziny 23:59:59
     function getNextSunday() {
         const now = new Date();
-        const daysUntilSunday = 7 - now.getDay(); 
+        const daysUntilSunday = 7 - now.getDay();
         const nextSunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (daysUntilSunday === 7 ? 0 : daysUntilSunday));
         nextSunday.setHours(23, 59, 59, 999);
         return nextSunday;
     }
-    
+
     const targetDate = getNextSunday();
 
     function updateCounter() {
@@ -107,7 +137,141 @@ function initCountdown() {
     setInterval(updateCounter, 1000);
 }
 
+function toggleConsentBox(id, buttonElement) {
+    const container = document.getElementById(id);
+    if (!container || !buttonElement) return;
+
+    const isExpanded = container.classList.contains('expanded');
+    container.classList.toggle('expanded', !isExpanded);
+    buttonElement.textContent = isExpanded ? 'Rozwiń' : 'Zwiń';
+}
+
+function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (!hamburger || !mobileMenu) return;
+
+    hamburger.addEventListener('click', () => {
+        const icon = hamburger.querySelector('img');
+        if (mobileMenu.style.display === 'block') {
+            mobileMenu.style.display = 'none';
+            if (icon) icon.src = 'assets/ikony/icon-menu.svg';
+        } else {
+            mobileMenu.style.display = 'block';
+            if (icon) icon.src = 'assets/ikony/icon-close-menu.png';
+        }
+    });
+}
+
+function initCommonPageHandlers() {
+    document.addEventListener('click', (e) => {
+        const uploadTrigger = e.target.closest('[data-upload-target]');
+        if (uploadTrigger) {
+            e.preventDefault();
+            const targetId = uploadTrigger.dataset.uploadTarget;
+            const input = targetId ? document.getElementById(targetId) : null;
+            if (input) input.click();
+            return;
+        }
+
+        const consentBtn = e.target.closest('.toggle-consent-btn');
+        if (consentBtn) {
+            e.preventDefault();
+            const targetId = consentBtn.dataset.toggleTarget;
+            if (targetId) toggleConsentBox(targetId, consentBtn);
+            return;
+        }
+
+        const checkAllTrigger = e.target.closest('#check-all-trigger');
+        if (checkAllTrigger) {
+            e.preventDefault();
+            document.querySelectorAll('.consent-cb').forEach(cb => cb.checked = true);
+            return;
+        }
+
+        const smoothAnchor = e.target.closest('a[href^="#"]');
+        if (smoothAnchor) {
+            const href = smoothAnchor.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                const targetElement = document.getElementById(href.slice(1));
+                if (targetElement) {
+                    e.preventDefault();
+                    // Offset by the header height to avoid scrolling under the fixed header
+                    const headerOffset = document.querySelector('.main-header')?.offsetHeight || 0;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: "smooth"
+                    });
+                }
+            }
+        }
+    });
+}
+
+function setActiveNavLink() {
+    const path = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.global-nav a');
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === path || ((path === '' || path === 'index.html') && href === 'index.html')) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
 function initApp() {
+
+    // --- ANIMACJA OBROTU BADGE'A CELEBRATION, IKONY GLOW ORAZ WAHADŁA DLA WITH LOVE ---
+    const badgeTextElement = document.querySelector('.badge-text');
+    const glowBadgeElement = document.querySelector('.glow-badge');
+    const countdownBadgeRotating = document.querySelector('.countdown-badge-rotating');
+    const withLoveBadge = document.querySelector('.with-love-badge');
+
+    if (badgeTextElement || glowBadgeElement || countdownBadgeRotating || withLoveBadge) {
+        window.addEventListener('scroll', () => {
+            const scrollValue = window.scrollY;
+            const rotation = scrollValue * 0.15;
+
+            // Pełna rotacja dla okrągłych badges:
+            if (badgeTextElement) badgeTextElement.style.transform = `rotate(${rotation}deg)`;
+            if (glowBadgeElement) glowBadgeElement.style.transform = `rotate(${rotation}deg)`;
+            if (countdownBadgeRotating) countdownBadgeRotating.style.transform = `rotate(${rotation}deg)`;
+            
+            // Oscylacja od -45st do 45st (wahadło) dla pofalowanego badga With Love
+            if (withLoveBadge) {
+                const oscillation = Math.sin(scrollValue * 0.004) * 45; 
+                withLoveBadge.style.transform = `rotate(${oscillation}deg)`;
+            }
+        }, { passive: true });
+    }
+
+    // --- ANIMACJA SCROLLOWANEJ WSTĄŻKI (MULTIPLE TRACKS) ---
+    const marqueeTracks = document.querySelectorAll('.marquee-track-scroll');
+    if (marqueeTracks.length > 0) {
+        let offset = 0;
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            const delta = currentScrollY - lastScrollY;
+            lastScrollY = currentScrollY;
+
+            offset += delta * 0.75; 
+            
+            marqueeTracks.forEach(track => {
+                const blockWidth = track.children[0].offsetWidth;
+                if(blockWidth > 0) {
+                    let boundedOffset = offset % blockWidth;
+                    track.style.transform = `translateX(calc(-50% + ${boundedOffset}px))`;
+                }
+            });
+        });
+    }
+
     // --- 1. Obsługa Dropdown w starym menu nawigacyjnym ---
     const dropdownParent = document.querySelector('.has-dropdown');
     const iconCarousel = document.querySelector('.icon-menu-carousel');
@@ -427,7 +591,7 @@ function initApp() {
         });
     }
 
-    // --- 7. Logika Beauty: Filtrowanie mozaiki produktów (podstrona beauty.html) ---
+    // --- 7. Logika Beauty: Filtrowanie mozaiki produktów ---
     const mosaic = document.getElementById('products-mosaic');
     const brandButtons = document.querySelectorAll('.brand-item');
     const filterMsg = document.getElementById('active-filter-msg');

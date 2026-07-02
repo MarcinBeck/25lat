@@ -9,7 +9,7 @@
         /* Style dla miniaturek wideo w siatce zgłoszeń */
         .video-box {
             position: relative;
-            background: #2a2a2a; 
+            background: #2a2a2a;
             color: #fff;
             overflow: hidden;
             display: flex;
@@ -50,7 +50,7 @@
 
         /* --- STYLIZACJA PRZEKLIKU Z TYGODNIAMI --- */
         .beauty-tabs.week-filters {
-            display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 1rem; padding-bottom: 1.5rem; margin-bottom: 2rem; scroll-snap-type: x mandatory; scrollbar-width: none; border-bottom: none; 
+            display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 1rem; padding-bottom: 1.5rem; margin-bottom: 2rem; scroll-snap-type: x mandatory; scrollbar-width: none; border-bottom: none;
         }
         .beauty-tabs.week-filters::-webkit-scrollbar { display: none; }
         .beauty-tabs.week-filters a {
@@ -64,7 +64,7 @@
         }
 
         .beauty-tabs.week-filters a.active { background: #fbfbfb; box-shadow: inset 0 0 0 2px var(--text-color); border-color: var(--text-color); }
-        
+
         /* Odróżnienie stanów tygodni */
         .beauty-tabs.week-filters a.tab-past { background: #fdfdfd; }
         .beauty-tabs.week-filters a.tab-ongoing { background: #fff8f0; border-color: var(--hover-orange); }
@@ -102,30 +102,30 @@
     <section id="history-hero"></section>
 
     <div class="breadcrumb-container" style="max-width: 1200px; margin: 1.5rem auto 0; padding: 0 1rem; font-size: 0.85rem; color: var(--text-muted);">
-        <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> / 
-        <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> / 
+        <a href="index.html" style="color: inherit; text-decoration: none;">Homepage</a> /
+        <a href="konkurs.html" style="color: inherit; text-decoration: none;">Konkurs</a> /
         <span style="color: var(--text-color); font-weight: bold;">Galeria zgłoszeń</span>
     </div>
 
     <main id="gallery-main-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem 5rem 1rem;">
-        
+
         <div style="margin-bottom: 3rem;">
             <h1>Najlepsze zgłoszenia</h1>
             <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 800px;">Poznaj twórczość innych osób, które do tej pory wzięły udział w konkursie. Przeglądaj nagrodzone prace oraz najciekawsze odpowiedzi uczestników z poszczególnych tygodni.</p>
         </div>
 
         <div class="beauty-tabs week-filters" id="gallery-tabs-container">
-            
+
             <a href="javascript:void(0)" class="tab-upcoming" data-tab="8" data-status="upcoming">
                 <div class="tab-top-bar"><span>Tydzień 8</span> <span>26.08 - 01.09</span></div>
                 <div class="tab-question">Napisz krótki, pełen...</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-ongoing tab-clickable" data-tab="7" data-status="ongoing">
                 <div class="tab-top-bar"><span style="color: var(--hover-orange);">Tydzień 7 (Trwa)</span> <span style="color: var(--hover-orange);">19.08 - 25.08</span></div>
                 <div class="tab-question">Zamknij oczy i opisz w krótkim wierszu, może być zdjęcie lub video, swój ulubiony zapach z Douglas. Jakie kolory, dźwięki i wspomnienia budzi w Twojej wyobraźni?</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-past tab-clickable active" data-tab="6" data-status="past" id="active-gallery-tab">
                 <div class="tab-top-bar"><span>Tydzień 6</span> <span>12.08 - 18.08</span></div>
                 <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, o tym, czym jest dla Ciebie piękno, gdy patrzysz w lustro lub obserwujesz świat wokół siebie.</div>
@@ -135,27 +135,27 @@
                 <div class="tab-top-bar"><span>Tydzień 5</span> <span>05.08 - 11.08</span></div>
                 <div class="tab-question">Opisz w krótkim wierszu lub zdjęciu lub video, swój najbardziej szalony, kolorowy i festiwalowy look, który założył(a)byś na koncert sanah.</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="4" data-status="past">
                 <div class="tab-top-bar"><span>Tydzień 4</span> <span>29.07 - 04.08</span></div>
                 <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, w którym połączysz swój codzienny makijaż lub ulubiony kosmetyk z utworem muzycznym najlepiej oddającym Twój dzisiejszy nastrój i wygląd.</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="3" data-status="past">
                 <div class="tab-top-bar"><span>Tydzień 3</span> <span>22.07 - 28.07</span></div>
                 <div class="tab-question">Stwórz krótki wiersz lub zdjęcie lub video -zagadkę o swoim ulubionym produkcie z Douglas. Nie używaj jego nazwy ani kategorii – pozwól słowom podpowiedzieć odpowiedź.</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="2" data-status="past">
                 <div class="tab-top-bar"><span>Tydzień 2</span> <span>15.07 - 21.07</span></div>
                 <div class="tab-question">Ułóż krótki wiersz lub zrób zdjęcie lub video, o swoim największym kosmetycznym odkryciu z Douglas – produkcie, który całkowicie odmienił Twoją codzienną rutynę.</div>
             </a>
-            
+
             <a href="javascript:void(0)" class="tab-past tab-clickable" data-tab="1" data-status="past">
                 <div class="tab-top-bar"><span>Tydzień 1</span> <span>08.07 - 14.07</span></div>
                 <div class="tab-question">Napisz krótki wiersz lub zrób zdjęcie lub video, inspirowany najcenniejszą radą dotyczącą urody lub pielęgnacji, jaką usłyszałaś/eś od mamy, przyjaciółki lub eksperta Douglas.</div>
             </a>
-            
+
         </div>
 
         <h3 id="gallery-main-heading" style="margin-top: 3rem; margin-bottom: 1rem; line-height: 1.5; font-size: 1.4rem;">
@@ -215,7 +215,7 @@
     <div id="gallery-modal-overlay" class="text-modal-overlay" style="display: none;">
         <div class="text-modal-content">
             <button class="close-btn" onclick="closeGalleryModal()">✕</button>
-            
+
             <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: center;">
                 <button id="modal-prev-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="prevModalWeek()"></button>
                 <button id="modal-next-week" class="cta-link cta-small" style="border:none; text-transform:none; font-weight:bold; background:none; cursor:pointer;" onclick="nextModalWeek()"></button>
@@ -230,11 +230,11 @@
                     <span class="author" id="modal-author" style="font-size: 1.2rem;">Autor</span>
                     <span class="sub-id" id="modal-id">Nr X</span>
                 </div>
-                
+
                 <div id="modal-image-view" class="modal-img-container modal-fixed-height-view" style="display:none; background: #e0e0e0; align-items:center; justify-content:center; border: 1px solid var(--border-color); font-weight: bold; color: var(--text-muted);">
                     <span id="modal-img-placeholder">Podgląd zdjęcia</span>
                 </div>
-                
+
                 <div id="modal-video-view" class="modal-fixed-height-view" style="display:none; background: #111; flex-direction:column; align-items:center; justify-content:center; border: 1px solid #333; border-radius: 4px; color: #fff; position: relative;">
                     <div class="video-play-indicator" style="position: relative; transform: none; top: auto; left: auto; margin-bottom: 1rem; border-color: rgba(255, 102, 0, 0.9);">▶</div>
                     <span id="modal-video-placeholder" style="font-weight: normal; color: #ccc;">Podgląd pliku wideo</span>
@@ -273,7 +273,7 @@
         function updateNavButtons() {
             const prevBtn = document.getElementById('prev-week-btn');
             const nextBtn = document.getElementById('next-week-btn');
-            
+
             if(prevBtn) {
                 if(currentWeekIndex > 0) {
                     const prevTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex - 1]}"]`);
@@ -289,7 +289,7 @@
                     prevBtn.style.visibility = 'hidden';
                 }
             }
-            
+
             if(nextBtn) {
                 if(currentWeekIndex < weeksOrder.length - 1) {
                     const nextTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`);
@@ -322,7 +322,7 @@
                 let type = types[i];
                 let author = firstNames[i] + " " + lastNames[i];
                 let id = `#${weekNum}00${i+1}`;
-                
+
                 if (type === 'image') {
                     html += `
                     <div class="gallery-item">
@@ -366,7 +366,7 @@
                     const cwPlaceholder = document.getElementById('countdown-widget-placeholder');
                     if (cwPlaceholder) {
                         cwPlaceholder.innerHTML = data;
-                        if(typeof initCountdown === 'function') initCountdown(); 
+                        if(typeof initCountdown === 'function') initCountdown();
                     }
                 })
                 .catch(e => console.log('Brak pliku countdown-widget.html', e));
@@ -374,7 +374,7 @@
             const activeTab = document.getElementById('active-gallery-tab');
             const container = document.getElementById('gallery-tabs-container');
             if(activeTab && container) {
-                const offset = window.innerWidth < 768 ? 40 : 80; 
+                const offset = window.innerWidth < 768 ? 40 : 80;
                 const scrollPos = activeTab.offsetLeft - offset;
                 container.scrollTo({ left: scrollPos, behavior: 'smooth' });
             }
@@ -400,7 +400,7 @@
                 e.preventDefault();
                 document.querySelectorAll('.week-filters a').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
-                
+
                 const tabId = this.getAttribute('data-tab');
                 const status = this.getAttribute('data-status');
                 currentWeekIndex = weeksOrder.indexOf(tabId);
@@ -408,7 +408,7 @@
 
                 const container = document.getElementById('gallery-tabs-container');
                 if(container) {
-                    const offset = window.innerWidth < 768 ? 40 : 80; 
+                    const offset = window.innerWidth < 768 ? 40 : 80;
                     const scrollPos = this.offsetLeft - offset;
                     container.scrollTo({ left: scrollPos, behavior: 'smooth' });
                 }
@@ -437,7 +437,7 @@
             const container = element.closest('.gallery-content-section');
             modalItems = Array.from(container.querySelectorAll('.gallery-trigger'));
             modalCurrentIdx = modalItems.indexOf(element);
-            
+
             updateModalView();
             document.getElementById('gallery-modal-overlay').style.display = 'flex';
         }
@@ -451,7 +451,7 @@
                 }
             }
         }
-        
+
         function nextModalWeek() {
             if (currentWeekIndex < weeksOrder.length - 1) {
                 const nextTab = document.querySelector(`.week-filters a[data-tab="${weeksOrder[currentWeekIndex + 1]}"]`);
@@ -478,7 +478,7 @@
             if(activeTab) {
                 const weekSpan = activeTab.querySelector('.tab-top-bar span:first-child');
                 const questionDiv = activeTab.querySelector('.tab-question');
-                
+
                 const weekStr = weekSpan ? weekSpan.innerText : '';
                 const questionStr = questionDiv ? questionDiv.innerText : '';
 
@@ -531,7 +531,7 @@
             const item = modalItems[modalCurrentIdx];
             const type = item.getAttribute('data-type');
             const content = item.getAttribute('data-content');
-            
+
             document.getElementById('modal-author').innerText = item.getAttribute('data-author');
             document.getElementById('modal-id').innerText = item.getAttribute('data-id');
 
@@ -545,7 +545,7 @@
 
             if (type === 'image') {
                 imgView.style.display = 'flex';
-                document.getElementById('modal-img-placeholder').innerText = content; 
+                document.getElementById('modal-img-placeholder').innerText = content;
             } else if (type === 'video') {
                 videoView.style.display = 'flex';
                 document.getElementById('modal-video-placeholder').innerText = content;
@@ -560,9 +560,9 @@
 
         function prevModalItem() { if(modalCurrentIdx > 0) { modalCurrentIdx--; updateModalView(); } }
         function nextModalItem() { if(modalCurrentIdx < modalItems.length - 1) { modalCurrentIdx++; updateModalView(); } }
-        
+
         function closeGalleryModal() { document.getElementById('gallery-modal-overlay').style.display = 'none'; }
-        
+
         document.getElementById('gallery-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) closeGalleryModal();
         });

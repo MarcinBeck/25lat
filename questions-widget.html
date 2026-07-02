@@ -1,0 +1,87 @@
+<section id="questions-widget-box" class="pre-footer-section">
+    <div class="pre-footer-image">
+        <picture>
+            <source media="(min-width: 768px)" srcset="assets/foto_masz-pytania.png">
+            <img src="assets/foto_masz-pytania_mobile.png" alt="Kobieta puszczająca oko - masz pytania?">
+        </picture>
+    </div>
+    <div class="pre-footer-content">
+        <h3 class="pre-footer-heading">Potrzebujesz pomocy w zgłoszeniu do konkursu? Nie wiesz jak zapisać się na wydarzenie?</h3>
+        <a href="faq.html" class="cta-link">Sprawdź najczęściej zadawane pytania</a>
+    </div>
+</section>
+
+<style>
+    /* =========================================
+       WIDGET: MASZ PYTANIA?
+       ========================================= */
+    .pre-footer-section {
+        display: flex;
+        flex-direction: column; /* Mobile: grafika na górze, tekst pod spodem */
+        width: 100%;
+        padding: 0 !important;
+        margin: 0 !important; /* Wymuszamy brak jakichkolwiek marginesów zewnętrznych (usuwa lukę przed footerem) */
+        border-top: none;
+    }
+
+    .pre-footer-image {
+        width: 100%;
+        height: 420px; /* Wysokość grafiki na mobilu: 420px */
+    }
+
+    .pre-footer-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+    }
+
+    .pre-footer-content {
+        width: 100%;
+        min-height: 210px; /* Minimalna wysokość modułu tekstowego na mobilu: 210px */
+        background-color: #CDEBE2;
+        padding: 20px 16px 63px 16px; /* Wewnętrzne marginesy: 20px góra, 16px boki, 63px dół */
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Gwarancja wyrównania elementów do lewej strony */
+        justify-content: flex-start; /* Wyrównanie zawartości do góry */
+    }
+
+    .pre-footer-heading {
+        font-size: 1.15rem;
+        font-weight: 500;
+        margin-top: 0;
+        margin-bottom: 30px !important; /* Twardy odstęp pomiędzy tekstem a CTA: 30px */
+        text-align: left !important; /* Gwarancja tekstu do lewej strony */
+        line-height: 1.4;
+        color: var(--text-color, #000);
+    }
+
+    /* =========================================
+       MEDIA QUERIES (Tablet / Desktop)
+       ========================================= */
+    @media (min-width: 768px) {
+        .pre-footer-section {
+            flex-direction: row; /* Desktop: grafika po lewej, tekst po prawej */
+            align-items: stretch;
+        }
+
+        .pre-footer-image {
+            width: 50%;
+            height: auto;
+            min-height: 300px;
+        }
+
+        .pre-footer-content {
+            width: 50%;
+            padding: 30px; /* Wewnętrzny padding na desktopie: 30px */
+            justify-content: flex-start; /* Wyrównanie całości do góry sekcji */
+        }
+
+        .pre-footer-heading {
+            font-size: 1.3rem;
+            margin-bottom: 30px !important; /* Odstęp pomiędzy tekstem a CTA zachowany: 30px */
+        }
+    }
+</style>
